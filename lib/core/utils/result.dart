@@ -23,6 +23,9 @@ sealed class Result<T> {
 
   /// Creates an error [Result], completed with the specified [error].
   const factory Result.error(Exception error) = Error._;
+
+  /// Creates an error [Result], completed with the specified [error] wiht message.
+  factory Result.errorDefault(String message) => Error._(Exception(message));
 }
 
 /// Subclass of Result for values
@@ -45,4 +48,18 @@ final class Error<T> extends Result<T> {
 
   @override
   String toString() => 'Result<$T>.error($error)';
+}
+
+extension ResultX<T> on Result<T> {
+  /// Returns true if the result is [Ok]
+  bool get isOk => this is Ok;
+
+  /// Returns true if the result is [Error]
+  bool get isError => this is Error;
+
+  /// Returns the value if the result is [Ok]
+  T? get value => (this as Ok?)?.value;
+
+  /// Returns the error if the result is [Error]
+  Exception get error => (this as Error).error;
 }

@@ -1,6 +1,7 @@
 import 'package:app_news/core/utils/result.dart';
 import 'package:app_news/features/shared/auth/data/repositories/auth_repository.dart';
 import 'package:app_news/features/shared/auth/data/services/auth_service.dart';
+import 'package:app_news/features/shared/auth/domain/models/user_model.dart';
 
 class AuthRepositoryRemote extends AuthRepository {
   final AuthService _service;
@@ -8,18 +9,34 @@ class AuthRepositoryRemote extends AuthRepository {
   AuthRepositoryRemote({required AuthService service}) : _service = service;
 
   @override
-  // TODO: implement isAuthenticated
-  Future<bool> get isAuthenticated => throw UnimplementedError();
+  Future<bool> get isAuthenticated async => _service.getCurrentUser() != null;
 
   @override
-  Future<Result<void>> login({required String email, required String password}) {
-    // TODO: implement login
-    throw UnimplementedError();
+  Future<Result<UserModel>> login({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final result = await _service.signInWithEmailAndPassword(email, password);
+      return result != null
+          ? Result.ok(result)
+          : Result.errorDefault('Invalid credentials');
+    } on Exception catch (e) {
+      return Result.error(e);
+    } catch (e) {
+      return Result.errorDefault(e.toString());
+    }
   }
 
   @override
-  Future<Result<void>> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<Result<void>> logout() async {
+    try {
+      await _service.signOut();
+      return Result.ok();
+    } on Exception catch (e) {
+      return Result.error(e);
+    } catch (e) {
+      return Result.errorDefault(e.toString());
+    }
   }
 }

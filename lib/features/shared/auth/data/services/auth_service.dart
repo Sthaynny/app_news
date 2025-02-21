@@ -30,8 +30,9 @@ class AuthService {
     try {
       UserCredential userCredential = await _firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
-      return UserModel.fromFirebaseUser(userCredential.user!); 
-       
+      return userCredential.user != null
+          ? UserModel.fromFirebaseUser(userCredential.user!)
+          : null;
     } catch (e) {
       _log.warning('Error signing in: $e');
       return null;
@@ -48,9 +49,9 @@ class AuthService {
   }
 
   // Get current user
-  User? getCurrentUser() {
+  UserModel? getCurrentUser() {
     try {
-      return _firebaseAuth.currentUser;
+      return UserModel.fromFirebaseUser(_firebaseAuth.currentUser!);
     } catch (e) {
       _log.warning('Error getting current user: $e');
       return null;
