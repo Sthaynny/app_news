@@ -17,8 +17,8 @@ typedef CommandAction1<T, A> = Future<Result<T>> Function(A);
 /// exposes its running and error states,
 /// and ensures that it can't be launched again until it finishes.
 ///
-/// Use [Command0] for actions without arguments.
-/// Use [Command1] for actions with one argument.
+/// Use [CommandBase] for actions without arguments.
+/// Use [CommandAction] for actions with one argument.
 ///
 /// Actions must return a [Result].
 ///
@@ -72,8 +72,8 @@ abstract class Command<T> extends ChangeNotifier {
 
 /// [Command] without arguments.
 /// Takes a [CommandAction0] as action.
-class Command0<T> extends Command<T> {
-  Command0(this._action);
+class CommandBase<T> extends Command<T> {
+  CommandBase(this._action);
 
   final CommandAction0<T> _action;
 
@@ -85,8 +85,8 @@ class Command0<T> extends Command<T> {
 
 /// [Command] with one argument.
 /// Takes a [CommandAction1] as action.
-class Command1<T, A> extends Command<T> {
-  Command1(this._action);
+class CommandAction<T, A> extends Command<T> {
+  CommandAction(this._action);
 
   final CommandAction1<T, A> _action;
 
