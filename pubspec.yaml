@@ -35,6 +35,7 @@ dependencies:
   design_system: 
     git:
       url: https://github.com/Sthaynny/design_system.git
+  firebase_auth: ^5.5.0
 
 dev_dependencies:
 
