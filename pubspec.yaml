@@ -32,6 +32,9 @@ dependencies:
   firebase_core: ^3.12.0
   flutter:
     sdk: flutter
+  design_system: 
+    git:
+      url: https://github.com/Sthaynny/design_system.git
 
 dev_dependencies:
 
