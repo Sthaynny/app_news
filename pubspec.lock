@@ -94,7 +94,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: b65b3acf5e41b57f2c2c07d5b0b3882c8b5a5674
+      resolved-ref: "2fbc678d3bff899a1bbd6e20b9238d62118bb169"
       url: "https://github.com/Sthaynny/design_system.git"
     source: git
     version: "0.0.1"
@@ -225,6 +225,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  go_router:
+    dependency: "direct main"
+    description:
+      name: go_router
+      sha256: "04539267a740931c6d4479a10d466717ca5901c6fdfd3fcda09391bbb8ebd651"
+      url: "https://pub.dev"
+    source: hosted
+    version: "14.8.0"
   http:
     dependency: transitive
     description:
