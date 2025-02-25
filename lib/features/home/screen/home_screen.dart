@@ -14,6 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: DSColors.warning,
       body: Center(
         child: GestureDetector(
           onTap: () => context.go(AppRouters.login.path),

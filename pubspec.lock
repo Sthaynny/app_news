@@ -94,7 +94,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "2fbc678d3bff899a1bbd6e20b9238d62118bb169"
+      resolved-ref: "2714e4eece7cb3d8d995a6a57c8ac37f213c6a63"
       url: "https://github.com/Sthaynny/design_system.git"
     source: git
     version: "0.0.1"

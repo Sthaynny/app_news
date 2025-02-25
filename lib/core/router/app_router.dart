@@ -1,16 +1,18 @@
+import 'package:app_news/features/home/screen/home_screen.dart';
 import 'package:app_news/features/login/screen/login_screen.dart';
-import 'package:flutter/material.dart';
+import 'package:app_news/features/login/screen/login_viewmodel.dart';
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(
+  initialLocation: '/',
   routes: [
     GoRoute(
       path: AppRouters.home.path,
-      builder: (context, state) => Container(),
+      builder: (context, state) => HomeScreen(),
     ),
     GoRoute(
       path: AppRouters.login.path,
-      builder: (context, state) => LoginScreen(),
+      builder: (context, state) => LoginScreen(viewmodel: LoginViewModel()),
     ),
   ],
 );
