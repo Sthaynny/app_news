@@ -1,4 +1,5 @@
 import 'package:app_news/core/router/app_router.dart';
+import 'package:app_news/features/shared/components/news_app_bar.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -14,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: DSColors.warning,
+      appBar: NewsAppBar(),
       body: Center(
         child: GestureDetector(
           onTap: () => context.go(AppRouters.login.path),
