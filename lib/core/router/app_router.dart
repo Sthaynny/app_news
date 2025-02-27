@@ -1,6 +1,6 @@
+import 'package:app_news/core/dependecy/dependency.dart';
 import 'package:app_news/features/home/screen/home_screen.dart';
 import 'package:app_news/features/login/screen/login_screen.dart';
-import 'package:app_news/features/login/screen/login_viewmodel.dart';
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(
@@ -12,7 +12,7 @@ final router = GoRouter(
     ),
     GoRoute(
       path: AppRouters.login.path,
-      builder: (context, state) => LoginScreen(viewmodel: LoginViewModel()),
+      builder: (context, state) => LoginScreen(viewmodel: dependency()),
     ),
   ],
 );

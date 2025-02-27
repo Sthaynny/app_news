@@ -1,15 +1,29 @@
 import 'package:app_news/core/utils/commands.dart';
 import 'package:app_news/core/utils/result.dart';
+import 'package:app_news/features/login/utils/login_strings.dart';
+import 'package:app_news/features/shared/auth/data/repositories/auth_repository.dart';
 
 class LoginViewModel {
-  LoginViewModel() {
+  final AuthRepository _repository;
+
+  late CommandAction<void, (String email, String password)> login;
+
+  LoginViewModel({required AuthRepository repository})
+    : _repository = repository {
     login = CommandAction<void, (String email, String password)>(_login);
   }
 
-  late CommandAction<void, (String email, String password)> login;
-  Result? result;
-
   Future<Result<void>> _login((String, String) credentials) async {
-    return Result.ok();
+    final (email, password) = credentials;
+    try {
+      final result = await _repository.login(email: email, password: password);
+      if (result.isOk) {
+        return result;
+      } else {
+        return Result.errorDefault(LoginStrings.credenciaisInvalidas.label);
+      }
+    } on Exception catch (e) {
+      return Result.error(e);
+    }
   }
 }

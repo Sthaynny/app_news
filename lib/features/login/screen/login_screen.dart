@@ -61,9 +61,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     textInputType: TextInputType.emailAddress,
                     isEnabled: !viewmodel.login.running,
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Campo obrigatório';
-                      }
                       return DSValidators().email(value);
                     },
                   ),
