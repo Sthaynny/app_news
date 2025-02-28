@@ -1,13 +1,13 @@
 import 'package:app_news/core/strings/strings.dart';
 import 'package:app_news/core/utils/result.dart';
-import 'package:app_news/features/shared/news/data/repositories/news_respository.dart';
+import 'package:app_news/features/shared/news/data/repositories/news_repository.dart';
 import 'package:app_news/features/shared/news/data/services/news_service.dart';
 import 'package:app_news/features/shared/news/domain/models/news_model.dart';
 
-class NewsRespositoryRemote implements NewsRespository {
+class NewsRepositoryRemote implements NewsRepository {
   final NewsService _service;
 
-  NewsRespositoryRemote({required NewsService service}) : _service = service;
+  NewsRepositoryRemote({required NewsService service}) : _service = service;
   @override
   Future<Result<void>> createNews(NewsModel model) async {
     try {
