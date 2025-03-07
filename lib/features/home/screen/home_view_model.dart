@@ -10,7 +10,7 @@ class HomeViewModel {
 
   late final CommandBase logout;
   late final CommandBase authenticated;
-  late final CommandBase news;
+  late final CommandBase<List<NewsModel>> news;
   var newsList = <NewsModel>[];
 
   HomeViewModel({
@@ -20,7 +20,7 @@ class HomeViewModel {
        _newsRepository = newsRepository {
     logout = CommandBase<void>(_logout);
     authenticated = CommandBase<bool>(_authenticated);
-    news = CommandBase<void>(_getNews);
+    news = CommandBase<List<NewsModel>>(_getNews);
   }
 
   Future<Result<void>> _logout() async {
@@ -35,7 +35,7 @@ class HomeViewModel {
     return Result.ok(result);
   }
 
-  Future<Result<void>> _getNews() async {
+  Future<Result<List<NewsModel>>> _getNews() async {
     final result = await _newsRepository.getNews();
 
     switch (result) {
@@ -45,7 +45,6 @@ class HomeViewModel {
       case Error _:
         return result;
     }
-
     return result;
   }
 }
