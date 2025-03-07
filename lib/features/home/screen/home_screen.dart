@@ -1,17 +1,20 @@
 import 'package:app_news/core/router/app_router.dart';
+import 'package:app_news/features/home/screen/home_view_model.dart';
 import 'package:app_news/features/shared/components/news_app_bar.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, required this.viewmodel});
+  final HomeViewModel viewmodel;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  HomeViewModel get viewmodel => widget.viewmodel;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

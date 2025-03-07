@@ -8,7 +8,7 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: AppRouters.home.path,
-      builder: (context, state) => HomeScreen(),
+      builder: (context, state) => HomeScreen(viewmodel: dependency()),
     ),
     GoRoute(
       path: AppRouters.login.path,
