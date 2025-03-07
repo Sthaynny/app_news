@@ -2,6 +2,7 @@ import 'package:app_news/core/strings/strings.dart';
 import 'package:app_news/core/utils/extension/datetime.dart';
 import 'package:app_news/features/home/screen/home_view_model.dart';
 import 'package:app_news/features/home/utils/home_strings.dart';
+import 'package:app_news/features/shared/components/image_widget.dart';
 import 'package:app_news/features/shared/components/news_app_bar.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    viewmodel.news.execute();
+    viewmodel.news.execute(true);
     // viewmodel.authenticated.execute();
     super.initState();
   }
@@ -27,25 +28,51 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NewsAppBar(isLongPress: true),
+      appBar: NewsAppBar(
+        isLongPress: true,
+        actions: [
+          ListenableBuilder(
+            listenable: viewmodel.news,
+            builder: (_, __) {
+              return DSIconButton(
+                isLoading: viewmodel.news.running,
+                onPressed: () => viewmodel.news.execute(true),
+                icon: DSIcons.refresh_outline,
+              );
+            },
+          ),
+        ],
+      ),
       body: ListenableBuilder(
         listenable: viewmodel.news,
         builder: (_, __) {
           if (viewmodel.news.completed) {
             return ListView.builder(
+              padding: EdgeInsets.symmetric(horizontal: DSSpacing.xs.value),
               itemCount: viewmodel.newsList.length,
               itemBuilder: (_, index) {
                 final news = viewmodel.newsList[index];
                 return Card(
                   child: ListTile(
-                    title: DSHeadlineLargeText(news.title),
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ImageWidget(imageUrl: news.imagesUrl.first),
+                        DSSpacing.xs.y,
+                        DSHeadlineLargeText(news.title),
+                      ],
+                    ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         DSSpacing.xs.y,
                         DSBodyText(news.description, maxLines: 5),
                         DSSpacing.xs.y,
-                        DSCaptionSmallText(news.publishedAt.toPublishedAt),
+                        DSCaptionSmallText(
+                          news.publishedAt.toPublishedAt,
+                          fontWeight: FontWeight.bold,
+                          color: DSColors.secundary,
+                        ),
                       ],
                     ),
                   ),
@@ -62,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 DSSpacing.xl.y,
                 DSPrimaryButton(
                   label: StringsApp.tenteNovamente.label,
-                  onPressed: viewmodel.news.execute,
+                  onPressed: () => viewmodel.news.execute(true),
                 ),
               ],
             );

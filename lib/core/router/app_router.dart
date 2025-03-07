@@ -1,5 +1,6 @@
 import 'package:app_news/core/dependecy/dependency.dart';
 import 'package:app_news/features/home/screen/home_screen.dart';
+import 'package:app_news/features/home/screen/home_view_model.dart';
 import 'package:app_news/features/login/screen/login_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -8,7 +9,13 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: AppRouters.home.path,
-      builder: (context, state) => HomeScreen(viewmodel: dependency()),
+      builder:
+          (context, state) => HomeScreen(
+            viewmodel: HomeViewModel(
+              authRepository: dependency(),
+              newsRepository: dependency(),
+            ),
+          ),
     ),
     GoRoute(
       path: AppRouters.login.path,

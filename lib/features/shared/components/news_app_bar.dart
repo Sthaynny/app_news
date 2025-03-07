@@ -10,10 +10,12 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.onBackButtonPressed,
     this.canPop,
     this.isLongPress = false,
+    this.actions,
   });
   final VoidCallback? onBackButtonPressed;
   final bool? canPop;
   final bool isLongPress;
+  final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,16 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       canPop: canPop,
       onBackButtonPressed: onBackButtonPressed,
+      actions: [
+        if (actions != null)
+          ...actions!.map(
+            (e) => Padding(
+              padding: EdgeInsets.only(left: DSSpacing.xxs.value),
+              child: e,
+            ),
+          ),
+        DSSpacing.xs.x,
+      ],
     );
   }
 
