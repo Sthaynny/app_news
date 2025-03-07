@@ -23,7 +23,7 @@ void setup() {
     () => NewsRepositoryRemote(service: dependency()),
   );
 
-  dependency.registerFactory(
+  dependency.registerFactory<HomeViewModel>(
     () => HomeViewModel(
       authRepository: dependency(),
       newsRepository: dependency(),

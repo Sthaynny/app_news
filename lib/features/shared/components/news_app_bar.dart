@@ -20,7 +20,7 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
     return DSHeader.customTitle(
       customTitle: GestureDetector(
         onLongPress:
-            isLongPress ? () => context.go(AppRouters.home.path) : null,
+            isLongPress ? () => context.go(AppRouters.login.path) : null,
         child: Row(
           children: [
             DSSpacing.sm.x,
