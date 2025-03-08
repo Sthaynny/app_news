@@ -1,7 +1,6 @@
 import 'package:app_news/core/router/app_router.dart';
 import 'package:app_news/core/strings/strings.dart';
 import 'package:app_news/features/login/screen/login_viewmodel.dart';
-import 'package:app_news/features/login/utils/login_strings.dart';
 import 'package:app_news/features/shared/components/news_app_bar.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   DSSpacing.md.y,
                   DSTextFormField(
                     controller: emailController,
-                    hint: LoginStrings.email.label,
+                    hint: emailString,
                     textInputType: TextInputType.emailAddress,
                     isEnabled: !viewmodel.login.running,
                     validator: (value) {
@@ -70,13 +69,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   DSSpacing.md.y,
                   DSTextFormField(
                     controller: passwordController,
-                    hint: LoginStrings.password.label,
+                    hint: passwordString,
                     obscureText: true,
                     isEnabled: !viewmodel.login.running,
                   ),
                   DSSpacing.md.y,
                   DSPrimaryButton(
-                    label: LoginStrings.login.label,
+                    label: loginString,
                     isLoading: viewmodel.login.running,
                     onPressed: () {
                       if (form.currentState!.validate()) {
@@ -104,9 +103,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (viewmodel.login.error) {
       viewmodel.login.clearResult();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: DSCaptionSmallText(StringsApp.errorDefault.label)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: DSCaptionSmallText(errorDefaultString)));
     }
   }
 }

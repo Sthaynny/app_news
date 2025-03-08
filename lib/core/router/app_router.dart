@@ -3,6 +3,7 @@ import 'package:app_news/features/home/screen/home_screen.dart';
 import 'package:app_news/features/home/screen/home_view_model.dart';
 import 'package:app_news/features/login/screen/login_screen.dart';
 import 'package:app_news/features/news/details/screen/details_news_screen.dart';
+import 'package:app_news/features/shared/news/domain/models/news_model.dart';
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(
@@ -21,7 +22,9 @@ final router = GoRouter(
         GoRoute(
           path: AppRouters.detailsNews.path,
           name: AppRouters.detailsNews.name,
-          builder: (context, state) => DetailsNewsScreen(),
+          builder:
+              (context, state) =>
+                  DetailsNewsScreen(news: state.extra as NewsModel),
         ),
       ],
     ),

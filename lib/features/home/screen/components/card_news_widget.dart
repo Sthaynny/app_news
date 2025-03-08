@@ -14,7 +14,7 @@ class CardNewsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        onTap: () => context.go(AppRouters.detailsNews.path),
+        onTap: () => context.go(AppRouters.detailsNews.path, extra: news),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

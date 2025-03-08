@@ -30,7 +30,7 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: Image.asset("assets/images/world-news.png", scale: 15),
             ),
             DSSpacing.sm.x,
-            DSHeadlineSmallText(StringsApp.appName.label),
+            DSHeadlineSmallText(appNameString),
           ],
         ),
       ),

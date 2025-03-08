@@ -1,6 +1,6 @@
+import 'package:app_news/core/strings/strings.dart';
 import 'package:app_news/core/utils/commands.dart';
 import 'package:app_news/core/utils/result.dart';
-import 'package:app_news/features/login/utils/login_strings.dart';
 import 'package:app_news/features/shared/auth/data/repositories/auth_repository.dart';
 
 class LoginViewModel {
@@ -20,7 +20,7 @@ class LoginViewModel {
       if (result.isOk) {
         return result;
       } else {
-        return Result.errorDefault(LoginStrings.credenciaisInvalidas.label);
+        return Result.errorDefault(credenciaisInvalidasString);
       }
     } on Exception catch (e) {
       return Result.error(e);

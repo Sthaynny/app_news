@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 DSBodyText(HomeStrings.error.label),
                 DSSpacing.xl.y,
                 DSPrimaryButton(
-                  label: StringsApp.tenteNovamente.label,
+                  label: tenteNovamenteString,
                   onPressed: () => viewmodel.news.execute(true),
                 ),
               ],
@@ -73,6 +73,23 @@ class _HomeScreenState extends State<HomeScreen> {
           return const Center(child: CircularProgressIndicator());
         },
       ),
+      floatingActionButton:
+          viewmodel.userAuthenticated
+              ? Material(
+                color: DSColors.transparent,
+                borderRadius: BorderRadius.circular(DSSpacing.xs.value),
+                elevation: 3,
+                child: DSPrimaryButton(
+                  onPressed: () {},
+                  label: HomeStrings.addNews.label,
+                  trailingIcon: Icon(
+                    Icons.add,
+                    color: DSColors.neutralMediumWave,
+                    size: DSSpacing.lg.value,
+                  ),
+                ),
+              )
+              : null,
     );
   }
 }
