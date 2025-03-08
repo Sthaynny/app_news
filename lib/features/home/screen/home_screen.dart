@@ -20,8 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     viewmodel = widget.viewmodel;
-    viewmodel.news.execute(true);
-    // viewmodel.authenticated.execute();
+    viewmodel.authenticated.execute().then((_) {
+      viewmodel.news.execute(true);
+    });
     super.initState();
   }
 
@@ -52,7 +53,10 @@ class _HomeScreenState extends State<HomeScreen> {
               itemCount: viewmodel.newsList.length,
               itemBuilder: (_, index) {
                 final news = viewmodel.newsList[index];
-                return CardNewsWidget(news: news);
+                return CardNewsWidget(
+                  news: news,
+                  isAuthenticated: viewmodel.userAuthenticated,
+                );
               },
             );
           }

@@ -1,3 +1,4 @@
+import 'package:app_news/core/strings/strings.dart';
 import 'package:app_news/core/utils/result.dart';
 import 'package:app_news/features/shared/auth/data/repositories/auth_repository.dart';
 import 'package:app_news/features/shared/auth/data/services/auth_service.dart';
@@ -20,7 +21,7 @@ class AuthRepositoryRemote extends AuthRepository {
       final result = await _service.signInWithEmailAndPassword(email, password);
       return result != null
           ? Result.ok(result)
-          : Result.errorDefault('Invalid credentials');
+          : Result.errorDefault(credenciaisInvalidasString);
     } on Exception catch (e) {
       return Result.error(e);
     } catch (e) {
