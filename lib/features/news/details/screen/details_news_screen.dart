@@ -15,7 +15,7 @@ class DetailsNewsScreen extends StatelessWidget {
     final news = args.news;
     final images =
         news.imagesUrl
-            .map((e) => Hero(tag: e, child: ImageWidget(imageUrl: e)))
+            .map((e) => Hero(tag: e, child: ImageWidget(imageBase64: e)))
             .toList();
     return Scaffold(
       appBar: DSHeader(

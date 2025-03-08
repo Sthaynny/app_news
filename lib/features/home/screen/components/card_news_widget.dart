@@ -8,7 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CardNewsWidget extends StatelessWidget {
-  const CardNewsWidget({super.key, required this.news, required this.isAuthenticated});
+  const CardNewsWidget({
+    super.key,
+    required this.news,
+    required this.isAuthenticated,
+  });
   final NewsModel news;
   final bool isAuthenticated;
 
@@ -16,11 +20,18 @@ class CardNewsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        onTap: () => context.go(AppRouters.detailsNews.path, extra: DetailsNewsArgs(news: news, isAuthenticated: isAuthenticated)),
+        onTap:
+            () => context.go(
+              AppRouters.detailsNews.path,
+              extra: DetailsNewsArgs(
+                news: news,
+                isAuthenticated: isAuthenticated,
+              ),
+            ),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ImageWidget(imageUrl: news.imagesUrl.first),
+            ImageWidget(imageBase64: news.imagesUrl.first),
             DSSpacing.xs.y,
             DSHeadlineLargeText(news.title),
           ],
