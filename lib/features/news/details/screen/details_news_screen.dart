@@ -1,14 +1,15 @@
+import 'package:app_news/core/router/app_router.dart';
 import 'package:app_news/core/strings/strings.dart';
+import 'package:app_news/core/utils/extension/build_context.dart';
 import 'package:app_news/core/utils/extension/datetime.dart';
-import 'package:app_news/features/news/details/screen/args/details_args.dart';
-import 'package:app_news/features/news/details/screen/details_image_screen.dart';
+import 'package:app_news/features/news/args/news_args.dart';
 import 'package:app_news/features/shared/components/image_widget.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 
 class DetailsNewsScreen extends StatelessWidget {
   const DetailsNewsScreen({super.key, required this.args});
-  final DetailsNewsArgs args;
+  final NewsArgs args;
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +48,9 @@ class DetailsNewsScreen extends StatelessWidget {
               elevation: 1,
               children: images,
               onTap:
-                  (index) => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) =>
-                              DetailsImageScreen(heroImage: images[index]),
-                    ),
+                  (index) => context.go(
+                    AppRouters.detailsNewsImage,
+                    arguments: images[index],
                   ),
             ),
           ),

@@ -1,8 +1,8 @@
 import 'package:app_news/core/router/app_router.dart';
 import 'package:app_news/core/strings/strings.dart';
+import 'package:app_news/core/utils/extension/build_context.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
   const NewsAppBar({
@@ -21,8 +21,7 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return DSHeader.customTitle(
       customTitle: GestureDetector(
-        onLongPress:
-            isLongPress ? () => context.go(AppRouters.login.path) : null,
+        onLongPress: isLongPress ? () => context.go(AppRouters.login) : null,
         child: Row(
           children: [
             DSSpacing.sm.x,

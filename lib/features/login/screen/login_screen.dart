@@ -1,10 +1,10 @@
 import 'package:app_news/core/router/app_router.dart';
 import 'package:app_news/core/strings/strings.dart';
+import 'package:app_news/core/utils/extension/build_context.dart';
 import 'package:app_news/features/login/screen/login_viewmodel.dart';
 import 'package:app_news/features/shared/components/news_app_bar.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, required this.viewmodel});
@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: NewsAppBar(
         canPop: true,
-        onBackButtonPressed: () => context.go(AppRouters.home.path),
+        onBackButtonPressed: () => context.go(AppRouters.home),
       ),
       body: ListenableBuilder(
         listenable: viewmodel.login,
@@ -98,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void _onResult() {
     if (viewmodel.login.completed) {
       viewmodel.login.clearResult();
-      context.go(AppRouters.home.path);
+      context.go(AppRouters.home);
     }
 
     if (viewmodel.login.error) {

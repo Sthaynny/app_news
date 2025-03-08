@@ -1,8 +1,8 @@
 import 'package:app_news/features/shared/news/domain/models/news_model.dart';
 
-class DetailsNewsArgs {
+class NewsArgs {
   final NewsModel news;
   final bool isAuthenticated;
 
-  DetailsNewsArgs({required this.news, required this.isAuthenticated});
+  NewsArgs({required this.news, required this.isAuthenticated});
 }

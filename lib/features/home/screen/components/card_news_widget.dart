@@ -1,11 +1,11 @@
 import 'package:app_news/core/router/app_router.dart';
+import 'package:app_news/core/utils/extension/build_context.dart';
 import 'package:app_news/core/utils/extension/datetime.dart';
-import 'package:app_news/features/news/details/screen/args/details_args.dart';
+import 'package:app_news/features/news/args/news_args.dart';
 import 'package:app_news/features/shared/components/image_widget.dart';
 import 'package:app_news/features/shared/news/domain/models/news_model.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class CardNewsWidget extends StatelessWidget {
   const CardNewsWidget({
@@ -22,11 +22,8 @@ class CardNewsWidget extends StatelessWidget {
       child: ListTile(
         onTap:
             () => context.go(
-              AppRouters.detailsNews.path,
-              extra: DetailsNewsArgs(
-                news: news,
-                isAuthenticated: isAuthenticated,
-              ),
+              AppRouters.detailsNews ,
+              arguments: NewsArgs(news: news, isAuthenticated: isAuthenticated),
             ),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

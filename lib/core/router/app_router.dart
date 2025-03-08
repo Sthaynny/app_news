@@ -2,45 +2,35 @@ import 'package:app_news/core/dependecy/dependency.dart';
 import 'package:app_news/features/home/screen/home_screen.dart';
 import 'package:app_news/features/home/screen/home_view_model.dart';
 import 'package:app_news/features/login/screen/login_screen.dart';
-import 'package:app_news/features/news/details/screen/args/details_args.dart';
+import 'package:app_news/features/news/args/news_args.dart';
+import 'package:app_news/features/news/details/screen/details_image_screen.dart';
 import 'package:app_news/features/news/details/screen/details_news_screen.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter/widgets.dart';
 
-final router = GoRouter(
-  initialLocation: '/',
-
-  routes: [
-    GoRoute(
-      path: AppRouters.home.path,
-      builder:
-          (context, state) => HomeScreen(
-            viewmodel: HomeViewModel(
-              authRepository: dependency(),
-              newsRepository: dependency(),
-            ),
-          ),
-      routes: [
-        GoRoute(
-          path: AppRouters.detailsNews.path,
-          name: AppRouters.detailsNews.name,
-          builder:
-              (context, state) =>
-                  DetailsNewsScreen(args: state.extra as DetailsNewsArgs),
+final Map<String, Widget Function(BuildContext)> routes = {
+  AppRouters.home.path:
+      (context) => HomeScreen(
+        viewmodel: HomeViewModel(
+          authRepository: dependency(),
+          newsRepository: dependency(),
         ),
-      ],
-    ),
-
-    GoRoute(
-      path: AppRouters.login.path,
-      builder: (context, state) => LoginScreen(viewmodel: dependency()),
-    ),
-  ],
-);
+      ),
+  AppRouters.login.path: (context) => LoginScreen(viewmodel: dependency()),
+  AppRouters.detailsNews.path:
+      (context) => DetailsNewsScreen(
+        args: ModalRoute.of(context)?.settings.arguments as NewsArgs,
+      ),
+  AppRouters.detailsNewsImage.path:
+      (context) => DetailsImageScreen(
+        heroImage: ModalRoute.of(context)?.settings.arguments as Hero,
+      ),
+};
 
 enum AppRouters {
   login,
   home,
-  detailsNews;
+  detailsNews,
+  detailsNewsImage;
 
   const AppRouters();
   String get path => this == home ? '/' : '/$name';

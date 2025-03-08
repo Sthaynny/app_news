@@ -1,5 +1,5 @@
+import 'package:app_news/core/utils/extension/build_context.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class DetailsImageScreen extends StatelessWidget {
   const DetailsImageScreen({super.key, required this.heroImage});
@@ -9,7 +9,7 @@ class DetailsImageScreen extends StatelessWidget {
     return Scaffold(
       extendBody: true,
       body: InkWell(
-        onTap: context.pop,
+        onTap: context.back,
         child: InteractiveViewer(child: Center(child: heroImage)),
       ),
     );

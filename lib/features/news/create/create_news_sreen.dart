@@ -10,6 +10,6 @@ class CreateNewsSreen extends StatefulWidget {
 class _CreateNewsSreenState extends State<CreateNewsSreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold();
   }
 }
