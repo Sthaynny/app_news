@@ -15,10 +15,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  HomeViewModel get viewmodel => widget.viewmodel;
+  late final HomeViewModel viewmodel;
 
   @override
   void initState() {
+    viewmodel = widget.viewmodel;
     viewmodel.news.execute(true);
     // viewmodel.authenticated.execute();
     super.initState();

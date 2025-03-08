@@ -1,4 +1,5 @@
 import 'package:app_news/core/router/app_router.dart';
+import 'package:app_news/core/strings/strings.dart';
 import 'package:app_news/features/login/screen/login_viewmodel.dart';
 import 'package:app_news/features/login/utils/login_strings.dart';
 import 'package:app_news/features/shared/components/news_app_bar.dart';
@@ -19,10 +20,11 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  LoginViewModel get viewmodel => widget.viewmodel;
+  late final LoginViewModel viewmodel;
   @override
   void initState() {
     super.initState();
+    viewmodel = widget.viewmodel;
     viewmodel.login.addListener(_onResult);
   }
 
@@ -57,6 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   DSSpacing.md.y,
                   DSTextFormField(
+                    controller: emailController,
                     hint: LoginStrings.email.label,
                     textInputType: TextInputType.emailAddress,
                     isEnabled: !viewmodel.login.running,
@@ -66,6 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   DSSpacing.md.y,
                   DSTextFormField(
+                    controller: passwordController,
                     hint: LoginStrings.password.label,
                     obscureText: true,
                     isEnabled: !viewmodel.login.running,
@@ -73,10 +77,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   DSSpacing.md.y,
                   DSPrimaryButton(
                     label: LoginStrings.login.label,
+                    isLoading: viewmodel.login.running,
                     onPressed: () {
                       if (form.currentState!.validate()) {
-                        // context.go(AppRouters.home.path);
-                        // viewmodel.login.execute(('email', 'password'));
+                        viewmodel.login.execute((
+                          emailController.text,
+                          passwordController.text,
+                        ));
                       }
                     },
                   ),
@@ -98,13 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (viewmodel.login.error) {
       viewmodel.login.clearResult();
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error'),
-          action: SnackBarAction(
-            label: 'Tente novamente',
-            onPressed: () {}, // viewmodel.login.execute(('email', 'password')),
-          ),
-        ),
+        SnackBar(content: DSCaptionSmallText(StringsApp.errorDefault.label)),
       );
     }
   }

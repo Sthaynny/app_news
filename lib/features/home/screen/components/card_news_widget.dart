@@ -1,8 +1,10 @@
+import 'package:app_news/core/router/app_router.dart';
 import 'package:app_news/core/utils/extension/datetime.dart';
 import 'package:app_news/features/shared/components/image_widget.dart';
 import 'package:app_news/features/shared/news/domain/models/news_model.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CardNewsWidget extends StatelessWidget {
   const CardNewsWidget({super.key, required this.news});
@@ -12,6 +14,7 @@ class CardNewsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
+        onTap: () => context.go(AppRouters.detailsNews.path),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
