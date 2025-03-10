@@ -37,6 +37,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     viewmodel.login.removeListener(_onResult);
+    emailController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
 

@@ -1,4 +1,6 @@
+import 'package:app_news/core/router/app_router.dart';
 import 'package:app_news/core/strings/strings.dart';
+import 'package:app_news/core/utils/extension/build_context.dart';
 import 'package:app_news/features/home/screen/components/card_news_widget.dart';
 import 'package:app_news/features/home/screen/home_view_model.dart';
 import 'package:app_news/features/home/utils/home_strings.dart';
@@ -84,7 +86,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius: BorderRadius.circular(DSSpacing.xs.value),
                 elevation: 3,
                 child: DSPrimaryButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.go(AppRouters.createNews);
+                  },
                   label: HomeStrings.addNews.label,
                   trailingIcon: Icon(
                     Icons.add,

@@ -15,6 +15,8 @@ class CreateNewsScreen extends StatefulWidget {
 
 class _CreateNewsScreenState extends State<CreateNewsScreen> {
   late final CreateNewsViewmodel viewmodel;
+  final titleController = TextEditingController();
+  final descriptionController = TextEditingController();
 
   final form = GlobalKey<FormState>();
 
@@ -35,6 +37,8 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
   @override
   void dispose() {
     viewmodel.createNews.removeListener(_onResult);
+    descriptionController.dispose();
+    titleController.dispose();
     super.dispose();
   }
 
@@ -49,28 +53,57 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
             children: [
               DSSpacing.md.y,
               DSTextFormField(
+                controller: titleController,
                 hint: titleString,
                 validator:
-                    (p0) => p0?.isEmpty ?? false ? mandatoryTitleString : null,
+                    (value) =>
+                        value?.isEmpty ?? false ? mandatoryTitleString : null,
               ),
               DSSpacing.md.y,
-              DSTextField(hint: descriptionString),
+              DSTextField(
+                controller: descriptionController,
+                hint: descriptionString,
+                maxLines: 0,
+              ),
+              DSSpacing.md.y,
+              DSHeadlineSmallText(imagesString),
+              DSSpacing.md.y,
+              ListenableBuilder(
+                listenable: viewmodel.manegesImages,
+                builder: (context, child) {
+                  if (viewmodel.images.isEmpty) {
+                    return SizedBox(
+                      height: DSSpacing.xxxl.value,
+                      child: Expanded(
+                        child: DSPrimaryButton(
+                          trailingIcon: Icon(DSIcons.add_solid.data),
+                          onPressed: () {},
+                          label: addImageString,
+                        ),
+                      ),
+                    );
+                  }
+                  return Wrap();
+                },
+              ),
               DSSpacing.md.y,
               SizedBox(
                 height: DSSpacing.xxxl.value,
-                child: DSPrimaryButton(
-                  onPressed: () {
-                    if (form.currentState?.validate() ?? false) {
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          backgroundColor: DSColors.error.withAlpha(150),
-                          content: DSCaptionSmallText(errorDefaultString),
-                        ),
-                      );
-                    }
-                  },
-                  label: saveString,
+                child: Expanded(
+                  child: DSPrimaryButton(
+                    onPressed: () {
+                      if (form.currentState?.validate() ?? false) {
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: DSColors.error.withAlpha(150),
+                            content: DSCaptionSmallText(errorDefaultString),
+                          ),
+                        );
+                      }
+                    },
+                    label: saveString,
+                  ),
                 ),
               ),
             ],

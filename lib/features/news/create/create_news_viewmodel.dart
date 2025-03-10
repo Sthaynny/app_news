@@ -14,20 +14,18 @@ class CreateNewsViewmodel {
       (model) => _repository.createNews(model),
     );
 
-    addImages = CommandAction<void, List<File>>(_addImages);
-    removeImage = CommandAction<void, int>((index) async {
-      images.removeAt(index);
-      return Result.ok();
-    });
+    manegesImages = CommandAction<void, (int?, List<File>)>(_manegesImages);
   }
 
   late final CommandAction<void, NewsModel> createNews;
-  late final CommandAction<void, List<File>> addImages;
-  late final CommandAction<void, int> removeImage;
+  late final CommandAction<void, (int?, List<File>)> manegesImages;
 
   List<File> images = [];
 
-  Future<Result<void>> _addImages(List<File> images) async {
+  Future<Result<void>> _manegesImages((int?, List<File>) data) async {
+    final (index, images) = data;
+    if (index != null) images.removeAt(index);
+
     images.addAll(images);
     return Result.ok();
   }
