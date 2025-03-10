@@ -3,6 +3,8 @@ import 'package:app_news/features/home/screen/home_screen.dart';
 import 'package:app_news/features/home/screen/home_view_model.dart';
 import 'package:app_news/features/login/screen/login_screen.dart';
 import 'package:app_news/features/news/args/news_args.dart';
+import 'package:app_news/features/news/create/create_news_screen.dart';
+import 'package:app_news/features/news/create/create_news_viewmodel.dart';
 import 'package:app_news/features/news/details/screen/details_image_screen.dart';
 import 'package:app_news/features/news/details/screen/details_news_screen.dart';
 import 'package:flutter/widgets.dart';
@@ -24,13 +26,18 @@ final Map<String, Widget Function(BuildContext)> routes = {
       (context) => DetailsImageScreen(
         heroImage: ModalRoute.of(context)?.settings.arguments as Widget,
       ),
+  AppRouters.createNews.path:
+      (context) => CreateNewsScreen(
+        viewmodel: CreateNewsViewmodel(repository: dependency()),
+      ),
 };
 
 enum AppRouters {
   login,
   home,
   detailsNews,
-  detailsNewsImage;
+  detailsNewsImage,
+  createNews;
 
   const AppRouters();
   String get path => this == home ? '/' : '/$name';
