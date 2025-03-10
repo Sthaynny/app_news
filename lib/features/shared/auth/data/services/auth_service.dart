@@ -51,7 +51,9 @@ class AuthService {
   // Get current user
   UserModel? getCurrentUser() {
     try {
-      return UserModel.fromFirebaseUser(_firebaseAuth.currentUser!);
+      return _firebaseAuth.currentUser != null
+          ? UserModel.fromFirebaseUser(_firebaseAuth.currentUser!)
+          : null;
     } catch (e) {
       _log.warning('Error getting current user: $e');
       return null;

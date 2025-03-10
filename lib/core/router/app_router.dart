@@ -22,7 +22,7 @@ final Map<String, Widget Function(BuildContext)> routes = {
       ),
   AppRouters.detailsNewsImage.path:
       (context) => DetailsImageScreen(
-        heroImage: ModalRoute.of(context)?.settings.arguments as Hero,
+        heroImage: ModalRoute.of(context)?.settings.arguments as Widget,
       ),
 };
 

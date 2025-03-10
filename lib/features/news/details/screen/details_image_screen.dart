@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class DetailsImageScreen extends StatelessWidget {
   const DetailsImageScreen({super.key, required this.heroImage});
-  final Hero heroImage;
+  final Widget heroImage;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

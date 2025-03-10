@@ -10,3 +10,4 @@ String get emailString => 'Email';
 String get passwordString => 'Senha';
 String get forgotPasswordString => 'Esqueceu a senha?';
 String get credenciaisInvalidasString => 'Credenciais inválidas';
+String get createNewsString => "Criar Noticia";
