@@ -58,6 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 return CardNewsWidget(
                   news: news,
                   isAuthenticated: viewmodel.userAuthenticated,
+                  onAction: () {
+                    viewmodel.news.execute(true);
+                  },
                 );
               },
             );

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -44,4 +45,20 @@ class NewsModel {
     required this.images,
     required this.publishedAt,
   });
+
+  NewsModel copyWith({
+    String? uid,
+    String? title,
+    String? description,
+    List<String>? images,
+    DateTime? publishedAt,
+  }) {
+    return NewsModel(
+      uid: uid ?? this.uid,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      images: images ?? this.images,
+      publishedAt: publishedAt ?? this.publishedAt,
+    );
+  }
 }

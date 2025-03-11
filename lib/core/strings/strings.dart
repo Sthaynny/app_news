@@ -12,6 +12,7 @@ String get passwordString => 'Senha';
 String get forgotPasswordString => 'Esqueceu a senha?';
 String get credenciaisInvalidasString => 'Credenciais inválidas';
 String get createNewsString => "Criar Noticia";
+String get editNewsString => "Editar Noticia";
 String get mandatoryTitleString => 'Titulo Obrigatorio';
 String get titleString => "Titulo";
 String get descriptionString => "Descrição";

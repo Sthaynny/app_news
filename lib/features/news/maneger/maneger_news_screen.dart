@@ -29,12 +29,18 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
     viewmodel = widget.viewmodel;
     viewmodel.createNews.addListener(_onResult);
     viewmodel.getPermission.addListener(_onResultPermission);
+
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
     if (news != null) {
       titleController.text = news!.title;
       descriptionController.text = news!.description ?? '';
       viewmodel.init(news!);
     }
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override
@@ -58,7 +64,7 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DSHeader(title: createNewsString),
+      appBar: DSHeader(title: news != null ? editNewsString : createNewsString),
       body: Form(
         key: form,
         child: SingleChildScrollView(
@@ -84,7 +90,7 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
               DSSpacing.md.y,
               DSHeadlineSmallText(imagesString),
               ListenableBuilder(
-                listenable: viewmodel.manegesImages,
+                listenable: viewmodel.updateListImages,
                 builder: (context, child) {
                   if (viewmodel.images.isEmpty) return Container();
                   return GridView.count(
@@ -111,7 +117,7 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
                                   title: Image.file(e.$2),
                                   trailing: DSIconButton(
                                     onPressed: () {
-                                      viewmodel.manegesImages.execute(e.$1);
+                                      viewmodel.removeImage(e.$1);
                                     },
                                     icon: DSIcons.trash_outline,
                                     color: DSColors.error,
@@ -126,20 +132,20 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
               DSSpacing.md.y,
 
               ListenableBuilder(
-                listenable: viewmodel.manegesImages,
+                listenable: viewmodel.updateListImages,
                 builder: (context, child) {
                   return SizedBox(
                     height: DSSpacing.xxxl.value,
                     child: DSSecondaryButton(
                       autoSize: false,
-                      isLoading: viewmodel.manegesImages.running,
+                      isLoading: viewmodel.updateListImages.running,
                       trailingIcon: Icon(
                         DSIcons.add_solid.data,
                         color: DSColors.primary.shade800,
                       ),
                       onPressed: () {
                         if (viewmodel.isPermissionGranted.isTrue) {
-                          viewmodel.manegesImages.execute(null);
+                          viewmodel.addImage();
                         } else {
                           viewmodel.getPermission.execute();
                         }
@@ -190,7 +196,7 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
     if (viewmodel.getPermission.completed) {
       final result = viewmodel.getPermission.result;
       if (result?.value.isTrue ?? false) {
-        viewmodel.manegesImages.execute(null);
+        viewmodel.addImage();
       } else {
         context.showSnackBarInfo(
           permissionDeniedString,

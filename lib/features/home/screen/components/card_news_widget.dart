@@ -12,24 +12,32 @@ class CardNewsWidget extends StatelessWidget {
     super.key,
     required this.news,
     required this.isAuthenticated,
+    required this.onAction,
   });
   final NewsModel news;
   final bool isAuthenticated;
+  final VoidCallback onAction;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        onTap:
-            () => context.go(
-              AppRouters.detailsNews,
-              arguments: NewsArgs(news: news, isAuthenticated: isAuthenticated),
-            ),
+        onTap: () async {
+          final result = await context.go(
+            AppRouters.detailsNews,
+            arguments: NewsArgs(news: news, isAuthenticated: isAuthenticated),
+          );
+          if (result) {
+            onAction();
+          }
+        },
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ImageWidget(imageBase64: news.images.first),
-            DSSpacing.xs.y,
+            if (news.images.isNotEmpty) ...[
+              ImageWidget(imageBase64: news.images.first),
+            ],
+
             DSHeadlineLargeText(news.title),
           ],
         ),

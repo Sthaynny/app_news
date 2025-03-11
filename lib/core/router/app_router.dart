@@ -8,6 +8,7 @@ import 'package:app_news/features/news/details/screen/details_news_screen.dart';
 import 'package:app_news/features/news/details/screen/details_news_viewmodel.dart';
 import 'package:app_news/features/news/maneger/maneger_news_screen.dart';
 import 'package:app_news/features/news/maneger/maneger_news_viewmodel.dart';
+import 'package:app_news/features/shared/news/domain/models/news_model.dart';
 import 'package:flutter/widgets.dart';
 
 final Map<String, Widget Function(BuildContext)> routes = {
@@ -39,6 +40,7 @@ final Map<String, Widget Function(BuildContext)> routes = {
           repository: dependency(),
           permissionService: dependency(),
         ),
+        news: ModalRoute.of(context)?.settings.arguments as NewsModel?,
       ),
 };
 

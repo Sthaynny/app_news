@@ -77,23 +77,24 @@ class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
           return ListView(
             padding: EdgeInsets.all(DSSpacing.md.value),
             children: [
-              ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxHeight: 250,
-                  maxWidth: MediaQuery.of(context).size.width - 16,
+              if (images.isNotEmpty)
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: 250,
+                    maxWidth: MediaQuery.of(context).size.width - 16,
+                  ),
+                  child: CarouselView(
+                    itemExtent: 350,
+                    itemSnapping: true,
+                    elevation: 1,
+                    children: images,
+                    onTap:
+                        (index) => context.go(
+                          AppRouters.detailsNewsImage,
+                          arguments: images[index],
+                        ),
+                  ),
                 ),
-                child: CarouselView(
-                  itemExtent: 350,
-                  itemSnapping: true,
-                  elevation: 1,
-                  children: images,
-                  onTap:
-                      (index) => context.go(
-                        AppRouters.detailsNewsImage,
-                        arguments: images[index],
-                      ),
-                ),
-              ),
               DSSpacing.xs.y,
               DSHeadlineLargeText(viewmodel.news.title),
               DSSpacing.xs.y,
