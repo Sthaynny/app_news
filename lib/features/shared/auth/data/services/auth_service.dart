@@ -15,6 +15,7 @@ class AuthService {
     try {
       UserCredential userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
+
       return userCredential.user;
     } catch (e) {
       _log.warning('Error signing up: $e');

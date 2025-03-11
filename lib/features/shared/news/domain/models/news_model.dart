@@ -5,15 +5,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class NewsModel {
   final String uid;
   final String title;
-  final String description;
+  final String? description;
   final List<String> imagesUrl;
   final DateTime publishedAt;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'uid': uid,
+      if (uid.isNotEmpty) 'uid': uid,
       'title': title,
-      'description': description,
+      if (description != null) 'description': description,
       'imagesUrl': imagesUrl,
       'publishedAt': publishedAt,
     };

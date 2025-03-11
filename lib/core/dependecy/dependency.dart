@@ -1,3 +1,4 @@
+import 'package:app_news/core/utils/permission/premission_service.dart';
 import 'package:app_news/features/login/screen/login_viewmodel.dart';
 import 'package:app_news/features/shared/auth/data/repositories/auth_repository.dart';
 import 'package:app_news/features/shared/auth/data/repositories/auth_repository_remote.dart';
@@ -21,4 +22,6 @@ void setup() {
   dependency.registerFactory<NewsRepository>(
     () => NewsRepositoryRemote(service: dependency()),
   );
+
+  dependency.registerFactory(PermissionService.new);
 }

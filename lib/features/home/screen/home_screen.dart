@@ -79,25 +79,29 @@ class _HomeScreenState extends State<HomeScreen> {
           return const Center(child: CircularProgressIndicator());
         },
       ),
-      floatingActionButton:
-          viewmodel.userAuthenticated
-              ? Material(
-                color: DSColors.transparent,
-                borderRadius: BorderRadius.circular(DSSpacing.xs.value),
-                elevation: 3,
-                child: DSPrimaryButton(
-                  onPressed: () {
-                    context.go(AppRouters.createNews);
-                  },
-                  label: HomeStrings.addNews.label,
-                  trailingIcon: Icon(
-                    Icons.add,
-                    color: DSColors.neutralMediumWave,
-                    size: DSSpacing.lg.value,
-                  ),
-                ),
-              )
-              : null,
+      floatingActionButton: ListenableBuilder(
+        listenable: viewmodel.authenticated,
+        builder:
+            (context, child) =>
+                viewmodel.userAuthenticated
+                    ? Material(
+                      color: DSColors.transparent,
+                      borderRadius: BorderRadius.circular(DSSpacing.xs.value),
+                      elevation: 3,
+                      child: DSPrimaryButton(
+                        onPressed: () {
+                          context.go(AppRouters.createNews);
+                        },
+                        label: HomeStrings.addNews.label,
+                        trailingIcon: Icon(
+                          Icons.add,
+                          color: DSColors.neutralMediumWave,
+                          size: DSSpacing.lg.value,
+                        ),
+                      ),
+                    )
+                    : Container(),
+      ),
     );
   }
 }

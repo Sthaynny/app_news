@@ -18,3 +18,5 @@ String get descriptionString => "Descrição";
 String get imagesString => "Imagens";
 String get photosString => "Fotos";
 String get saveString => "Salvar";
+String get permissionDeniedString => "Permissao Negada! Aprove as permissoes ou acesse as configurações.";
+String get openSettingsString => "Abrir Configurações";

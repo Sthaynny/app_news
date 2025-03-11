@@ -35,6 +35,7 @@ class HomeViewModel {
   Future<Result<bool>> _authenticated() async {
     final result = await _authRepository.isAuthenticated;
     _userAuthenticated = result;
+    
 
     return Result.ok(result);
   }

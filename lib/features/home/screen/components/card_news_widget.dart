@@ -22,7 +22,7 @@ class CardNewsWidget extends StatelessWidget {
       child: ListTile(
         onTap:
             () => context.go(
-              AppRouters.detailsNews ,
+              AppRouters.detailsNews,
               arguments: NewsArgs(news: news, isAuthenticated: isAuthenticated),
             ),
         title: Column(
@@ -36,8 +36,10 @@ class CardNewsWidget extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            DSSpacing.xs.y,
-            DSBodyText(news.description, maxLines: 5),
+            if (news.description?.isNotEmpty ?? false) ...[
+              DSSpacing.xs.y,
+              DSBodyText(news.description, maxLines: 5),
+            ],
             DSSpacing.xs.y,
             DSCaptionSmallText(
               news.publishedAt.toPublishedAt,

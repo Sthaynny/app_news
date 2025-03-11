@@ -28,7 +28,10 @@ final Map<String, Widget Function(BuildContext)> routes = {
       ),
   AppRouters.createNews.path:
       (context) => CreateNewsScreen(
-        viewmodel: CreateNewsViewmodel(repository: dependency()),
+        viewmodel: CreateNewsViewmodel(
+          repository: dependency(),
+          permissionService: dependency(),
+        ),
       ),
 };
 
