@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       elevation: 3,
                       child: DSPrimaryButton(
                         onPressed: () {
-                          context.go(AppRouters.createNews);
+                          context.go(AppRouters.manegerNews);
                         },
                         label: HomeStrings.addNews.label,
                         trailingIcon: Icon(

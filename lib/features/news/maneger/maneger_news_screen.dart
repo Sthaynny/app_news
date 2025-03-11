@@ -3,31 +3,38 @@ import 'package:app_news/core/strings/strings.dart';
 import 'package:app_news/core/utils/extension/bool.dart';
 import 'package:app_news/core/utils/extension/build_context.dart';
 import 'package:app_news/core/utils/result.dart';
-import 'package:app_news/features/news/create/create_news_viewmodel.dart';
+import 'package:app_news/features/news/maneger/maneger_news_viewmodel.dart';
+import 'package:app_news/features/shared/news/domain/models/news_model.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 
 class CreateNewsScreen extends StatefulWidget {
-  const CreateNewsScreen({super.key, required this.viewmodel});
-  final CreateNewsViewmodel viewmodel;
+  const CreateNewsScreen({super.key, required this.viewmodel, this.news});
+  final ManegerNewsViewmodel viewmodel;
+  final NewsModel? news;
 
   @override
   State<CreateNewsScreen> createState() => _CreateNewsScreenState();
 }
 
 class _CreateNewsScreenState extends State<CreateNewsScreen> {
-  late final CreateNewsViewmodel viewmodel;
+  late final ManegerNewsViewmodel viewmodel;
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
-
+  NewsModel? get news => widget.news;
   final form = GlobalKey<FormState>();
 
   @override
   void initState() {
-    super.initState();
     viewmodel = widget.viewmodel;
     viewmodel.createNews.addListener(_onResult);
     viewmodel.getPermission.addListener(_onResultPermission);
+    if (news != null) {
+      titleController.text = news!.title;
+      descriptionController.text = news!.description ?? '';
+      viewmodel.init(news!);
+    }
+    super.initState();
   }
 
   @override

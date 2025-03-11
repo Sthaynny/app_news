@@ -6,7 +6,7 @@ class NewsModel {
   final String uid;
   final String title;
   final String? description;
-  final List<String> imagesUrl;
+  final List<String> images;
   final DateTime publishedAt;
 
   Map<String, dynamic> toMap() {
@@ -14,7 +14,7 @@ class NewsModel {
       if (uid.isNotEmpty) 'uid': uid,
       'title': title,
       if (description != null) 'description': description,
-      'imagesUrl': imagesUrl,
+      'images': images,
       'publishedAt': publishedAt,
     };
   }
@@ -25,7 +25,7 @@ class NewsModel {
       uid: map['uid'] as String,
       title: map['title'] as String,
       description: map['description'] as String,
-      imagesUrl: List<String>.from((map['imagesUrl'] as List)),
+      images: List<String>.from((map['images'] as List)),
       publishedAt: DateTime.fromMillisecondsSinceEpoch(
         timestamp.millisecondsSinceEpoch,
       ),
@@ -41,7 +41,7 @@ class NewsModel {
     required this.uid,
     required this.title,
     required this.description,
-    required this.imagesUrl,
+    required this.images,
     required this.publishedAt,
   });
 }

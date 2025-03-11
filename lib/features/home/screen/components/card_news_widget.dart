@@ -28,7 +28,7 @@ class CardNewsWidget extends StatelessWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ImageWidget(imageBase64: news.imagesUrl.first),
+            ImageWidget(imageBase64: news.images.first),
             DSSpacing.xs.y,
             DSHeadlineLargeText(news.title),
           ],

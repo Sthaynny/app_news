@@ -20,3 +20,4 @@ String get photosString => "Fotos";
 String get saveString => "Salvar";
 String get permissionDeniedString => "Permissao Negada! Aprove as permissoes ou acesse as configurações.";
 String get openSettingsString => "Abrir Configurações";
+String get errorDeleteString => "Erro ao deletar noticia!, Tente Novamente.";
