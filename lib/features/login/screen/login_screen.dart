@@ -105,9 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (viewmodel.login.error) {
       viewmodel.login.clearResult();
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: DSCaptionSmallText(errorDefaultString)));
+      context.showSnackBarError(credenciaisInvalidasString);
     }
   }
 }

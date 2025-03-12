@@ -29,7 +29,7 @@ class HomeViewModel {
   List<NewsModel> get newsList => _newsList;
   Future<Result<void>> _logout() async {
     final result = await _authRepository.logout();
-    await _authenticated();
+    authenticated.execute();
     return result;
   }
 
