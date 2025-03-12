@@ -3,15 +3,10 @@ import 'dart:convert';
 import 'package:app_news/features/shared/news/domain/models/news_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../mock/model_mock.dart';
+
 void main() {
-  final tMapNewsModel = <String, dynamic>{
-    'uid': '1',
-    'title': 'Test Title',
-    'description': 'Test Description',
-    'publishedAt': '2023-10-01T00:00:00Z',
-    'imagesUrl': ['https://example.com/image.jpg'],
-  };
-  final tInstanceNewsModel = NewsModel.fromMap(tMapNewsModel);
+  
 
   test('Deve retornar uma instancia de NewsModel ', () {
     expect(tInstanceNewsModel, isA<NewsModel>());
