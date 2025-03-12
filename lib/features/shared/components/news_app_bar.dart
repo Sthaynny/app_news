@@ -1,6 +1,7 @@
 import 'package:app_news/core/router/app_router.dart';
 import 'package:app_news/core/strings/strings.dart';
 import 'package:app_news/core/utils/extension/build_context.dart';
+import 'package:app_news/features/shared/components/app_icon.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 
@@ -11,11 +12,13 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.canPop,
     this.isLongPress = false,
     this.actions,
+    this.leading,
   });
   final VoidCallback? onBackButtonPressed;
   final bool? canPop;
   final bool isLongPress;
   final List<Widget>? actions;
+  final Widget? leading;
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +28,14 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Row(
           children: [
             DSSpacing.sm.x,
-            DSAnimatedSize(
-              child: Image.asset("assets/images/world-news.png", scale: 15),
-            ),
+            AppIcon(),
             DSSpacing.sm.x,
             DSHeadlineSmallText(appNameString),
           ],
         ),
       ),
       canPop: canPop,
+      leading: leading,
       onBackButtonPressed: onBackButtonPressed,
       actions: [
         if (actions != null)

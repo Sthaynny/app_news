@@ -1,3 +1,4 @@
+import 'package:app_news/core/firebase/collections.dart';
 import 'package:app_news/core/utils/request/request_mixin.dart';
 import 'package:app_news/core/utils/result.dart';
 import 'package:app_news/features/shared/news/data/repositories/news_repository.dart';
@@ -25,7 +26,10 @@ class NewsRepositoryRemote with RequestMixin implements NewsRepository {
   @override
   Future<Result<List<NewsModel>>> getNews() async {
     return request<List<NewsModel>>(() async {
-      final response = await _service.getNews();
+      final response = await _service.getNews(
+        orderBy: Documents.publishedAt,
+        descending: true,
+      );
       return response;
     });
   }

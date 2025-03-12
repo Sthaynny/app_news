@@ -32,9 +32,16 @@ class NewsService {
     }
   }
 
-  Future<List<NewsModel>> getNews() async {
+  Future<List<NewsModel>> getNews({
+    Documents? orderBy,
+    bool descending = false,
+  }) async {
     try {
-      final response = await firebase.collection(Collections.news.name).get();
+      final colection = firebase.collection(Collections.news.name);
+      final response =
+          await (orderBy != null
+              ? colection.orderBy(orderBy.name, descending: true).get()
+              : colection.get());
       return response.docs
           .map((e) => NewsModel.fromMap({'uid': e.id, ...e.data()}))
           .toList();

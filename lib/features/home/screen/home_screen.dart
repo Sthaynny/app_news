@@ -1,6 +1,7 @@
 import 'package:app_news/core/router/app_router.dart';
 import 'package:app_news/core/strings/strings.dart';
 import 'package:app_news/core/utils/extension/build_context.dart';
+import 'package:app_news/features/home/screen/components/app_drawer.dart';
 import 'package:app_news/features/home/screen/components/card_news_widget.dart';
 import 'package:app_news/features/home/screen/home_view_model.dart';
 import 'package:app_news/features/home/utils/home_strings.dart';
@@ -33,19 +34,18 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: NewsAppBar(
         isLongPress: true,
-        actions: [
-          ListenableBuilder(
-            listenable: viewmodel.news,
-            builder: (_, __) {
-              return DSIconButton(
-                isLoading: viewmodel.news.running,
-                onPressed: () => viewmodel.news.execute(true),
-                icon: DSIcons.refresh_outline,
-              );
-            },
-          ),
-        ],
+        leading: Builder(
+          builder: (context) {
+            return DSIconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: DSIcons.menu_dot_outline,
+            );
+          },
+        ),
       ),
+      drawer: AppDrawer(viewmodel: viewmodel),
       body: ListenableBuilder(
         listenable: viewmodel.news,
         builder: (_, __) {
@@ -66,17 +66,20 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           }
           if (viewmodel.news.error && viewmodel.newsList.isEmpty) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                DSSpacing.xl.y,
-                DSBodyText(HomeStrings.error.label),
-                DSSpacing.xl.y,
-                DSPrimaryButton(
-                  label: tenteNovamenteString,
-                  onPressed: () => viewmodel.news.execute(true),
-                ),
-              ],
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  DSSpacing.xl.y,
+                  DSHeadlineLargeText(HomeStrings.error.label),
+                  DSSpacing.xl.y,
+                  DSPrimaryButton(
+                    label: tenteNovamenteString,
+                    onPressed: () => viewmodel.news.execute(true),
+                  ),
+                ],
+              ),
             );
           }
           return const Center(child: CircularProgressIndicator());

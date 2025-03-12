@@ -21,6 +21,7 @@ class HomeViewModel {
     authenticated = CommandBase<bool>(_authenticated);
     news = CommandAction<List<NewsModel>, bool?>(_getNews);
   }
+
   /// Variaveis de dados
   final _newsList = <NewsModel>[];
   bool _userAuthenticated = false;
@@ -28,14 +29,13 @@ class HomeViewModel {
   List<NewsModel> get newsList => _newsList;
   Future<Result<void>> _logout() async {
     final result = await _authRepository.logout();
-
+    await _authenticated();
     return result;
   }
 
   Future<Result<bool>> _authenticated() async {
     final result = await _authRepository.isAuthenticated;
     _userAuthenticated = result;
-    
 
     return Result.ok(result);
   }
