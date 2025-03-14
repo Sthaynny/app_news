@@ -7,6 +7,7 @@ import 'package:app_news/core/utils/extension/file.dart';
 import 'package:app_news/core/utils/permission/premission_service.dart';
 import 'package:app_news/core/utils/result.dart';
 import 'package:app_news/features/shared/news/data/repositories/news_repository.dart';
+import 'package:app_news/features/shared/news/domain/enums/category_news.dart';
 import 'package:app_news/features/shared/news/domain/models/news_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -15,7 +16,7 @@ class ManegerNewsViewmodel {
   final NewsRepository _repository;
   final PermissionService _permissionService;
 
-  late final CommandAction<void, (String title, String description)> createNews;
+  late final CommandAction<void, (String title, String description, CategoryNews category)> createNews;
   late final CommandBase<bool> getPermission;
   late final CommandAction<void, Future Function()> updateListImages;
 
@@ -29,7 +30,7 @@ class ManegerNewsViewmodel {
     required PermissionService permissionService,
   }) : _repository = repository,
        _permissionService = permissionService {
-    createNews = CommandAction<void, (String title, String description)>(
+    createNews = CommandAction<void,  (String title, String description, CategoryNews category)>(
       _manegerNews,
     );
 
@@ -50,9 +51,9 @@ class ManegerNewsViewmodel {
   }
 
   Future<Result<void>> _manegerNews(
-    (String title, String description) data,
+     (String title, String description, CategoryNews category) data,
   ) async {
-    final (title, description) = data;
+    final (title, description, category) = data;
     final imagesList = images.map((e) => e.convertIntoBase64).toList();
 
     final model = NewsModel(
@@ -60,7 +61,9 @@ class ManegerNewsViewmodel {
       description: description,
       uid: '',
       images: imagesList,
+      
       publishedAt: DateTime.now(),
+      categoryNews: CategoryNews.other,
     );
     if (_isEdition) {
       return _repository.updateNews(

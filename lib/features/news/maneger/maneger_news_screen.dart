@@ -4,6 +4,7 @@ import 'package:app_news/core/utils/extension/bool.dart';
 import 'package:app_news/core/utils/extension/build_context.dart';
 import 'package:app_news/core/utils/result.dart';
 import 'package:app_news/features/news/maneger/maneger_news_viewmodel.dart';
+import 'package:app_news/features/shared/news/domain/enums/category_news.dart';
 import 'package:app_news/features/shared/news/domain/models/news_model.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,9 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
   late final ManegerNewsViewmodel viewmodel;
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
+  final ValueNotifier<CategoryNews> categoryNews = ValueNotifier(
+    CategoryNews.other,
+  );
   NewsModel? get news => widget.news;
   final form = GlobalKey<FormState>();
 
@@ -38,6 +42,7 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
     if (news != null) {
       titleController.text = news!.title;
       descriptionController.text = news!.description ?? '';
+      categoryNews.value = news!.categoryNews;
       viewmodel.init(news!);
     }
     super.didChangeDependencies();
@@ -58,6 +63,7 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
     viewmodel.getPermission.removeListener(_onResultPermission);
     descriptionController.dispose();
     titleController.dispose();
+    categoryNews.dispose();
     super.dispose();
   }
 
@@ -86,6 +92,34 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
                 controller: descriptionController,
                 hint: descriptionString,
                 // maxLines: 15,
+              ),
+              DSSpacing.md.y,
+              ValueListenableBuilder(
+                valueListenable: categoryNews,
+                builder: (_, value, __) {
+                  return DSInputContainer(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: DSSpacing.md.value,
+                    ),
+                    child: DropdownButton<CategoryNews>(
+                      underline: const SizedBox.shrink(),
+                      isExpanded: true,
+                      borderRadius: BorderRadius.circular(12),
+                      icon: Icon(DSIcons.arrow_down_outline.data),
+                      items:
+                          CategoryNews.values
+                              .map(
+                                (e) => DropdownMenuItem(
+                                  value: e,
+                                  child: DSBodyText(e.labelPtBr),
+                                ),
+                              )
+                              .toList(),
+                      onChanged: (value) => categoryNews.value = value!,
+                      value: value,
+                    ),
+                  );
+                },
               ),
               DSSpacing.md.y,
               DSHeadlineSmallText(imagesString),
@@ -165,6 +199,7 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
                       viewmodel.createNews.execute((
                         titleController.text,
                         descriptionController.text,
+                        categoryNews.value,
                       ));
                     } else {
                       context.showSnackBarError(errorDefaultString);

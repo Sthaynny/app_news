@@ -59,7 +59,7 @@ class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
                       }
                     },
                     icon: DSIcons.edit_outline,
-                    color: DSColors.primary,
+                    color: DSColors.primary.shade600,
                   ),
                   DSIconButton(
                     onPressed: () {
@@ -97,11 +97,24 @@ class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
                 ),
               DSSpacing.xs.y,
               DSHeadlineLargeText(viewmodel.news.title),
-              DSSpacing.xs.y,
               DSBodyText(
                 viewmodel.news.description,
                 overflow: null,
                 textAlign: TextAlign.justify,
+              ),
+              DSSpacing.xs.y,
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Chip(
+                  label: DSCaptionSmallText(
+                    viewmodel.news.categoryNews.labelPtBr,
+                    color: DSColors.primary.shade800,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  backgroundColor: DSColors.transparent,
+
+                  side: BorderSide(color: DSColors.primary.shade800, width: 1),
+                ),
               ),
               DSSpacing.xs.y,
               DSCaptionSmallText(

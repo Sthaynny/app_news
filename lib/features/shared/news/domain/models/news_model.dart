@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:app_news/features/shared/news/domain/enums/category_news.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewsModel {
@@ -8,6 +9,7 @@ class NewsModel {
   final String title;
   final String? description;
   final List<String> images;
+  final CategoryNews categoryNews;
   final DateTime publishedAt;
 
   Map<String, dynamic> toMap() {
@@ -17,6 +19,7 @@ class NewsModel {
       if (description != null) 'description': description,
       'images': images,
       'publishedAt': publishedAt,
+      'category': categoryNews.name,
     };
   }
 
@@ -27,6 +30,10 @@ class NewsModel {
       title: map['title'] as String,
       description: map['description'] as String,
       images: List<String>.from((map['images'] as List)),
+      categoryNews: CategoryNews.values.firstWhere(
+        (element) => element.name == map['category'],
+        orElse: () => CategoryNews.other,
+      ),
       publishedAt: DateTime.fromMillisecondsSinceEpoch(
         timestamp.millisecondsSinceEpoch,
       ),
@@ -44,6 +51,7 @@ class NewsModel {
     required this.description,
     required this.images,
     required this.publishedAt,
+    required this.categoryNews,
   });
 
   NewsModel copyWith({
@@ -51,6 +59,7 @@ class NewsModel {
     String? title,
     String? description,
     List<String>? images,
+    CategoryNews? categoryNews,
     DateTime? publishedAt,
   }) {
     return NewsModel(
@@ -58,6 +67,7 @@ class NewsModel {
       title: title ?? this.title,
       description: description ?? this.description,
       images: images ?? this.images,
+      categoryNews: categoryNews ?? this.categoryNews,
       publishedAt: publishedAt ?? this.publishedAt,
     );
   }

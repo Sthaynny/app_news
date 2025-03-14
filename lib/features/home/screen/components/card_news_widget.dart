@@ -49,6 +49,17 @@ class CardNewsWidget extends StatelessWidget {
               DSBodyText(news.description, maxLines: 5),
             ],
             DSSpacing.xs.y,
+            Chip(
+              label: DSCaptionSmallText(
+                news.categoryNews.labelPtBr,
+                color: DSColors.primary.shade800,
+                fontWeight: FontWeight.bold,
+              ),
+              backgroundColor: DSColors.transparent,
+
+              side: BorderSide(color: DSColors.primary.shade800, width: 1),
+            ),
+            DSSpacing.xs.y,
             DSCaptionSmallText(
               news.publishedAt.toPublishedAt,
               fontWeight: FontWeight.bold,
