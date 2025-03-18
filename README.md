@@ -2,7 +2,7 @@
    <img src="https://github.com/user-attachments/assets/eb1a85c5-b298-4323-b55d-d37b915a6517" alt="app" width="200"/>
 </p>
 
-<h1 align="center">Nome do projeto</h1>
+<h1 align="center">App News</h1>
 
 <p align="center">
    <a href="https://www.linkedin.com/in/igor-sthaynny/">
@@ -17,7 +17,9 @@
   </a>
 </p>
 
-<p align="center">Breve descricao do projeto</p>
+<p align="center">
+O AppNews é um aplicativo simples e funcional de notícias, desenvolvido com o objetivo de aprimorar habilidades de programação. Ele serve como um projeto prático para explorar conceitos de desenvolvimento mobile, integração com APIs e gerenciamento de estado.
+</p>
 
 <hr />
 
@@ -39,18 +41,22 @@
 
 # :camera: Screenshots
 <div align="center">
-   <img src="https://user-images.githubusercontent.com/46109133/155231022-7d54b0eb-a0c5-4e60-a244-3e5c30fc9373.jpeg" width="230"/>
-   <img src="https://user-images.githubusercontent.com/46109133/155231022-7d54b0eb-a0c5-4e60-a244-3e5c30fc9373.jpeg" width="230"/>
-   <img src="https://user-images.githubusercontent.com/46109133/155231022-7d54b0eb-a0c5-4e60-a244-3e5c30fc9373.jpeg" width="230"/>
-
+   <img src="https://github.com/user-attachments/assets/02456755-9016-48e5-b7b2-e850632732c6" width="230"/>
+   <img src="https://github.com/user-attachments/assets/33803518-9d54-45cb-a8cd-8f83dae2f020" width="230"/>
+   <img src="https://github.com/user-attachments/assets/fa12a1c8-2897-4529-bcd9-a35ce0b15d51" width="230"/>
+   <img src="https://github.com/user-attachments/assets/6798f95e-1675-435e-b7b6-cd3b2e70f3af" width="230"/>
+   <img src="https://github.com/user-attachments/assets/1c562f9a-86f5-4be3-93b5-0f9271242308" width="230"/>
+   <img src="https://github.com/user-attachments/assets/475d3a44-3027-4c9c-89a0-60e0083601b8" width="230"/>
 </div>
   
 
 
 # :rocket: Tecnologias
-Esse:
-
-Descreva as tecnologias usadas aqui
+- Firebase
+- MVVM
+- SOLID
+- FirebaseAuth
+- Design System
 
 # :computer: Como rodar
 
