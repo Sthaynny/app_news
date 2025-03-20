@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:app_news/core/strings/strings.dart';
 import 'package:app_news/features/home/screen/components/card_news_widget.dart';
 import 'package:app_news/main.dart' as app;
@@ -39,7 +37,7 @@ Future<void> testLoginInteraction(
     await $.longPress(icon);
     await $.pumpAndSettle();
   }
-  log('testLoginInteraction: logar');
+  debugPrint('testLoginInteraction: logar');
   final emailField = find.byWidgetPredicate(
     (widget) => widget is DSTextFormField && widget.hint == emailString,
   );
@@ -47,14 +45,14 @@ Future<void> testLoginInteraction(
     (widget) => widget is DSTextFormField && widget.hint == passwordString,
   );
 
-  log('testLoginInteraction: add information');
+  debugPrint('testLoginInteraction: add information');
   await $(emailField).enterText('test@t.com');
   await $(passwordField).enterText('123456');
 
   await $(find.byWidgetPredicate((widget) => widget is DSButton)).tap();
   await $.pumpAndSettle();
 
-  log('testLoginInteraction: logando');
+  debugPrint('testLoginInteraction: logando');
   await waitFor(
     $.tester,
     find.byWidgetPredicate((widget) => widget is CardNewsWidget),

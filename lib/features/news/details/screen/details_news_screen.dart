@@ -49,6 +49,7 @@ class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
             viewmodel.isAuthenticated
                 ? [
                   DSIconButton(
+                    key: Key('edit_button'),
                     onPressed: () async {
                       final result = await context.go(
                         AppRouters.manegerNews,
@@ -62,6 +63,7 @@ class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
                     color: DSColors.primary.shade600,
                   ),
                   DSIconButton(
+                    key: Key('delete_button'),
                     onPressed: () {
                       viewmodel.deleteNews.execute(viewmodel.news.uid);
                     },
