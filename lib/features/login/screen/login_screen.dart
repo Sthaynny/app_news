@@ -76,17 +76,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     isEnabled: !viewmodel.login.running,
                   ),
                   DSSpacing.md.y,
-                  DSPrimaryButton(
-                    label: loginString,
-                    isLoading: viewmodel.login.running,
-                    onPressed: () {
-                      if (form.currentState!.validate()) {
-                        viewmodel.login.execute((
-                          emailController.text,
-                          passwordController.text,
-                        ));
-                      }
-                    },
+                  ConstrainedBox(
+                    constraints: BoxConstraints(maxHeight: 48.0),
+                    child: DSPrimaryButton(
+                      label: loginString,
+                      isLoading: viewmodel.login.running,
+                      onPressed: () {
+                        if (form.currentState!.validate()) {
+                          viewmodel.login.execute((
+                            emailController.text,
+                            passwordController.text,
+                          ));
+                        }
+                      },
+                    ),
                   ),
                 ],
               ),

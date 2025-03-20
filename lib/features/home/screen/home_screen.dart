@@ -37,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         leading: Builder(
           builder: (context) {
             return DSIconButton(
+              key: Key('menu_button'),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
