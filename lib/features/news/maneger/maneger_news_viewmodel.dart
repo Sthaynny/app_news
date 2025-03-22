@@ -16,7 +16,11 @@ class ManegerNewsViewmodel {
   final NewsRepository _repository;
   final PermissionService _permissionService;
 
-  late final CommandAction<void, (String title, String description, CategoryNews category)> createNews;
+  late final CommandAction<
+    void,
+    (String title, String description, CategoryNews category)
+  >
+  createNews;
   late final CommandBase<bool> getPermission;
   late final CommandAction<void, Future Function()> updateListImages;
 
@@ -30,9 +34,10 @@ class ManegerNewsViewmodel {
     required PermissionService permissionService,
   }) : _repository = repository,
        _permissionService = permissionService {
-    createNews = CommandAction<void,  (String title, String description, CategoryNews category)>(
-      _manegerNews,
-    );
+    createNews = CommandAction<
+      void,
+      (String title, String description, CategoryNews category)
+    >(_manegerNews);
 
     getPermission = CommandBase<bool>(() async {
       if (await _permissionService.isPermissionGranted(Permission.photos)) {
@@ -51,7 +56,7 @@ class ManegerNewsViewmodel {
   }
 
   Future<Result<void>> _manegerNews(
-     (String title, String description, CategoryNews category) data,
+    (String title, String description, CategoryNews category) data,
   ) async {
     final (title, description, category) = data;
     final imagesList = images.map((e) => e.convertIntoBase64).toList();
@@ -61,9 +66,9 @@ class ManegerNewsViewmodel {
       description: description,
       uid: '',
       images: imagesList,
-      
+
       publishedAt: DateTime.now(),
-      categoryNews: CategoryNews.other,
+      categoryNews: category,
     );
     if (_isEdition) {
       return _repository.updateNews(
@@ -71,6 +76,7 @@ class ManegerNewsViewmodel {
               title: title,
               description: description,
               images: imagesList,
+              categoryNews: category,
             ) ??
             model,
       );
