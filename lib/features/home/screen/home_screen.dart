@@ -5,6 +5,8 @@ import 'package:app_news/features/home/screen/components/app_drawer.dart';
 import 'package:app_news/features/home/screen/components/card_news_widget.dart';
 import 'package:app_news/features/home/screen/home_view_model.dart';
 import 'package:app_news/features/home/utils/home_strings.dart';
+import 'package:app_news/features/news/filter/screen/filter_screen.dart';
+import 'package:app_news/features/news/filter/screen/filter_view_model.dart';
 import 'package:app_news/features/shared/components/news_app_bar.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     viewmodel = widget.viewmodel;
     viewmodel.authenticated.execute().then((_) {
-      viewmodel.news.execute(true);
+      viewmodel.news.execute((true, null));
     });
     super.initState();
   }
@@ -45,6 +47,29 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           },
         ),
+        actions: [
+          DSIconButton(
+            onPressed: () async {
+              final result = await showModalBottomSheet(
+                context: context,
+                builder:
+                    (context) => FilterScreen(
+                      viewModel: FilterViewModel(filter: viewmodel.filterNews),
+                    ),
+              );
+
+              if (result != null) {
+                if (result is bool) {
+                  viewmodel.news.execute((true, null));
+                  return;
+                } else {
+                  viewmodel.news.execute((true, result));
+                }
+              }
+            },
+            icon: DSIcons.filter_outline,
+          ),
+        ],
       ),
       drawer: AppDrawer(viewmodel: viewmodel),
       body: ListenableBuilder(
@@ -60,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   news: news,
                   isAuthenticated: viewmodel.userAuthenticated,
                   onAction: () {
-                    viewmodel.news.execute(true);
+                    viewmodel.news.execute((true, null));
                   },
                 );
               },
@@ -77,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   DSSpacing.xl.y,
                   DSPrimaryButton(
                     label: tenteNovamenteString,
-                    onPressed: () => viewmodel.news.execute(true),
+                    onPressed: () => viewmodel.news.execute((true, null)),
                   ),
                 ],
               ),

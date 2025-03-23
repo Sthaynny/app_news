@@ -1,5 +1,6 @@
 import 'package:app_news/core/utils/commands.dart';
 import 'package:app_news/core/utils/result.dart';
+import 'package:app_news/features/news/filter/domain/models/filter_news_model.dart';
 import 'package:app_news/features/shared/auth/data/repositories/auth_repository.dart';
 import 'package:app_news/features/shared/news/data/repositories/news_repository.dart';
 import 'package:app_news/features/shared/news/domain/models/news_model.dart';
@@ -10,7 +11,7 @@ class HomeViewModel {
 
   late final CommandBase logout;
   late final CommandBase authenticated;
-  late final CommandAction<List<NewsModel>, bool?> news;
+  late final CommandAction<List<NewsModel>, (bool?, FilterNewsModel?)> news;
 
   HomeViewModel({
     required AuthRepository authRepository,
@@ -19,12 +20,14 @@ class HomeViewModel {
        _newsRepository = newsRepository {
     logout = CommandBase<void>(_logout);
     authenticated = CommandBase<bool>(_authenticated);
-    news = CommandAction<List<NewsModel>, bool?>(_getNews);
+    news = CommandAction<List<NewsModel>, (bool?, FilterNewsModel?)>(_getNews);
   }
 
   /// Variaveis de dados
   final _newsList = <NewsModel>[];
   bool _userAuthenticated = false;
+  FilterNewsModel? _filterNews;
+  FilterNewsModel? get filterNews => _filterNews;
   bool get userAuthenticated => _userAuthenticated;
   List<NewsModel> get newsList => _newsList;
   Future<Result<void>> _logout() async {
@@ -40,13 +43,16 @@ class HomeViewModel {
     return Result.ok(result);
   }
 
-  Future<Result<List<NewsModel>>> _getNews([bool? restart]) async {
-    final result = await _newsRepository.getNews();
+  Future<Result<List<NewsModel>>> _getNews(
+    (bool?, FilterNewsModel?) params,
+  ) async {
+    final (restart, filter) = params;
+    _filterNews = filter;
+    final result = await _newsRepository.getNews(filter);
 
     switch (result) {
       case Ok _:
-        restart ??= false;
-        if (restart) {
+        if (restart ?? false || filter != null) {
           newsList.clear();
         }
 

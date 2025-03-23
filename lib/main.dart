@@ -3,12 +3,14 @@ import 'dart:developer';
 
 import 'package:app_news/core/dependecy/dependency.dart';
 import 'package:app_news/core/router/app_router.dart';
+import 'package:design_system/design_system.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runZonedGuarded(
     () async {
+      await DSColors.inicialize(secundaryColor: Color(0xFFFF7200));
       WidgetsFlutterBinding.ensureInitialized();
       await Firebase.initializeApp();
       setup();

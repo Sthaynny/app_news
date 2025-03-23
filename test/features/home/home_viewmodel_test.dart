@@ -30,7 +30,7 @@ void main() {
 
         expect(viewModel.news.completed, false);
 
-        await viewModel.news.execute(true);
+        await viewModel.news.execute((true, null));
 
         expect(viewModel.news.completed, true);
         expect(viewModel.news.result?.isOk, true);
@@ -40,7 +40,7 @@ void main() {
           () => newsRepo.getNews(),
         ).thenAnswer((_) async => Result.errorDefault(''));
 
-        await viewModel.news.execute(true);
+        await viewModel.news.execute((true, null));
 
         expect(viewModel.news.error, isTrue);
       });
@@ -72,7 +72,6 @@ void main() {
       test('should return ok when isAuthenticated is true', () async {
         when(() => authRepo.isAuthenticated).thenAnswer((_) async => true);
 
-
         await viewModel.authenticated.execute();
 
         expect(viewModel.authenticated.completed, true);
@@ -82,7 +81,6 @@ void main() {
 
       test('should return ok when isAuthenticated is false', () async {
         when(() => authRepo.isAuthenticated).thenAnswer((_) async => false);
-
 
         await viewModel.authenticated.execute();
 

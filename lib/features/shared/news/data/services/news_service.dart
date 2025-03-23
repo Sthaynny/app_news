@@ -1,4 +1,5 @@
 import 'package:app_news/core/firebase/collections.dart';
+import 'package:app_news/features/news/filter/domain/models/filter_news_model.dart';
 import 'package:app_news/features/shared/news/domain/models/news_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -35,16 +36,29 @@ class NewsService {
   Future<List<NewsModel>> getNews({
     Documents? orderBy,
     bool descending = false,
+    FilterNewsModel? filter,
   }) async {
     try {
-      final colection = firebase.collection(Collections.news.name);
+      Query colection = firebase.collection(Collections.news.name);
+      if (filter != null) {
+        if (filter.categories.isNotEmpty) {
+          colection = colection.where(
+            'category',
+            whereIn: filter.categories.map((e) => e.name).toList(),
+          );
+        }
+      }
+
       final response =
-          await (orderBy != null
+          await (orderBy != null && filter == null
               ? colection.orderBy(orderBy.name, descending: true).get()
               : colection.get());
-      return response.docs
-          .map((e) => NewsModel.fromMap({'uid': e.id, ...e.data()}))
-          .toList();
+      return response.docs.map((e) {
+        return NewsModel.fromMap({
+          'uid': e.id,
+          if (e.data() != null) ...e.data() as Map<String, dynamic>,
+        });
+      }).toList();
     } catch (e) {
       rethrow;
     }
