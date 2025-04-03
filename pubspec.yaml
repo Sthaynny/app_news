@@ -54,7 +54,7 @@ dev_dependencies:
   patrol_finders: ^2.7.0
 
 patrol:
-  app_name: App News
+  app_name: UFERSA Hub
   android:
     package_name: com.example.app_news
   ios:

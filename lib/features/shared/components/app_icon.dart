@@ -7,7 +7,7 @@ class AppIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DSAnimatedSize(
-      child: Image.asset("assets/images/world-news.png", scale: 15),
+      child: Image.asset("assets/images/app-icon.png", scale: 15),
     );
   }
 }

@@ -1,4 +1,4 @@
-String get appNameString => 'News';
+String get appNameString => 'UFERSA Hub';
 String get errorDefaultString => 'Ops! Ocorreu um erro inesperado.';
 String get tenteNovamenteString => 'Tente novamente.';
 String get reloadString => 'Recarregar';
@@ -29,7 +29,8 @@ String get logoutString => "Sair";
 String get eventsString => "Eventos";
 String get soonString => "Em breve!";
 String get closeString => "Fechar";
-String get prepareAplicationString => "Estamos preparando algo incrível para você.";
+String get prepareAplicationString =>
+    "Estamos preparando algo incrível para você.";
 String get loadingString => "Carregando...";
 String get newsString => "Noticias";
 String get noNewsString => "Nenhuma noticia cadastrada.";

@@ -13,12 +13,14 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.isLongPress = false,
     this.actions,
     this.leading,
+    this.title,
   });
   final VoidCallback? onBackButtonPressed;
   final bool? canPop;
   final bool isLongPress;
   final List<Widget>? actions;
   final Widget? leading;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
             DSSpacing.sm.x,
             AppIcon(),
             DSSpacing.sm.x,
-            DSHeadlineSmallText(appNameString),
+            DSHeadlineSmallText(title ?? appNameString),
           ],
         ),
       ),
