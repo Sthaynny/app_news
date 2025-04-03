@@ -1,4 +1,4 @@
-import 'package:app_news/core/utils/extension/build_context.dart';
+import 'package:ufersa_hub/core/utils/extension/build_context.dart';
 import 'package:flutter/material.dart';
 
 class DetailsImageScreen extends StatelessWidget {

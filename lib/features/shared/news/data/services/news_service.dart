@@ -1,6 +1,6 @@
-import 'package:app_news/core/firebase/collections.dart';
-import 'package:app_news/features/news/filter/domain/models/filter_news_model.dart';
-import 'package:app_news/features/shared/news/domain/models/news_model.dart';
+import 'package:ufersa_hub/core/firebase/collections.dart';
+import 'package:ufersa_hub/features/news/filter/domain/models/filter_news_model.dart';
+import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewsService {

@@ -1,7 +1,7 @@
-import 'package:app_news/core/strings/strings.dart';
-import 'package:app_news/features/home/screen/home_view_model.dart';
-import 'package:app_news/features/shared/components/app_icon.dart';
-import 'package:app_news/features/shared/utils/extension/soon_popup.dart';
+import 'package:ufersa_hub/core/strings/strings.dart';
+import 'package:ufersa_hub/features/home/screen/home_view_model.dart';
+import 'package:ufersa_hub/features/shared/components/app_icon.dart';
+import 'package:ufersa_hub/features/shared/utils/extension/soon_popup.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 

@@ -1,14 +1,14 @@
-import 'package:app_news/core/dependecy/dependency.dart';
-import 'package:app_news/features/home/screen/home_screen.dart';
-import 'package:app_news/features/home/screen/home_view_model.dart';
-import 'package:app_news/features/login/screen/login_screen.dart';
-import 'package:app_news/features/news/args/news_args.dart';
-import 'package:app_news/features/news/details/screen/details_image_screen.dart';
-import 'package:app_news/features/news/details/screen/details_news_screen.dart';
-import 'package:app_news/features/news/details/screen/details_news_viewmodel.dart';
-import 'package:app_news/features/news/maneger/maneger_news_screen.dart';
-import 'package:app_news/features/news/maneger/maneger_news_viewmodel.dart';
-import 'package:app_news/features/shared/news/domain/models/news_model.dart';
+import 'package:ufersa_hub/core/dependecy/dependency.dart';
+import 'package:ufersa_hub/features/home/screen/home_screen.dart';
+import 'package:ufersa_hub/features/home/screen/home_view_model.dart';
+import 'package:ufersa_hub/features/login/screen/login_screen.dart';
+import 'package:ufersa_hub/features/news/args/news_args.dart';
+import 'package:ufersa_hub/features/news/details/screen/details_image_screen.dart';
+import 'package:ufersa_hub/features/news/details/screen/details_news_screen.dart';
+import 'package:ufersa_hub/features/news/details/screen/details_news_viewmodel.dart';
+import 'package:ufersa_hub/features/news/maneger/maneger_news_screen.dart';
+import 'package:ufersa_hub/features/news/maneger/maneger_news_viewmodel.dart';
+import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
 import 'package:flutter/widgets.dart';
 
 final Map<String, Widget Function(BuildContext)> routes = {

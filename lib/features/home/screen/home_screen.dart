@@ -1,13 +1,13 @@
-import 'package:app_news/core/router/app_router.dart';
-import 'package:app_news/core/strings/strings.dart';
-import 'package:app_news/core/utils/extension/build_context.dart';
-import 'package:app_news/features/home/screen/components/app_drawer.dart';
-import 'package:app_news/features/home/screen/components/card_news_widget.dart';
-import 'package:app_news/features/home/screen/home_view_model.dart';
-import 'package:app_news/features/home/utils/home_strings.dart';
-import 'package:app_news/features/news/filter/screen/filter_screen.dart';
-import 'package:app_news/features/news/filter/screen/filter_view_model.dart';
-import 'package:app_news/features/shared/components/news_app_bar.dart';
+import 'package:ufersa_hub/core/router/app_router.dart';
+import 'package:ufersa_hub/core/strings/strings.dart';
+import 'package:ufersa_hub/core/utils/extension/build_context.dart';
+import 'package:ufersa_hub/features/home/screen/components/app_drawer.dart';
+import 'package:ufersa_hub/features/home/screen/components/card_news_widget.dart';
+import 'package:ufersa_hub/features/home/screen/home_view_model.dart';
+import 'package:ufersa_hub/features/home/utils/home_strings.dart';
+import 'package:ufersa_hub/features/news/filter/screen/filter_screen.dart';
+import 'package:ufersa_hub/features/news/filter/screen/filter_view_model.dart';
+import 'package:ufersa_hub/features/shared/components/news_app_bar.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 

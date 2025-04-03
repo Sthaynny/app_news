@@ -1,4 +1,4 @@
-package br.com.sthaynny.app_news
+package br.com.sthaynny.ufersa_hub
 
 import io.flutter.embedding.android.FlutterActivity
 

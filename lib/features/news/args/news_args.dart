@@ -1,4 +1,4 @@
-import 'package:app_news/features/shared/news/domain/models/news_model.dart';
+import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
 
 class NewsArgs {
   final NewsModel news;

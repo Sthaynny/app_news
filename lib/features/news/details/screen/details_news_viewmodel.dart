@@ -1,7 +1,7 @@
-import 'package:app_news/core/utils/commands.dart';
-import 'package:app_news/core/utils/result.dart';
-import 'package:app_news/features/shared/news/data/repositories/news_repository.dart';
-import 'package:app_news/features/shared/news/domain/models/news_model.dart';
+import 'package:ufersa_hub/core/utils/commands.dart';
+import 'package:ufersa_hub/core/utils/result.dart';
+import 'package:ufersa_hub/features/shared/news/data/repositories/news_repository.dart';
+import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
 
 class DetailsNewsViewmodel {
   DetailsNewsViewmodel({

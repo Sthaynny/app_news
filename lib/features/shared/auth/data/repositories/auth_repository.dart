@@ -1,5 +1,5 @@
-import 'package:app_news/core/utils/result.dart';
-import 'package:app_news/features/shared/auth/domain/models/user_model.dart';
+import 'package:ufersa_hub/core/utils/result.dart';
+import 'package:ufersa_hub/features/shared/auth/domain/models/user_model.dart';
 
 abstract class AuthRepository {
   Future<bool> get isAuthenticated;

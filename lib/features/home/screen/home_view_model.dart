@@ -1,9 +1,9 @@
-import 'package:app_news/core/utils/commands.dart';
-import 'package:app_news/core/utils/result.dart';
-import 'package:app_news/features/news/filter/domain/models/filter_news_model.dart';
-import 'package:app_news/features/shared/auth/data/repositories/auth_repository.dart';
-import 'package:app_news/features/shared/news/data/repositories/news_repository.dart';
-import 'package:app_news/features/shared/news/domain/models/news_model.dart';
+import 'package:ufersa_hub/core/utils/commands.dart';
+import 'package:ufersa_hub/core/utils/result.dart';
+import 'package:ufersa_hub/features/news/filter/domain/models/filter_news_model.dart';
+import 'package:ufersa_hub/features/shared/auth/data/repositories/auth_repository.dart';
+import 'package:ufersa_hub/features/shared/news/data/repositories/news_repository.dart';
+import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
 
 class HomeViewModel {
   final AuthRepository _authRepository;

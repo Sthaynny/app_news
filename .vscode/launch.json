@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "app_news",
+            "name": "ufersa_hub",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "app_news (profile mode)",
+            "name": "ufersa_hub (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "app_news (release mode)",
+            "name": "ufersa_hub (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

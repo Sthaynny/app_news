@@ -1,4 +1,4 @@
-import 'package:app_news/features/shared/auth/domain/models/user_model.dart';
+import 'package:ufersa_hub/features/shared/auth/domain/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logging/logging.dart';
 

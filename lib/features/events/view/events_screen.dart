@@ -1,5 +1,5 @@
-import 'package:app_news/core/strings/strings.dart';
-import 'package:app_news/features/shared/components/news_app_bar.dart';
+import 'package:ufersa_hub/core/strings/strings.dart';
+import 'package:ufersa_hub/features/shared/components/news_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class EventsScreen extends StatelessWidget {

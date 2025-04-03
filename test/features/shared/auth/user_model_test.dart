@@ -1,11 +1,9 @@
-import 'package:app_news/features/shared/auth/domain/models/user_model.dart';
+import 'package:ufersa_hub/features/shared/auth/domain/models/user_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../mock/model_mock.dart';
 
 void main() {
-  
-
   test('Deve retornar uma instancia de  ', () {
     expect(tInstanceUserModel, isA<UserModel>());
   });

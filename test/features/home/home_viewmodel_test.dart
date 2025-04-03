@@ -1,7 +1,7 @@
-import 'package:app_news/core/utils/result.dart';
-import 'package:app_news/features/home/screen/home_view_model.dart';
-import 'package:app_news/features/shared/auth/data/repositories/auth_repository.dart';
-import 'package:app_news/features/shared/news/data/repositories/news_repository.dart';
+import 'package:ufersa_hub/core/utils/result.dart';
+import 'package:ufersa_hub/features/home/screen/home_view_model.dart';
+import 'package:ufersa_hub/features/shared/auth/data/repositories/auth_repository.dart';
+import 'package:ufersa_hub/features/shared/news/data/repositories/news_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

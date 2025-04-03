@@ -1,6 +1,6 @@
-import 'package:app_news/features/shared/auth/domain/models/user_model.dart';
-import 'package:app_news/features/shared/news/domain/enums/category_news.dart';
-import 'package:app_news/features/shared/news/domain/models/news_model.dart';
+import 'package:ufersa_hub/features/shared/auth/domain/models/user_model.dart';
+import 'package:ufersa_hub/features/shared/news/domain/enums/category_news.dart';
+import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
 
 final tMapUserModel = <String, dynamic>{
   'uid': '12345',

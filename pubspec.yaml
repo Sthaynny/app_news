@@ -1,4 +1,4 @@
-name: app_news
+name: ufersa_hub
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -57,9 +57,9 @@ dev_dependencies:
 patrol:
   app_name: UFERSA Hub
   android:
-    package_name: com.example.app_news
+    package_name: com.example.ufersa_hub
   ios:
-    bundle_id: com.example.app_news
+    bundle_id: com.example.ufersa_hub
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

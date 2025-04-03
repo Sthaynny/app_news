@@ -1,5 +1,5 @@
-import 'package:app_news/features/news/filter/screen/filter_view_model.dart';
-import 'package:app_news/features/shared/news/domain/enums/category_news.dart';
+import 'package:ufersa_hub/features/news/filter/screen/filter_view_model.dart';
+import 'package:ufersa_hub/features/shared/news/domain/enums/category_news.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 

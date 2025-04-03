@@ -8,10 +8,10 @@
    <a href="https://www.linkedin.com/in/igor-sthaynny/">
       <img alt="Igor Sthaynny" src="https://img.shields.io/badge/-Sthaynny-5965e0?style=flat&logo=Linkedin&logoColor=white"/>
    </a>
-  <img alt="Languages" src="https://img.shields.io/github/languages/count/Sthaynny/app_news?color=%235963C5" />
-  <img alt="lastcommit" src="https://img.shields.io/github/last-commit/Sthaynny/app_news?color=%235761C3" />
-  <img alt="License" src="https://img.shields.io/github/license/Sthaynny/app_news?color=%235E69D7" />
-  <img alt="Issues" src="https://img.shields.io/github/issues/Sthaynny/app_news?color=%235965E0">
+  <img alt="Languages" src="https://img.shields.io/github/languages/count/Sthaynny/ufersa_hub?color=%235963C5" />
+  <img alt="lastcommit" src="https://img.shields.io/github/last-commit/Sthaynny/ufersa_hub?color=%235761C3" />
+  <img alt="License" src="https://img.shields.io/github/license/Sthaynny/ufersa_hub?color=%235E69D7" />
+  <img alt="Issues" src="https://img.shields.io/github/issues/Sthaynny/ufersa_hub?color=%235965E0">
   <a href="mailto:igorsthaynny@gmail.com">
    <img alt="E-mail" src="https://img.shields.io/badge/-igorsthaynny%40gmail.com-%23525DCB" />
   </a>
@@ -62,7 +62,7 @@ O AppNews é um aplicativo simples e funcional de notícias, desenvolvido com o 
 
 ```bash
 # Clone Repositorio
-$ git clone https://github.com/Sthaynny/app_news.git
+$ git clone https://github.com/Sthaynny/ufersa_hub.git
 
 # Instale as dependências
 $ flutter pub get
@@ -73,7 +73,7 @@ $ flutter run
 
 # :bug: Issues
 
-Cria um issue <a href="https://github.com/Sthaynny/app_news/issues">nova issue</a>, será uma honra poder ajudá-lo a resolver e melhorar ainda mais nosso aplicativo.
+Cria um issue <a href="https://github.com/Sthaynny/ufersa_hub/issues">nova issue</a>, será uma honra poder ajudá-lo a resolver e melhorar ainda mais nosso aplicativo.
 
 # :sparkles: Contribuição
 
@@ -81,7 +81,7 @@ Cria um issue <a href="https://github.com/Sthaynny/app_news/issues">nova issue</
 - Crie uma nova branch a partir da develop: `git checkout -b my-feature` ou `git flow feature start my-feature`;
 - Commit em sua banch: `git commit -m 'feat: my new feature'`;
 - Push em sua branch: `git push origin my-feature`.
-- Para mais informações acesse o [Guia de contribuição](https://github.com/Sthaynny/app_news/blob/main/.github/contributing.md)
+- Para mais informações acesse o [Guia de contribuição](https://github.com/Sthaynny/ufersa_hub/blob/main/.github/contributing.md)
   
 Para ajudar a manter o padrão escolhido, também criamos um arquivo que é chamado antes de cada commit. Este arquivo irá formatar e identificar (se houver) erros no estilo de código do seu código. Para habilitar isso você deve primeiro copiá-lo para a pasta hooks do git. Se você estiver desenvolvendo no macOS, vá até a raiz do projeto e execute o comando abaixo:
 

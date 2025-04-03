@@ -1,6 +1,6 @@
-import 'package:app_news/core/strings/strings.dart';
-import 'package:app_news/features/home/screen/components/card_news_widget.dart';
-import 'package:app_news/main.dart' as app;
+import 'package:ufersa_hub/core/strings/strings.dart';
+import 'package:ufersa_hub/features/home/screen/components/card_news_widget.dart';
+import 'package:ufersa_hub/main.dart' as app;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:patrol/patrol.dart';

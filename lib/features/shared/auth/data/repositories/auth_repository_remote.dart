@@ -1,8 +1,8 @@
-import 'package:app_news/core/strings/strings.dart';
-import 'package:app_news/core/utils/result.dart';
-import 'package:app_news/features/shared/auth/data/repositories/auth_repository.dart';
-import 'package:app_news/features/shared/auth/data/services/auth_service.dart';
-import 'package:app_news/features/shared/auth/domain/models/user_model.dart';
+import 'package:ufersa_hub/core/strings/strings.dart';
+import 'package:ufersa_hub/core/utils/result.dart';
+import 'package:ufersa_hub/features/shared/auth/data/repositories/auth_repository.dart';
+import 'package:ufersa_hub/features/shared/auth/data/services/auth_service.dart';
+import 'package:ufersa_hub/features/shared/auth/domain/models/user_model.dart';
 
 class AuthRepositoryRemote extends AuthRepository {
   final AuthService _service;

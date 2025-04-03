@@ -1,14 +1,14 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:app_news/core/utils/commands.dart';
-import 'package:app_news/core/utils/extension/bool.dart';
-import 'package:app_news/core/utils/extension/file.dart';
-import 'package:app_news/core/utils/permission/premission_service.dart';
-import 'package:app_news/core/utils/result.dart';
-import 'package:app_news/features/shared/news/data/repositories/news_repository.dart';
-import 'package:app_news/features/shared/news/domain/enums/category_news.dart';
-import 'package:app_news/features/shared/news/domain/models/news_model.dart';
+import 'package:ufersa_hub/core/utils/commands.dart';
+import 'package:ufersa_hub/core/utils/extension/bool.dart';
+import 'package:ufersa_hub/core/utils/extension/file.dart';
+import 'package:ufersa_hub/core/utils/permission/premission_service.dart';
+import 'package:ufersa_hub/core/utils/result.dart';
+import 'package:ufersa_hub/features/shared/news/data/repositories/news_repository.dart';
+import 'package:ufersa_hub/features/shared/news/domain/enums/category_news.dart';
+import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 

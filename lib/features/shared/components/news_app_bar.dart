@@ -1,7 +1,7 @@
-import 'package:app_news/core/router/app_router.dart';
-import 'package:app_news/core/strings/strings.dart';
-import 'package:app_news/core/utils/extension/build_context.dart';
-import 'package:app_news/features/shared/components/app_icon.dart';
+import 'package:ufersa_hub/core/router/app_router.dart';
+import 'package:ufersa_hub/core/strings/strings.dart';
+import 'package:ufersa_hub/core/utils/extension/build_context.dart';
+import 'package:ufersa_hub/features/shared/components/app_icon.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 

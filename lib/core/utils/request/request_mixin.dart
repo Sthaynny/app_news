@@ -1,5 +1,5 @@
-import 'package:app_news/core/strings/strings.dart';
-import 'package:app_news/core/utils/result.dart';
+import 'package:ufersa_hub/core/strings/strings.dart';
+import 'package:ufersa_hub/core/utils/result.dart';
 
 mixin RequestMixin {
   Future<Result<T>> request<T>(Future<T> Function() function) async {

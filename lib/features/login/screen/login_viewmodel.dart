@@ -1,7 +1,7 @@
-import 'package:app_news/core/strings/strings.dart';
-import 'package:app_news/core/utils/commands.dart';
-import 'package:app_news/core/utils/result.dart';
-import 'package:app_news/features/shared/auth/data/repositories/auth_repository.dart';
+import 'package:ufersa_hub/core/strings/strings.dart';
+import 'package:ufersa_hub/core/utils/commands.dart';
+import 'package:ufersa_hub/core/utils/result.dart';
+import 'package:ufersa_hub/features/shared/auth/data/repositories/auth_repository.dart';
 
 class LoginViewModel {
   final AuthRepository _repository;

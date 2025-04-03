@@ -1,4 +1,4 @@
-import 'package:app_news/features/shared/news/domain/enums/category_news.dart';
+import 'package:ufersa_hub/features/shared/news/domain/enums/category_news.dart';
 
 class FilterNewsModel {
   final String? title;

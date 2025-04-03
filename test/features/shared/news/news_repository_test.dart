@@ -1,7 +1,7 @@
-import 'package:app_news/core/firebase/collections.dart';
-import 'package:app_news/core/utils/result.dart';
-import 'package:app_news/features/shared/news/data/repositories/news_repository_remote.dart';
-import 'package:app_news/features/shared/news/data/services/news_service.dart';
+import 'package:ufersa_hub/core/firebase/collections.dart';
+import 'package:ufersa_hub/core/utils/result.dart';
+import 'package:ufersa_hub/features/shared/news/data/repositories/news_repository_remote.dart';
+import 'package:ufersa_hub/features/shared/news/data/services/news_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

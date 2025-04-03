@@ -1,6 +1,6 @@
-import 'package:app_news/core/utils/result.dart';
-import 'package:app_news/features/login/screen/login_viewmodel.dart';
-import 'package:app_news/features/shared/auth/data/repositories/auth_repository.dart';
+import 'package:ufersa_hub/core/utils/result.dart';
+import 'package:ufersa_hub/features/login/screen/login_viewmodel.dart';
+import 'package:ufersa_hub/features/shared/auth/data/repositories/auth_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

@@ -1,7 +1,7 @@
-import 'package:app_news/core/utils/permission/premission_service.dart';
-import 'package:app_news/core/utils/result.dart';
-import 'package:app_news/features/news/maneger/maneger_news_viewmodel.dart';
-import 'package:app_news/features/shared/news/data/repositories/news_repository.dart';
+import 'package:ufersa_hub/core/utils/permission/premission_service.dart';
+import 'package:ufersa_hub/core/utils/result.dart';
+import 'package:ufersa_hub/features/news/maneger/maneger_news_viewmodel.dart';
+import 'package:ufersa_hub/features/shared/news/data/repositories/news_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:permission_handler/permission_handler.dart';
