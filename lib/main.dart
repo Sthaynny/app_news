@@ -1,17 +1,19 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:ufersa_hub/core/dependecy/dependency.dart';
-import 'package:ufersa_hub/core/router/app_router.dart';
 import 'package:design_system/design_system.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:ufersa_hub/core/dependecy/dependency.dart';
+import 'package:ufersa_hub/core/router/app_router.dart';
 
 void main() {
   runZonedGuarded(
     () async {
-      await DSColors.inicialize(secundaryColor: Color(0xFFFF7200));
       WidgetsFlutterBinding.ensureInitialized();
+      await DSColors.inicialize(secundaryColor: Color(0xFFFF7200));
+      await _initGoogleMobileAds();
       await Firebase.initializeApp();
       setup();
       runApp(const MyApp());
@@ -20,6 +22,10 @@ void main() {
       log('runZonedGuarded: Caught error in my root zone.');
     },
   );
+}
+
+Future<InitializationStatus> _initGoogleMobileAds() {
+  return MobileAds.instance.initialize();
 }
 
 class MyApp extends StatelessWidget {
