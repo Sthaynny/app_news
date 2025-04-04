@@ -36,3 +36,4 @@ String get newsString => "Noticias";
 String get noNewsString => "Nenhuma noticia cadastrada.";
 String get noEventString => "Nenhum evento cadastrado.";
 String get categoryString => "Categoria";
+String get dateEventString => "Data do evento";

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ufersa_hub/core/strings/strings.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
 import 'package:ufersa_hub/features/events/domain/models/events_model.dart';
+import 'package:ufersa_hub/features/events/view/page/components/card_event_widget.dart';
 import 'package:ufersa_hub/features/events/view/page/events_view_model.dart';
 import 'package:ufersa_hub/features/shared/components/news_app_bar.dart';
 
@@ -35,12 +36,13 @@ class _EventsScreenState extends State<EventsScreen> {
             return Center(child: DSSpinnerLoading());
           }
           if (widget.viewModel.getEvents.error) {}
-          final events =
-              widget.viewModel.getEvents.result?.value as List<EventsModel>;
+          final events = viewModel.getEvents.result?.value as List<EventsModel>;
 
           return SingleChildScrollView(
             padding: EdgeInsets.all(DSSpacing.md.value),
-            child: Column(children: events.map((e) => Text(e.title)).toList()),
+            child: Column(
+              children: events.map((e) => CardEventWidget(event: e)).toList(),
+            ),
           );
         },
       ),

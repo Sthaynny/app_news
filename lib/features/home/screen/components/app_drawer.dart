@@ -1,9 +1,10 @@
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
+import 'package:ufersa_hub/core/router/app_router.dart';
 import 'package:ufersa_hub/core/strings/strings.dart';
+import 'package:ufersa_hub/core/utils/extension/build_context.dart';
 import 'package:ufersa_hub/features/home/screen/home_view_model.dart';
 import 'package:ufersa_hub/features/shared/components/app_icon.dart';
-import 'package:ufersa_hub/features/shared/utils/extension/soon_popup.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key, required this.viewmodel});
@@ -37,7 +38,7 @@ class AppDrawer extends StatelessWidget {
           _addPadding(
             DSGhostButton(
               onPressed: () {
-                context.showComingSoonPopup();
+                context.go(AppRouters.events);
               },
               label: eventsString,
             ),

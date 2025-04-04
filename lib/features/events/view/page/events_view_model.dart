@@ -8,7 +8,9 @@ class EventsViewModel {
   late final CommandBase<List<EventsModel>> getEvents;
 
   EventsViewModel({required EventsRepository eventsRepository})
-    : _eventsRepository = eventsRepository{
-      getEvents = CommandBase<List<EventsModel>>(() => _eventsRepository.getEvents());
-    }
+    : _eventsRepository = eventsRepository {
+    getEvents = CommandBase<List<EventsModel>>(
+      () => _eventsRepository.getEvents(),
+    );
+  }
 }
