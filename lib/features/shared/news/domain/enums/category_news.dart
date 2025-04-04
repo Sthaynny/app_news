@@ -7,6 +7,8 @@ enum CategoryNews {
   science,
   sports,
   technology,
+  engeneering,
+  architecture,
   other;
 
   const CategoryNews();
@@ -29,6 +31,10 @@ enum CategoryNews {
         return 'Esportes';
       case CategoryNews.technology:
         return 'Tecnologia';
+      case CategoryNews.engeneering:
+        return 'Engenharia';
+      case CategoryNews.architecture:
+        return 'Arquitetura';
       case CategoryNews.other:
         return 'Outros';
     }
