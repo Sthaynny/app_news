@@ -1,3 +1,3 @@
-enum Collections { news }
+enum Collections { news, events }
 
-enum Documents { publishedAt }
+enum Documents { publishedAt, start, end }

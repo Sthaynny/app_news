@@ -1,9 +1,9 @@
+import 'package:design_system/design_system.dart';
+import 'package:flutter/material.dart';
 import 'package:ufersa_hub/core/strings/strings.dart';
 import 'package:ufersa_hub/features/home/screen/home_view_model.dart';
 import 'package:ufersa_hub/features/shared/components/app_icon.dart';
 import 'package:ufersa_hub/features/shared/utils/extension/soon_popup.dart';
-import 'package:design_system/design_system.dart';
-import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key, required this.viewmodel});
@@ -28,7 +28,7 @@ class AppDrawer extends StatelessWidget {
             decoration: BoxDecoration(color: DSColors.secundary),
             child: Row(
               children: [
-                AppIcon(),
+                AppIcon(scale: 30),
                 DSSpacing.xs.x,
                 DSHeadlineLargeText(menuString, color: DSColors.white),
               ],
