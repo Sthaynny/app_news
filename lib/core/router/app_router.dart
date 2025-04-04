@@ -1,4 +1,6 @@
+import 'package:flutter/widgets.dart';
 import 'package:ufersa_hub/core/dependecy/dependency.dart';
+import 'package:ufersa_hub/features/events/view/page/events_screen.dart';
 import 'package:ufersa_hub/features/home/screen/home_screen.dart';
 import 'package:ufersa_hub/features/home/screen/home_view_model.dart';
 import 'package:ufersa_hub/features/login/screen/login_screen.dart';
@@ -9,7 +11,6 @@ import 'package:ufersa_hub/features/news/details/screen/details_news_viewmodel.d
 import 'package:ufersa_hub/features/news/maneger/maneger_news_screen.dart';
 import 'package:ufersa_hub/features/news/maneger/maneger_news_viewmodel.dart';
 import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
-import 'package:flutter/widgets.dart';
 
 final Map<String, Widget Function(BuildContext)> routes = {
   AppRouters.home.path:
@@ -42,6 +43,9 @@ final Map<String, Widget Function(BuildContext)> routes = {
         ),
         news: ModalRoute.of(context)?.settings.arguments as NewsModel?,
       ),
+
+      AppRouters.events.path:
+      (context) => EventsScreen(viewModel: dependency()),
 };
 
 enum AppRouters {
@@ -49,7 +53,10 @@ enum AppRouters {
   home,
   detailsNews,
   detailsNewsImage,
-  manegerNews;
+  manegerNews,
+  events,
+  eventsDetails,
+  manegerEvents;
 
   const AppRouters();
   String get path => this == home ? '/' : '/$name';
