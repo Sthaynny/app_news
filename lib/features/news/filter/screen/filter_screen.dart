@@ -1,5 +1,6 @@
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
+import 'package:ufersa_hub/core/strings/strings.dart';
 import 'package:ufersa_hub/features/news/filter/screen/filter_view_model.dart';
 import 'package:ufersa_hub/features/shared/components/category_tile.dart';
 import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
@@ -15,11 +16,11 @@ class FilterScreen extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          DSHeadlineLargeText('Filtrar Noticias!'),
+          DSHeadlineLargeText(filterNewsString),
           DSSpacing.md.y,
           Align(
             alignment: Alignment.centerLeft,
-            child: DSBodyText('Categorias', fontWeight: FontWeight.bold),
+            child: DSBodyText(categoriesString, fontWeight: FontWeight.bold),
           ),
           DSSpacing.md.y,
           ListenableBuilder(
@@ -48,7 +49,7 @@ class FilterScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context, true);
             },
-            label: 'Limpar Filtros',
+            label: clearFilterString,
           ),
 
           DSSpacing.md.y,
@@ -57,7 +58,7 @@ class FilterScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context, viewModel.filter);
             },
-            label: 'Filtrar',
+            label: filterString,
             autoSize: false,
           ),
         ],
