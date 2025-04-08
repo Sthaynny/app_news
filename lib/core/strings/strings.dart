@@ -3,6 +3,7 @@ String get errorDefaultString => 'Ops! Ocorreu um erro inesperado.';
 String get tenteNovamenteString => 'Tente novamente.';
 String get reloadString => 'Recarregar';
 String get detailsNewsString => 'Detalhe da notícia';
+String get detailsEventString => 'Detalhe do evento';
 String get errorHomeString => 'Erro ao carregar as notícias!';
 String get addNewsString => 'Adicionar notícia';
 String get addImageString => 'Adicionar imagem';

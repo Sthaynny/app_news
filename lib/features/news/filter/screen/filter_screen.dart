@@ -1,6 +1,7 @@
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:ufersa_hub/features/news/filter/screen/filter_view_model.dart';
+import 'package:ufersa_hub/features/shared/components/category_tile.dart';
 import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
 
 class FilterScreen extends StatelessWidget {
@@ -32,25 +33,12 @@ class FilterScreen extends StatelessWidget {
                   runAlignment: WrapAlignment.spaceEvenly,
                   children:
                       CategoryPost.values.map((category) {
-                        final colorText =
-                            viewModel.filter.categories.contains(category)
-                                ? DSColors.neutralMediumWave
-                                : DSColors.primary.shade600;
-                        final Color colorBackground =
-                            viewModel.filter.categories.contains(category)
-                                ? DSColors.primary
-                                : DSColors.transparent;
-
-                        return DSChip(
-                          background: colorBackground,
-                          border: Border.all(color: colorText),
-                          text: DSBodyText(
-                            category.labelPtBr,
-                            color: colorText,
-                          ),
-                          borderRadius: DSBorderRadius.all
-                              .getCircularBorderRadius(maxRadius: 16),
+                        return CategoryTile(
+                          category: category,
                           onTap: () => viewModel.addCateroryFilter(category),
+                          select: viewModel.filter.categories.contains(
+                            category,
+                          ),
                         );
                       }).toList(),
                 ),

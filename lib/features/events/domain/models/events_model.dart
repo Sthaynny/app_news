@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ufersa_hub/core/utils/extension/datetime.dart';
 import 'package:ufersa_hub/features/shared/models/location_model.dart';
+import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
 
 class EventsModel {
   final String uid;
@@ -13,6 +14,9 @@ class EventsModel {
   final DateTime? end;
   final String? image;
   final String? link;
+
+  final CategoryPost category;
+
   EventsModel({
     required this.uid,
     required this.title,
@@ -21,6 +25,7 @@ class EventsModel {
     this.location,
     this.end,
     this.image,
+    required this.category,
     this.link,
   });
 
@@ -55,6 +60,10 @@ class EventsModel {
               : null,
       image: map['image'] != null ? map['image'] as String : null,
       link: map['link'] != null ? map['link'] as String : null,
+      category: CategoryPost.values.firstWhere(
+        (element) => element.name == map['category'],
+        orElse: () => CategoryPost.other,
+      ),
     );
   }
 

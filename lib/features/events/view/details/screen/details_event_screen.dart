@@ -3,48 +3,46 @@ import 'package:flutter/material.dart';
 import 'package:ufersa_hub/core/router/app_router.dart';
 import 'package:ufersa_hub/core/strings/strings.dart';
 import 'package:ufersa_hub/core/utils/extension/build_context.dart';
-import 'package:ufersa_hub/core/utils/extension/datetime.dart';
-import 'package:ufersa_hub/features/news/details/screen/details_news_viewmodel.dart';
+import 'package:ufersa_hub/core/utils/extension/string.dart';
+import 'package:ufersa_hub/features/events/view/details/screen/details_event_view_model.dart';
 import 'package:ufersa_hub/features/shared/components/category_tile.dart';
 import 'package:ufersa_hub/features/shared/components/image_widget.dart';
 
-class DetailsNewsScreen extends StatefulWidget {
-  const DetailsNewsScreen({super.key, required this.viewmodel});
-  final DetailsNewsViewmodel viewmodel;
+class DetailsEventScreen extends StatefulWidget {
+  const DetailsEventScreen({super.key, required this.viewmodel});
+  final DetailsEventViewmodel viewmodel;
 
   @override
-  State<DetailsNewsScreen> createState() => _DetailsNewsScreenState();
+  State<DetailsEventScreen> createState() => _DetailsEventScreenState();
 }
 
-class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
-  late final DetailsNewsViewmodel viewmodel;
+class _DetailsEventScreenState extends State<DetailsEventScreen> {
+  late final DetailsEventViewmodel viewmodel;
   @override
   void initState() {
     viewmodel = widget.viewmodel;
-    viewmodel.deleteNews.addListener(_onResultDelete);
+    viewmodel.deleteEvent.addListener(_onResultDelete);
     super.initState();
   }
 
   @override
-  void didUpdateWidget(covariant DetailsNewsScreen oldWidget) {
+  void didUpdateWidget(covariant DetailsEventScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
-    oldWidget.viewmodel.deleteNews.removeListener(_onResultDelete);
-    viewmodel.deleteNews.addListener(_onResultDelete);
+    oldWidget.viewmodel.deleteEvent.removeListener(_onResultDelete);
+    viewmodel.deleteEvent.addListener(_onResultDelete);
   }
 
   @override
   void dispose() {
-    viewmodel.deleteNews.removeListener(_onResultDelete);
+    viewmodel.deleteEvent.removeListener(_onResultDelete);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final images =
-        viewmodel.imagesBase64.map((e) => ImageWidget(imageBase64: e)).toList();
     return Scaffold(
       appBar: DSHeader(
-        title: detailsNewsString,
+        title: detailsEventString,
         canPop: true,
         actions:
             viewmodel.isAuthenticated
@@ -54,7 +52,7 @@ class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
                     onPressed: () async {
                       final result = await context.go(
                         AppRouters.manegerNews,
-                        arguments: viewmodel.news,
+                        arguments: viewmodel.event,
                       );
                       if (result != null) {
                         viewmodel.updateScreen.execute(result);
@@ -66,7 +64,7 @@ class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
                   DSIconButton(
                     key: Key('delete_button'),
                     onPressed: () {
-                      viewmodel.deleteNews.execute(viewmodel.news.uid);
+                      viewmodel.deleteEvent.execute(viewmodel.event.uid);
                     },
                     icon: DSIcons.trash_outline,
                     color: DSColors.error,
@@ -80,39 +78,36 @@ class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
           return ListView(
             padding: EdgeInsets.all(DSSpacing.md.value),
             children: [
-              if (images.isNotEmpty)
+              if (viewmodel.imagesBase64 != null)
                 ConstrainedBox(
                   constraints: BoxConstraints(
                     maxHeight: 250,
                     maxWidth: MediaQuery.of(context).size.width - 16,
                   ),
-                  child: CarouselView(
-                    itemExtent: 350,
-                    itemSnapping: true,
-                    elevation: 1,
-                    children: images,
-                    onTap:
-                        (index) => context.go(
-                          AppRouters.detailsNewsImage,
-                          arguments: images[index],
-                        ),
-                  ),
+                  child: ImageWidget(imageBase64: viewmodel.imagesBase64!),
                 ),
               DSSpacing.xs.y,
-              DSHeadlineLargeText(viewmodel.news.title),
+              DSHeadlineLargeText(viewmodel.event.title),
               DSBodyText(
-                viewmodel.news.description,
+                viewmodel.event.description,
                 overflow: null,
                 textAlign: TextAlign.justify,
               ),
               DSSpacing.xs.y,
-
-              CategoryTile(category: viewmodel.news.categoryNews),
+              CategoryTile(category: viewmodel.event.category),
               DSSpacing.xs.y,
-              DSCaptionSmallText(
-                viewmodel.news.publishedAt.toPublishedAt,
+              DSCaptionText.rich(
+                TextSpan(
+                  text: '${dateEventString.addSuffixColon} ',
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: viewmodel.event.toDateEvent,
+                      style: TextStyle(fontWeight: FontWeight.normal),
+                    ),
+                  ],
+                ),
+
                 fontWeight: FontWeight.bold,
-                color: DSColors.secundary,
               ),
             ],
           );
@@ -122,10 +117,10 @@ class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
   }
 
   void _onResultDelete() {
-    if (viewmodel.deleteNews.completed) {
+    if (viewmodel.deleteEvent.completed) {
       context.back(true);
     }
-    if (viewmodel.deleteNews.error) {
+    if (viewmodel.deleteEvent.error) {
       context.showSnackBarError(errorDeleteString);
     }
   }
