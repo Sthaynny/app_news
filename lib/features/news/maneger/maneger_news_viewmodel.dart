@@ -1,16 +1,16 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:ufersa_hub/core/utils/commands.dart';
 import 'package:ufersa_hub/core/utils/extension/bool.dart';
 import 'package:ufersa_hub/core/utils/extension/file.dart';
 import 'package:ufersa_hub/core/utils/permission/premission_service.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
 import 'package:ufersa_hub/features/shared/news/data/repositories/news_repository.dart';
-import 'package:ufersa_hub/features/shared/news/domain/enums/category_news.dart';
+import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
 import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class ManegerNewsViewmodel {
   final NewsRepository _repository;
@@ -18,7 +18,7 @@ class ManegerNewsViewmodel {
 
   late final CommandAction<
     void,
-    (String title, String description, CategoryNews category)
+    (String title, String description, CategoryPost category)
   >
   createNews;
   late final CommandBase<bool> getPermission;
@@ -36,7 +36,7 @@ class ManegerNewsViewmodel {
        _permissionService = permissionService {
     createNews = CommandAction<
       void,
-      (String title, String description, CategoryNews category)
+      (String title, String description, CategoryPost category)
     >(_manegerNews);
 
     getPermission = CommandBase<bool>(() async {
@@ -56,7 +56,7 @@ class ManegerNewsViewmodel {
   }
 
   Future<Result<void>> _manegerNews(
-    (String title, String description, CategoryNews category) data,
+    (String title, String description, CategoryPost category) data,
   ) async {
     final (title, description, category) = data;
     final imagesList = images.map((e) => e.convertIntoBase64).toList();

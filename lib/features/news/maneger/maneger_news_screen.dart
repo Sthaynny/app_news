@@ -1,13 +1,13 @@
+import 'package:design_system/design_system.dart';
+import 'package:flutter/material.dart';
 import 'package:ufersa_hub/core/router/app_router.dart';
 import 'package:ufersa_hub/core/strings/strings.dart';
 import 'package:ufersa_hub/core/utils/extension/bool.dart';
 import 'package:ufersa_hub/core/utils/extension/build_context.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
 import 'package:ufersa_hub/features/news/maneger/maneger_news_viewmodel.dart';
-import 'package:ufersa_hub/features/shared/news/domain/enums/category_news.dart';
+import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
 import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
-import 'package:design_system/design_system.dart';
-import 'package:flutter/material.dart';
 
 class CreateNewsScreen extends StatefulWidget {
   const CreateNewsScreen({super.key, required this.viewmodel, this.news});
@@ -22,8 +22,8 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
   late final ManegerNewsViewmodel viewmodel;
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
-  final ValueNotifier<CategoryNews> categoryNews = ValueNotifier(
-    CategoryNews.other,
+  final ValueNotifier<CategoryPost> categoryNews = ValueNotifier(
+    CategoryPost.other,
   );
   NewsModel? get news => widget.news;
   final form = GlobalKey<FormState>();
@@ -101,13 +101,13 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
                     padding: EdgeInsets.symmetric(
                       horizontal: DSSpacing.md.value,
                     ),
-                    child: DropdownButton<CategoryNews>(
+                    child: DropdownButton<CategoryPost>(
                       underline: const SizedBox.shrink(),
                       isExpanded: true,
                       borderRadius: BorderRadius.circular(12),
                       icon: Icon(DSIcons.arrow_down_outline.data),
                       items:
-                          CategoryNews.values
+                          CategoryPost.values
                               .map(
                                 (e) => DropdownMenuItem(
                                   value: e,

@@ -1,7 +1,7 @@
 import 'package:ufersa_hub/core/utils/commands.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
 import 'package:ufersa_hub/features/news/filter/domain/models/filter_news_model.dart';
-import 'package:ufersa_hub/features/shared/news/domain/enums/category_news.dart';
+import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
 
 class FilterViewModel {
   FilterViewModel({FilterNewsModel? filter}) {
@@ -15,7 +15,7 @@ class FilterViewModel {
   late FilterNewsModel filter;
   late CommandAction<void, FilterNewsModel> filterNews;
 
-  void addCateroryFilter(CategoryNews category) {
+  void addCateroryFilter(CategoryPost category) {
     var categories = [...filter.categories];
     if (filter.categories.contains(category)) {
       categories.remove(category);

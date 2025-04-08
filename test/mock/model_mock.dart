@@ -1,5 +1,5 @@
 import 'package:ufersa_hub/features/shared/auth/domain/models/user_model.dart';
-import 'package:ufersa_hub/features/shared/news/domain/enums/category_news.dart';
+import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
 import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
 
 final tMapUserModel = <String, dynamic>{
@@ -26,5 +26,5 @@ final tInstanceNewsModel = NewsModel(
   description: 'description',
   images: [],
   publishedAt: DateTime.now(),
-  categoryNews: CategoryNews.other,
+  categoryNews: CategoryPost.other,
 );

@@ -1,4 +1,4 @@
-enum CategoryNews {
+enum CategoryPost {
   all,
   business,
   entertainment,
@@ -11,31 +11,31 @@ enum CategoryNews {
   architecture,
   other;
 
-  const CategoryNews();
+  const CategoryPost();
 
   String get labelPtBr {
     switch (this) {
-      case CategoryNews.all:
+      case CategoryPost.all:
         return 'Todas';
-      case CategoryNews.business:
+      case CategoryPost.business:
         return 'Negócios';
-      case CategoryNews.entertainment:
+      case CategoryPost.entertainment:
         return 'Entretenimento';
-      case CategoryNews.general:
+      case CategoryPost.general:
         return 'Geral';
-      case CategoryNews.health:
+      case CategoryPost.health:
         return 'Saúde';
-      case CategoryNews.science:
+      case CategoryPost.science:
         return 'Ciência';
-      case CategoryNews.sports:
+      case CategoryPost.sports:
         return 'Esportes';
-      case CategoryNews.technology:
+      case CategoryPost.technology:
         return 'Tecnologia';
-      case CategoryNews.engeneering:
+      case CategoryPost.engeneering:
         return 'Engenharia';
-      case CategoryNews.architecture:
+      case CategoryPost.architecture:
         return 'Arquitetura';
-      case CategoryNews.other:
+      case CategoryPost.other:
         return 'Outros';
     }
   }

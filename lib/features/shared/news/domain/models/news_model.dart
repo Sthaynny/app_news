@@ -1,15 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:ufersa_hub/features/shared/news/domain/enums/category_news.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
 
 class NewsModel {
   final String uid;
   final String title;
   final String? description;
   final List<String> images;
-  final CategoryNews categoryNews;
+  final CategoryPost categoryNews;
   final DateTime publishedAt;
 
   Map<String, dynamic> toMap() {
@@ -30,9 +30,9 @@ class NewsModel {
       title: map['title'] as String,
       description: map['description'] as String,
       images: List<String>.from((map['images'] as List)),
-      categoryNews: CategoryNews.values.firstWhere(
+      categoryNews: CategoryPost.values.firstWhere(
         (element) => element.name == map['category'],
-        orElse: () => CategoryNews.other,
+        orElse: () => CategoryPost.other,
       ),
       publishedAt: DateTime.fromMillisecondsSinceEpoch(
         timestamp.millisecondsSinceEpoch,
@@ -59,7 +59,7 @@ class NewsModel {
     String? title,
     String? description,
     List<String>? images,
-    CategoryNews? categoryNews,
+    CategoryPost? categoryNews,
     DateTime? publishedAt,
   }) {
     return NewsModel(

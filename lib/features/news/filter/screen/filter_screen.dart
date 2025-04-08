@@ -1,7 +1,7 @@
-import 'package:ufersa_hub/features/news/filter/screen/filter_view_model.dart';
-import 'package:ufersa_hub/features/shared/news/domain/enums/category_news.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
+import 'package:ufersa_hub/features/news/filter/screen/filter_view_model.dart';
+import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
 
 class FilterScreen extends StatelessWidget {
   const FilterScreen({super.key, required this.viewModel});
@@ -31,7 +31,7 @@ class FilterScreen extends StatelessWidget {
                   alignment: WrapAlignment.spaceEvenly,
                   runAlignment: WrapAlignment.spaceEvenly,
                   children:
-                      CategoryNews.values.map((category) {
+                      CategoryPost.values.map((category) {
                         final colorText =
                             viewModel.filter.categories.contains(category)
                                 ? DSColors.neutralMediumWave
