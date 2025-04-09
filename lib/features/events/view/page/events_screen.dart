@@ -7,6 +7,7 @@ import 'package:ufersa_hub/core/utils/result.dart';
 import 'package:ufersa_hub/features/events/domain/models/events_model.dart';
 import 'package:ufersa_hub/features/events/view/page/components/card_event_widget.dart';
 import 'package:ufersa_hub/features/events/view/page/events_view_model.dart';
+import 'package:ufersa_hub/features/shared/components/body_error_default_widget.dart';
 import 'package:ufersa_hub/features/shared/components/button_add_item_widget.dart';
 import 'package:ufersa_hub/features/shared/components/news_app_bar.dart';
 
@@ -38,7 +39,12 @@ class _EventsScreenState extends State<EventsScreen> {
           if (widget.viewModel.getEvents.running) {
             return Center(child: DSSpinnerLoading());
           }
-          if (widget.viewModel.getEvents.error) {}
+          if (widget.viewModel.getEvents.error) {
+            return BodyErrorDefaultWidget(
+              title: opsErrorLoadingEventsString,
+              onPressed: () => viewmodel.getEvents.execute(),
+            );
+          }
           final events = viewmodel.getEvents.result?.value as List<EventsModel>;
 
           return SingleChildScrollView(

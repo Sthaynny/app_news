@@ -45,3 +45,4 @@ String get filterString => "Filtrar";
 String get editEventString => "Editar Evento";
 String get createEventString => "Criar Evento"; 
 String get addEventString => "Adicionar Evento";
+String get opsErrorLoadingEventsString => "Ops! Ocorreu uma instabilidade ao carregar os eventos.";
