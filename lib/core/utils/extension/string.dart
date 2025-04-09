@@ -16,9 +16,8 @@ extension StringExt on String {
   }
 
   Future<void> goToUrl() async {
-    final Uri encodedURl = Uri(path: this);
-
     try {
+      final Uri encodedURl = Uri.parse(this);
       if (await canLaunchUrl(encodedURl)) {
         await launchUrl(encodedURl);
       }

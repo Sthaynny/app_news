@@ -56,4 +56,4 @@ String get endDateEventString => "Data de fim do evento (Opcional)";
 String get localizationOpionalString => "Localização (Opcional)";
 String get localizationString => "Localização";
 String get detailsEnterLocalizationString =>
-    "A localização deve ser digitada no seguinte formato: Latitude, Longitude, \nExemplo: -23.561, -46.655";
+    "Informe o link para a localização do evento";

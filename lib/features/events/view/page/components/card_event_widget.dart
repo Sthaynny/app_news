@@ -33,8 +33,12 @@ class CardEventWidget extends StatelessWidget {
             event.image != null
                 ? SizedBox(
                   height: 50,
-                  width: 50,
-                  child: ImageWidget(imageBase64: event.image!, height: 50),
+                  width: 70,
+                  child: ImageWidget(
+                    imageBase64: event.image!,
+                    height: 50,
+                    fit: BoxFit.fill,
+                  ),
                 )
                 : null,
         title: DSHeadlineSmallText(event.title),

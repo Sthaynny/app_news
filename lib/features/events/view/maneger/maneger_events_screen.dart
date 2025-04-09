@@ -4,12 +4,10 @@ import 'package:ufersa_hub/core/strings/strings.dart';
 import 'package:ufersa_hub/core/utils/extension/bool.dart';
 import 'package:ufersa_hub/core/utils/extension/build_context.dart';
 import 'package:ufersa_hub/core/utils/extension/datetime.dart';
-import 'package:ufersa_hub/core/utils/extension/string.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
 import 'package:ufersa_hub/core/utils/validators/validators.dart';
 import 'package:ufersa_hub/features/events/domain/models/events_model.dart';
 import 'package:ufersa_hub/features/events/view/maneger/maneger_events_view_model.dart';
-import 'package:ufersa_hub/features/shared/models/location_model.dart';
 import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
 
 class ManegerEventsScreen extends StatefulWidget {
@@ -51,7 +49,7 @@ class _ManegerEventsScreenState extends State<ManegerEventsScreen> {
       categoryNotifier.value = event!.category;
       startDateController.text = event!.start.toDateAt;
       endDateController.text = event!.end?.toDateAt ?? '';
-      localizationController.text = event?.location?.toLocalizationString ?? '';
+      localizationController.text = event?.location ?? '';
       viewmodel.init(event!);
     }
     super.didChangeDependencies();
@@ -254,7 +252,7 @@ class _ManegerEventsScreenState extends State<ManegerEventsScreen> {
                 hint: localizationString,
                 validator: (value) {
                   if (value != null && value.isNotEmpty) {
-                    return Validators.validateLocalization(value);
+                    return Validators.validateUrl(value);
                   }
 
                   return null;
@@ -269,19 +267,13 @@ class _ManegerEventsScreenState extends State<ManegerEventsScreen> {
                   autoSize: false,
                   onPressed: () {
                     if (form.currentState?.validate() ?? false) {
-                      LocationModel? location;
-                      if (localizationController.text.isNotEmpty) {
-                        final (lat, log) =
-                            localizationController.text.getLocalizationString;
-                        location = LocationModel(latitude: lat, longitude: log);
-                      }
                       viewmodel.manegerEvent.execute(
                         EventsModel(
                           uid: '',
                           title: titleController.text,
                           description: descriptionController.text,
                           category: categoryNotifier.value,
-                          location: location,
+                          location: localizationController.text,
                           start: DateTime.now(),
                         ),
                       );

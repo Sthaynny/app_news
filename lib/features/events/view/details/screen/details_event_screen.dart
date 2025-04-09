@@ -97,7 +97,10 @@ class _DetailsEventScreenState extends State<DetailsEventScreen> {
                     maxHeight: 250,
                     maxWidth: MediaQuery.of(context).size.width - 16,
                   ),
-                  child: ImageWidget(imageBase64: viewmodel.imagesBase64!),
+                  child: ImageWidget(
+                    imageBase64: viewmodel.imagesBase64!,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               DSSpacing.xs.y,
               DSHeadlineLargeText(viewmodel.event.title),
@@ -122,6 +125,24 @@ class _DetailsEventScreenState extends State<DetailsEventScreen> {
 
                 fontWeight: FontWeight.bold,
               ),
+
+              if (viewmodel.event.location != null)
+                Padding(
+                  padding: EdgeInsets.only(top: DSSpacing.xs.value),
+                  child: DSSecondaryButton(
+                    onPressed: () {
+                      viewmodel.event.location?.goToUrl();
+                    },
+                    label: 'Acessar Localização',
+                    borderColor: DSColors.error,
+                    foregroundColor: DSColors.error,
+                    leadingIcon: Icon(
+                      DSIcons.localization_outline.data,
+                      color: DSColors.error,
+                    ),
+                    contentAlignment: MainAxisAlignment.start,
+                  ),
+                ),
             ],
           );
         },

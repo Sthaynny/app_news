@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:ufersa_hub/core/utils/extension/datetime.dart';
-import 'package:ufersa_hub/features/shared/models/location_model.dart';
 import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
 
 class EventsModel {
@@ -9,7 +8,7 @@ class EventsModel {
   final String title;
   final String? description;
   final DateTime start;
-  final LocationModel? location;
+  final String? location;
   final DateTime? end;
   final String? image;
   final String? link;
@@ -34,10 +33,11 @@ class EventsModel {
       'title': title,
       if (description != null) 'description': description,
       'start': start.millisecondsSinceEpoch,
-      if (location != null) 'location': location!.toMap(),
+      if (location != null && location!.isNotEmpty) 'location': location!,
       if (end != null) 'end': end?.millisecondsSinceEpoch,
       if (image != null) 'image': image,
       if (link != null) 'link': link,
+      'category': category.name,
     };
   }
 
@@ -47,10 +47,7 @@ class EventsModel {
       title: map['title'] as String,
       description: map['description'],
       start: DateTime.fromMillisecondsSinceEpoch(map['start']),
-      location:
-          map['location'] != null
-              ? LocationModel.fromMap(map['location'])
-              : null,
+      location: map['location'],
       end:
           map['end'] != null
               ? DateTime.fromMillisecondsSinceEpoch(map['end'])
@@ -82,7 +79,7 @@ class EventsModel {
     String? title,
     String? description,
     DateTime? start,
-    LocationModel? location,
+    String? location,
     DateTime? end,
     String? image,
     String? link,
