@@ -3,6 +3,7 @@ import 'package:ufersa_hub/core/utils/permission/premission_service.dart';
 import 'package:ufersa_hub/features/events/data/repositories/events_repository.dart';
 import 'package:ufersa_hub/features/events/data/repositories/events_repository_remote.dart';
 import 'package:ufersa_hub/features/events/data/services/events_service.dart';
+import 'package:ufersa_hub/features/events/view/maneger/maneger_events_view_model.dart';
 import 'package:ufersa_hub/features/events/view/page/events_view_model.dart';
 import 'package:ufersa_hub/features/login/screen/login_viewmodel.dart';
 import 'package:ufersa_hub/features/shared/auth/data/repositories/auth_repository.dart';
@@ -36,6 +37,16 @@ void setup() {
   );
 
   dependency.registerFactory(
-    () => EventsViewModel(eventsRepository: dependency()),
+    () => EventsViewModel(
+      eventsRepository: dependency(),
+      authRepository: dependency(),
+    ),
+  );
+
+  dependency.registerFactory(
+    () => ManegerEventsViewmodel(
+      repository: dependency(),
+      permissionService: dependency(),
+    ),
   );
 }

@@ -8,12 +8,12 @@ import 'package:ufersa_hub/core/utils/extension/bool.dart';
 import 'package:ufersa_hub/core/utils/extension/file.dart';
 import 'package:ufersa_hub/core/utils/permission/premission_service.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
-import 'package:ufersa_hub/features/shared/news/data/repositories/news_repository.dart';
+import 'package:ufersa_hub/features/events/data/repositories/events_repository.dart';
+import 'package:ufersa_hub/features/events/domain/models/events_model.dart';
 import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
-import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
 
-class ManegerNewsViewmodel {
-  final NewsRepository _repository;
+class ManegerEventsViewmodel {
+  final EventsRepository _repository;
   final PermissionService _permissionService;
 
   late final CommandAction<
@@ -24,13 +24,15 @@ class ManegerNewsViewmodel {
   late final CommandBase<bool> getPermission;
   late final CommandAction<void, Future Function()> updateListImages;
 
-  List<File> images = [];
+  File? _image;
   bool? isPermissionGranted;
   bool _isEdition = false;
-  NewsModel? _newsUpdate;
+  EventsModel? _eventUpdate;
 
-  ManegerNewsViewmodel({
-    required NewsRepository repository,
+  File? get image => _image;
+
+  ManegerEventsViewmodel({
+    required EventsRepository repository,
     required PermissionService permissionService,
   }) : _repository = repository,
        _permissionService = permissionService {
@@ -59,29 +61,28 @@ class ManegerNewsViewmodel {
     (String title, String description, CategoryPost category) data,
   ) async {
     final (title, description, category) = data;
-    final imagesList = images.map((e) => e.convertIntoBase64).toList();
 
-    final model = NewsModel(
+    final model = EventsModel(
       title: title,
       description: description,
       uid: '',
-      images: imagesList,
+      image: _image?.convertIntoBase64,
 
-      publishedAt: DateTime.now(),
-      categoryNews: category,
+      start: DateTime.now(),
+      category: category,
     );
     if (_isEdition) {
-      return _repository.updateNews(
-        _newsUpdate?.copyWith(
+      return _repository.updateEvents(
+        _eventUpdate?.copyWith(
               title: title,
               description: description,
-              images: imagesList,
-              categoryNews: category,
+              image: _image?.convertIntoBase64,
+              category: category,
             ) ??
             model,
       );
     } else {
-      return _repository.createNews(model);
+      return _repository.createEvents(model);
     }
   }
 
@@ -91,27 +92,32 @@ class ManegerNewsViewmodel {
   Future<void> openAppSettings() async =>
       await _permissionService.openSettings();
 
-  void init(NewsModel news) async {
-    _newsUpdate = news;
+  void init(EventsModel news) async {
+    _eventUpdate = news;
     updateListImages.execute(() async {
-      for (var i = 0; i < news.images.length; i++) {
-        images.add(await news.images[i].convertBase64ToFile('image$i'));
-      }
+      _image =
+          news.image != null
+              ? await news.image!.convertBase64ToFile(
+                'image_${DateTime.now().millisecondsSinceEpoch}',
+              )
+              : null;
       _isEdition = true;
     });
   }
 
-  void removeImage(int index) {
+  void removeImage() {
     updateListImages.execute(() async {
-      images.removeAt(index);
+      _image = null;
     });
   }
 
   void addImage() {
     updateListImages.execute(() async {
       try {
-        final result = await ImagePicker().pickMultiImage();
-        images.addAll(result.map((e) => File(e.path)).toList());
+        final result = await ImagePicker().pickImage(
+          source: ImageSource.gallery,
+        );
+        _image = File(result!.path);
       } catch (e) {
         log(e.toString());
       }

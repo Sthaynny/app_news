@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:ufersa_hub/core/dependecy/dependency.dart';
+import 'package:ufersa_hub/features/events/view/details/screen/details_event_screen.dart';
+import 'package:ufersa_hub/features/events/view/maneger/maneger_events_screen.dart';
 import 'package:ufersa_hub/features/events/view/page/events_screen.dart';
 import 'package:ufersa_hub/features/home/screen/home_screen.dart';
 import 'package:ufersa_hub/features/home/screen/home_view_model.dart';
@@ -44,8 +46,12 @@ final Map<String, Widget Function(BuildContext)> routes = {
         news: ModalRoute.of(context)?.settings.arguments as NewsModel?,
       ),
 
-      AppRouters.events.path:
-      (context) => EventsScreen(viewModel: dependency()),
+  AppRouters.events.path: (context) => EventsScreen(viewModel: dependency()),
+  AppRouters.detailsEvent.path:
+      (context) => DetailsEventScreen(viewmodel: dependency()),
+
+      AppRouters.manegerEvents.path:
+      (context) => ManegerEventsScreen(viewmodel: dependency()),
 };
 
 enum AppRouters {
@@ -55,7 +61,7 @@ enum AppRouters {
   detailsNewsImage,
   manegerNews,
   events,
-  eventsDetails,
+  detailsEvent,
   manegerEvents;
 
   const AppRouters();

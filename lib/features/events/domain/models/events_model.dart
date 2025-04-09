@@ -79,4 +79,28 @@ class EventsModel {
 
     return start.toDateAt;
   }
+
+  EventsModel copyWith({
+    String? uid,
+    String? title,
+    String? description,
+    DateTime? start,
+    LocationModel? location,
+    DateTime? end,
+    String? image,
+    String? link,
+    CategoryPost? category,
+  }) {
+    return EventsModel(
+      uid: uid ?? this.uid,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      start: start ?? this.start,
+      location: location ?? this.location,
+      end: end ?? this.end,
+      image: image ?? this.image,
+      link: link ?? this.link,
+      category: category ?? this.category,
+    );
+  }
 }

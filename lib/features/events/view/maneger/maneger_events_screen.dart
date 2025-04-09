@@ -5,27 +5,27 @@ import 'package:ufersa_hub/core/strings/strings.dart';
 import 'package:ufersa_hub/core/utils/extension/bool.dart';
 import 'package:ufersa_hub/core/utils/extension/build_context.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
-import 'package:ufersa_hub/features/news/maneger/maneger_news_viewmodel.dart';
+import 'package:ufersa_hub/features/events/domain/models/events_model.dart';
+import 'package:ufersa_hub/features/events/view/maneger/maneger_events_view_model.dart';
 import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
-import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
 
-class CreateNewsScreen extends StatefulWidget {
-  const CreateNewsScreen({super.key, required this.viewmodel, this.news});
-  final ManegerNewsViewmodel viewmodel;
-  final NewsModel? news;
+class ManegerEventsScreen extends StatefulWidget {
+  const ManegerEventsScreen({super.key, required this.viewmodel, this.news});
+  final ManegerEventsViewmodel viewmodel;
+  final EventsModel? news;
 
   @override
-  State<CreateNewsScreen> createState() => _CreateNewsScreenState();
+  State<ManegerEventsScreen> createState() => _ManegerEventsScreenState();
 }
 
-class _CreateNewsScreenState extends State<CreateNewsScreen> {
-  late final ManegerNewsViewmodel viewmodel;
+class _ManegerEventsScreenState extends State<ManegerEventsScreen> {
+  late final ManegerEventsViewmodel viewmodel;
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   final ValueNotifier<CategoryPost> categoryNews = ValueNotifier(
     CategoryPost.other,
   );
-  NewsModel? get news => widget.news;
+  EventsModel? get event => widget.news;
   final form = GlobalKey<FormState>();
 
   @override
@@ -39,17 +39,17 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
 
   @override
   void didChangeDependencies() {
-    if (news != null) {
-      titleController.text = news!.title;
-      descriptionController.text = news!.description ?? '';
-      categoryNews.value = news!.categoryNews;
-      viewmodel.init(news!);
+    if (event != null) {
+      titleController.text = event!.title;
+      descriptionController.text = event!.description ?? '';
+      categoryNews.value = event!.category;
+      viewmodel.init(event!);
     }
     super.didChangeDependencies();
   }
 
   @override
-  void didUpdateWidget(covariant CreateNewsScreen oldWidget) {
+  void didUpdateWidget(covariant ManegerEventsScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     oldWidget.viewmodel.createNews.removeListener(_onResult);
     viewmodel.createNews.addListener(_onResult);
@@ -70,7 +70,9 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DSHeader(title: news != null ? editNewsString : createNewsString),
+      appBar: DSHeader(
+        title: event != null ? editEventString : createEventString,
+      ),
       body: Form(
         key: form,
         child: SingleChildScrollView(
@@ -126,40 +128,27 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
               ListenableBuilder(
                 listenable: viewmodel.updateListImages,
                 builder: (context, child) {
-                  if (viewmodel.images.isEmpty) return Container();
-                  return GridView.count(
-                    crossAxisCount: 2,
-                    shrinkWrap: true,
-                    crossAxisSpacing: DSSpacing.xs.value,
-                    mainAxisSpacing: DSSpacing.xs.value,
-                    childAspectRatio: 1.5,
+                  if (viewmodel.image != null) return Container();
 
-                    children:
-                        viewmodel.images.indexed
-                            .map(
-                              (e) => Container(
-                                padding: const EdgeInsets.all(8.0),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: DSColors.primary.shade800,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                alignment: Alignment.center,
-                                child: ListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  title: Image.file(e.$2),
-                                  trailing: DSIconButton(
-                                    onPressed: () {
-                                      viewmodel.removeImage(e.$1);
-                                    },
-                                    icon: DSIcons.trash_outline,
-                                    color: DSColors.error,
-                                  ),
-                                ),
-                              ),
-                            )
-                            .toList(),
+                  final image = viewmodel.image!;
+                  return Container(
+                    padding: const EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: DSColors.primary.shade800),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    alignment: Alignment.center,
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Image.file(image),
+                      trailing: DSIconButton(
+                        onPressed: () {
+                          viewmodel.removeImage( );
+                        },
+                        icon: DSIcons.trash_outline,
+                        color: DSColors.error,
+                      ),
+                    ),
                   );
                 },
               ),

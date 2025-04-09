@@ -1,3 +1,5 @@
+import 'package:design_system/design_system.dart';
+import 'package:flutter/material.dart';
 import 'package:ufersa_hub/core/router/app_router.dart';
 import 'package:ufersa_hub/core/strings/strings.dart';
 import 'package:ufersa_hub/core/utils/extension/build_context.dart';
@@ -7,9 +9,8 @@ import 'package:ufersa_hub/features/home/screen/home_view_model.dart';
 import 'package:ufersa_hub/features/home/utils/home_strings.dart';
 import 'package:ufersa_hub/features/news/filter/screen/filter_screen.dart';
 import 'package:ufersa_hub/features/news/filter/screen/filter_view_model.dart';
+import 'package:ufersa_hub/features/shared/components/button_add_item_widget.dart';
 import 'package:ufersa_hub/features/shared/components/news_app_bar.dart';
-import 'package:design_system/design_system.dart';
-import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.viewmodel});
@@ -114,25 +115,14 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: ListenableBuilder(
         listenable: viewmodel.authenticated,
         builder:
-            (context, child) =>
-                viewmodel.userAuthenticated
-                    ? Material(
-                      color: DSColors.transparent,
-                      borderRadius: BorderRadius.circular(DSSpacing.xs.value),
-                      elevation: 3,
-                      child: DSPrimaryButton(
-                        onPressed: () {
-                          context.go(AppRouters.manegerNews);
-                        },
-                        label: HomeStrings.addNews.label,
-                        trailingIcon: Icon(
-                          Icons.add,
-                          color: DSColors.neutralMediumWave,
-                          size: DSSpacing.lg.value,
-                        ),
-                      ),
-                    )
-                    : Container(),
+            (context, child) => ButtonAddItemWidget(
+              label: HomeStrings.addNews.label,
+
+              onPressed: () {
+                context.go(AppRouters.manegerNews);
+              },
+              isVisible: viewmodel.userAuthenticated,
+            ),
       ),
     );
   }

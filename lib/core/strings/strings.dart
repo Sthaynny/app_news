@@ -42,3 +42,6 @@ String get dateEventString => "Data do evento";
 String get filterNewsString => "Filtrar Noticias!";
 String get clearFilterString => "Limpar Filtros";
 String get filterString => "Filtrar";
+String get editEventString => "Editar Evento";
+String get createEventString => "Criar Evento"; 
+String get addEventString => "Adicionar Evento";
