@@ -6,7 +6,7 @@ import 'package:ufersa_hub/core/utils/extension/bool.dart';
 import 'package:ufersa_hub/core/utils/extension/build_context.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
 import 'package:ufersa_hub/features/news/maneger/maneger_news_viewmodel.dart';
-import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
+import 'package:ufersa_hub/features/shared/domain/enums/category_post.dart';
 import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
 
 class CreateNewsScreen extends StatefulWidget {

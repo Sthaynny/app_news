@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ufersa_hub/core/strings/strings.dart';
 import 'package:ufersa_hub/features/news/filter/screen/filter_view_model.dart';
 import 'package:ufersa_hub/features/shared/components/category_tile.dart';
-import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
+import 'package:ufersa_hub/features/shared/domain/enums/category_post.dart';
 
 class FilterScreen extends StatelessWidget {
   const FilterScreen({super.key, required this.viewModel});

@@ -14,15 +14,18 @@ class BodyErrorDefaultWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          DSSpacing.xl.y,
-          DSHeadlineLargeText(title),
-          DSSpacing.xl.y,
-          DSPrimaryButton(label: tenteNovamenteString, onPressed: onPressed),
-        ],
+      child: Padding(
+        padding: EdgeInsets.all(DSSpacing.md.value),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            DSSpacing.xl.y,
+            DSHeadlineLargeText(title, maxLines: 4),
+            DSSpacing.xl.y,
+            DSPrimaryButton(label: tenteNovamenteString, onPressed: onPressed),
+          ],
+        ),
       ),
     );
   }

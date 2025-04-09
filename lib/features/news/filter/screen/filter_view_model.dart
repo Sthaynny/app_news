@@ -1,7 +1,7 @@
 import 'package:ufersa_hub/core/utils/commands.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
 import 'package:ufersa_hub/features/news/filter/domain/models/filter_news_model.dart';
-import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
+import 'package:ufersa_hub/features/shared/domain/enums/category_post.dart';
 
 class FilterViewModel {
   FilterViewModel({FilterNewsModel? filter}) {

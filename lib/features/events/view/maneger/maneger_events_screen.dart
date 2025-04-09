@@ -8,7 +8,7 @@ import 'package:ufersa_hub/core/utils/result.dart';
 import 'package:ufersa_hub/core/utils/validators/validators.dart';
 import 'package:ufersa_hub/features/events/domain/models/events_model.dart';
 import 'package:ufersa_hub/features/events/view/maneger/maneger_events_view_model.dart';
-import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
+import 'package:ufersa_hub/features/shared/domain/enums/category_post.dart';
 
 class ManegerEventsScreen extends StatefulWidget {
   const ManegerEventsScreen({super.key, required this.viewmodel, this.event});

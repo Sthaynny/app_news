@@ -9,7 +9,7 @@ import 'package:ufersa_hub/core/utils/extension/file.dart';
 import 'package:ufersa_hub/core/utils/permission/premission_service.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
 import 'package:ufersa_hub/features/shared/news/data/repositories/news_repository.dart';
-import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
+import 'package:ufersa_hub/features/shared/domain/enums/category_post.dart';
 import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
 
 class ManegerNewsViewmodel {

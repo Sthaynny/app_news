@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:ufersa_hub/core/utils/extension/datetime.dart';
-import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
+import 'package:ufersa_hub/features/shared/domain/enums/category_post.dart';
 
 class EventsModel {
   final String uid;
