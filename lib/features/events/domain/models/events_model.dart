@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ufersa_hub/core/utils/extension/datetime.dart';
 import 'package:ufersa_hub/features/shared/models/location_model.dart';
 import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
@@ -43,20 +42,18 @@ class EventsModel {
   }
 
   factory EventsModel.fromMap(Map<String, dynamic> map) {
-    final Timestamp start = map['start'] as Timestamp;
-    final Timestamp? end = map['end'] as Timestamp?;
     return EventsModel(
       uid: map['uid'] as String,
       title: map['title'] as String,
       description: map['description'],
-      start: DateTime.fromMillisecondsSinceEpoch(start.millisecondsSinceEpoch),
+      start: DateTime.fromMillisecondsSinceEpoch(map['start']),
       location:
           map['location'] != null
               ? LocationModel.fromMap(map['location'])
               : null,
       end:
           map['end'] != null
-              ? DateTime.fromMillisecondsSinceEpoch(end!.millisecondsSinceEpoch)
+              ? DateTime.fromMillisecondsSinceEpoch(map['end'])
               : null,
       image: map['image'] != null ? map['image'] as String : null,
       link: map['link'] != null ? map['link'] as String : null,

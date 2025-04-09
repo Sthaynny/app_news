@@ -26,6 +26,7 @@ class _EventsScreenState extends State<EventsScreen> {
   void initState() {
     viewmodel = widget.viewModel;
     viewmodel.getEvents.execute();
+    viewmodel.authenticated.execute();
     super.initState();
   }
 
@@ -60,8 +61,11 @@ class _EventsScreenState extends State<EventsScreen> {
         builder:
             (context, child) => ButtonAddItemWidget(
               label: addEventString,
-              onPressed: () {
-                context.go(AppRouters.manegerEvents);
+              onPressed: () async {
+                final result = await context.go(AppRouters.manegerEvents);
+                if (result != null) {
+                  viewmodel.getEvents.execute();
+                }
               },
               isVisible: viewmodel.userAuthenticated,
             ),

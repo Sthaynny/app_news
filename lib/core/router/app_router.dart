@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:ufersa_hub/core/dependecy/dependency.dart';
+import 'package:ufersa_hub/features/events/domain/models/events_model.dart';
 import 'package:ufersa_hub/features/events/view/details/screen/details_event_screen.dart';
+import 'package:ufersa_hub/features/events/view/details/screen/details_event_view_model.dart';
 import 'package:ufersa_hub/features/events/view/maneger/maneger_events_screen.dart';
 import 'package:ufersa_hub/features/events/view/page/events_screen.dart';
 import 'package:ufersa_hub/features/home/screen/home_screen.dart';
@@ -48,9 +50,15 @@ final Map<String, Widget Function(BuildContext)> routes = {
 
   AppRouters.events.path: (context) => EventsScreen(viewModel: dependency()),
   AppRouters.detailsEvent.path:
-      (context) => DetailsEventScreen(viewmodel: dependency()),
+      (context) => DetailsEventScreen(
+        viewmodel: DetailsEventViewmodel(
+          repository: dependency(),
+          event: ModalRoute.of(context)?.settings.arguments as EventsModel,
+          authRepository: dependency(),
+        ),
+      ),
 
-      AppRouters.manegerEvents.path:
+  AppRouters.manegerEvents.path:
       (context) => ManegerEventsScreen(viewmodel: dependency()),
 };
 

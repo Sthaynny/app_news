@@ -10,24 +10,25 @@ import 'package:ufersa_hub/core/utils/permission/premission_service.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
 import 'package:ufersa_hub/features/events/data/repositories/events_repository.dart';
 import 'package:ufersa_hub/features/events/domain/models/events_model.dart';
-import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
 
 class ManegerEventsViewmodel {
   final EventsRepository _repository;
   final PermissionService _permissionService;
 
-  late final CommandAction<
-    void,
-    (String title, String description, CategoryPost category)
-  >
-  createNews;
+  late final CommandAction<void, EventsModel> manegerEvent;
   late final CommandBase<bool> getPermission;
-  late final CommandAction<void, Future Function()> updateListImages;
+  late final CommandAction<void, Future Function()> updateImage;
+  late final CommandAction<void, DateTime?> startDate;
+  late final CommandAction<void, DateTime?> endDate;
 
   File? _image;
   bool? isPermissionGranted;
   bool _isEdition = false;
   EventsModel? _eventUpdate;
+  DateTime? _startDate;
+  DateTime? get startDateEventSelected => _startDate;
+  DateTime? _endDate;
+  DateTime? get endDateSelected => _endDate;
 
   File? get image => _image;
 
@@ -36,10 +37,7 @@ class ManegerEventsViewmodel {
     required PermissionService permissionService,
   }) : _repository = repository,
        _permissionService = permissionService {
-    createNews = CommandAction<
-      void,
-      (String title, String description, CategoryPost category)
-    >(_manegerNews);
+    manegerEvent = CommandAction<void, EventsModel>(_manegerEvent);
 
     getPermission = CommandBase<bool>(() async {
       if (await _permissionService.isPermissionGranted(Permission.photos)) {
@@ -51,35 +49,30 @@ class ManegerEventsViewmodel {
         return Result.ok(isPermissionGranted);
       }
     });
-    updateListImages = CommandAction<void, Future Function()>((action) async {
+    updateImage = CommandAction<void, Future Function()>((action) async {
       await action();
+      return Result.ok();
+    });
+
+    startDate = CommandAction<void, DateTime?>((date) async {
+      _startDate = date;
+      return Result.ok();
+    });
+    endDate = CommandAction<void, DateTime?>((date) async {
+      _endDate = date;
       return Result.ok();
     });
   }
 
-  Future<Result<void>> _manegerNews(
-    (String title, String description, CategoryPost category) data,
-  ) async {
-    final (title, description, category) = data;
-
-    final model = EventsModel(
-      title: title,
-      description: description,
-      uid: '',
-      image: _image?.convertIntoBase64,
-
-      start: DateTime.now(),
-      category: category,
-    );
+  Future<Result<void>> _manegerEvent(EventsModel model) async {
     if (_isEdition) {
       return _repository.updateEvents(
-        _eventUpdate?.copyWith(
-              title: title,
-              description: description,
-              image: _image?.convertIntoBase64,
-              category: category,
-            ) ??
-            model,
+        model.copyWith(
+          uid: _eventUpdate?.uid ?? '',
+          start: _startDate,
+          end: _endDate,
+          image: _image?.convertIntoBase64,
+        ),
       );
     } else {
       return _repository.createEvents(model);
@@ -92,27 +85,30 @@ class ManegerEventsViewmodel {
   Future<void> openAppSettings() async =>
       await _permissionService.openSettings();
 
-  void init(EventsModel news) async {
-    _eventUpdate = news;
-    updateListImages.execute(() async {
+  void init(EventsModel event) async {
+    _eventUpdate = event;
+    _startDate = event.start;
+    _endDate = event.end;
+    updateImage.execute(() async {
       _image =
-          news.image != null
-              ? await news.image!.convertBase64ToFile(
+          event.image != null
+              ? await event.image!.convertBase64ToFile(
                 'image_${DateTime.now().millisecondsSinceEpoch}',
               )
               : null;
+
       _isEdition = true;
     });
   }
 
   void removeImage() {
-    updateListImages.execute(() async {
+    updateImage.execute(() async {
       _image = null;
     });
   }
 
   void addImage() {
-    updateListImages.execute(() async {
+    updateImage.execute(() async {
       try {
         final result = await ImagePicker().pickImage(
           source: ImageSource.gallery,

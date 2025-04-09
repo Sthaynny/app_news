@@ -43,6 +43,17 @@ String get filterNewsString => "Filtrar Noticias!";
 String get clearFilterString => "Limpar Filtros";
 String get filterString => "Filtrar";
 String get editEventString => "Editar Evento";
-String get createEventString => "Criar Evento"; 
+String get createEventString => "Criar Evento";
 String get addEventString => "Adicionar Evento";
-String get opsErrorLoadingEventsString => "Ops! Ocorreu uma instabilidade ao carregar os eventos.";
+String get opsErrorLoadingEventsString =>
+    "Ops! Ocorreu uma instabilidade ao carregar os eventos.";
+String get dateInvalidString => "Data Invalida!";
+String get startDateEventString => "Data de inicio do evento";
+String get startDateIsMandatoryString => "Data de inicio obrigatorio!";
+String get dateStartEventString => "Data de inicio do evento";
+String get enterWithDateString => "Digite a data";
+String get endDateEventString => "Data de fim do evento (Opcional)";
+String get localizationOpionalString => "Localização (Opcional)";
+String get localizationString => "Localização";
+String get detailsEnterLocalizationString =>
+    "A localização deve ser digitada no seguinte formato: Latitude, Longitude, \nExemplo: -23.561, -46.655";

@@ -14,3 +14,9 @@ class LocationModel {
     );
   }
 }
+
+
+
+extension LocationModelExt on LocationModel {
+  String get toLocalizationString => '$latitude,$longitude';
+}
