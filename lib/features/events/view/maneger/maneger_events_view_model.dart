@@ -25,6 +25,7 @@ class ManegerEventsViewmodel {
   bool? isPermissionGranted;
   bool _isEdition = false;
   EventsModel? _eventUpdate;
+  EventsModel? get eventUpdate => _eventUpdate;
   DateTime? _startDate;
   DateTime? get startDateEventSelected => _startDate;
   DateTime? _endDate;
@@ -66,14 +67,14 @@ class ManegerEventsViewmodel {
 
   Future<Result<void>> _manegerEvent(EventsModel model) async {
     if (_isEdition) {
-      return _repository.updateEvents(
-        model.copyWith(
-          uid: _eventUpdate?.uid ?? '',
-          start: _startDate,
-          end: _endDate,
-          image: _image?.convertIntoBase64,
-        ),
+      final event = model.copyWith(
+        uid: _eventUpdate?.uid ?? '',
+        start: _startDate,
+        end: _endDate,
+        image: _image?.convertIntoBase64,
       );
+      _eventUpdate = event;
+      return _repository.updateEvents(event);
     } else {
       return _repository.createEvents(model);
     }
@@ -89,6 +90,7 @@ class ManegerEventsViewmodel {
     _eventUpdate = event;
     _startDate = event.start;
     _endDate = event.end;
+
     updateImage.execute(() async {
       _image =
           event.image != null

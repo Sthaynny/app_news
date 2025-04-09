@@ -24,6 +24,7 @@ class DetailsEventViewmodel {
   late final CommandBase authenticated;
 
   late EventsModel _event;
+
   bool isAuthenticated = false;
   final EventsRepository _repository;
   EventsModel get event => _event;

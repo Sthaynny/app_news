@@ -59,7 +59,10 @@ final Map<String, Widget Function(BuildContext)> routes = {
       ),
 
   AppRouters.manegerEvents.path:
-      (context) => ManegerEventsScreen(viewmodel: dependency()),
+      (context) => ManegerEventsScreen(
+        viewmodel: dependency(),
+        event: ModalRoute.of(context)?.settings.arguments as EventsModel?,
+      ),
 };
 
 enum AppRouters {

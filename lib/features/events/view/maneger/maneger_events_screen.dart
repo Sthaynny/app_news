@@ -13,9 +13,9 @@ import 'package:ufersa_hub/features/shared/models/location_model.dart';
 import 'package:ufersa_hub/features/shared/news/domain/enums/category_post.dart';
 
 class ManegerEventsScreen extends StatefulWidget {
-  const ManegerEventsScreen({super.key, required this.viewmodel, this.news});
+  const ManegerEventsScreen({super.key, required this.viewmodel, this.event});
   final ManegerEventsViewmodel viewmodel;
-  final EventsModel? news;
+  final EventsModel? event;
 
   @override
   State<ManegerEventsScreen> createState() => _ManegerEventsScreenState();
@@ -31,7 +31,7 @@ class _ManegerEventsScreenState extends State<ManegerEventsScreen> {
   final ValueNotifier<CategoryPost> categoryNotifier = ValueNotifier(
     CategoryPost.other,
   );
-  EventsModel? get event => widget.news;
+  EventsModel? get event => widget.event;
   final form = GlobalKey<FormState>();
 
   @override
@@ -49,8 +49,8 @@ class _ManegerEventsScreenState extends State<ManegerEventsScreen> {
       titleController.text = event!.title;
       descriptionController.text = event!.description ?? '';
       categoryNotifier.value = event!.category;
-      startDateController.text = event!.start.toFormatPtBr;
-      endDateController.text = event!.end?.toFormatPtBr ?? '';
+      startDateController.text = event!.start.toDateAt;
+      endDateController.text = event!.end?.toDateAt ?? '';
       localizationController.text = event?.location?.toLocalizationString ?? '';
       viewmodel.init(event!);
     }
@@ -178,6 +178,7 @@ class _ManegerEventsScreenState extends State<ManegerEventsScreen> {
                     height: DSSpacing.xxxl.value,
                     child: DSSecondaryButton(
                       autoSize: false,
+                      isEnabled: viewmodel.image == null,
                       isLoading: viewmodel.updateImage.running,
                       trailingIcon: Icon(
                         DSIcons.add_solid.data,
@@ -301,7 +302,7 @@ class _ManegerEventsScreenState extends State<ManegerEventsScreen> {
   void _onResult() {
     if (viewmodel.manegerEvent.completed) {
       viewmodel.manegerEvent.clearResult();
-      context.back(true);
+      context.back(viewmodel.eventUpdate);
     }
 
     if (viewmodel.manegerEvent.error) {

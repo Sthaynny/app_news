@@ -15,8 +15,9 @@ class LocationModel {
   }
 }
 
-
-
 extension LocationModelExt on LocationModel {
   String get toLocalizationString => '$latitude,$longitude';
+
+  String get googleMapslocationUrl =>
+      "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude";
 }

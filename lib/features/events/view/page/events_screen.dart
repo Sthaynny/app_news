@@ -48,10 +48,24 @@ class _EventsScreenState extends State<EventsScreen> {
           }
           final events = viewmodel.getEvents.result?.value as List<EventsModel>;
 
-          return SingleChildScrollView(
-            padding: EdgeInsets.all(DSSpacing.md.value),
-            child: Column(
-              children: events.map((e) => CardEventWidget(event: e)).toList(),
+          return RefreshIndicator(
+            onRefresh: () async {
+              viewmodel.getEvents.clearResult();
+              viewmodel.getEvents.execute();
+            },
+            child: ListView(
+              padding: EdgeInsets.all(DSSpacing.md.value),
+              children:
+                  events
+                      .map(
+                        (e) => CardEventWidget(
+                          event: e,
+                          updateScreen: () {
+                            viewmodel.getEvents.execute();
+                          },
+                        ),
+                      )
+                      .toList(),
             ),
           );
         },

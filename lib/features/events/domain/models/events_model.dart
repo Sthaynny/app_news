@@ -30,7 +30,7 @@ class EventsModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'uid': uid,
+      if (uid.isNotEmpty) 'uid': uid,
       'title': title,
       if (description != null) 'description': description,
       'start': start.millisecondsSinceEpoch,

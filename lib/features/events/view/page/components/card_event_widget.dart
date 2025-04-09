@@ -8,15 +8,35 @@ import 'package:ufersa_hub/features/events/domain/models/events_model.dart';
 import 'package:ufersa_hub/features/shared/components/image_widget.dart';
 
 class CardEventWidget extends StatelessWidget {
-  const CardEventWidget({super.key, required this.event});
+  const CardEventWidget({
+    super.key,
+    required this.event,
+    required this.updateScreen,
+  });
   final EventsModel event;
+  final VoidCallback updateScreen;
+
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        onTap: () => context.go(AppRouters.detailsEvent, arguments: event),
+        onTap: () async {
+          final result = await context.go(
+            AppRouters.detailsEvent,
+            arguments: event,
+          );
+          if (result != null) {
+            updateScreen();
+          }
+        },
         leading:
-            event.image != null ? ImageWidget(imageBase64: event.image!) : null,
+            event.image != null
+                ? SizedBox(
+                  height: 50,
+                  width: 50,
+                  child: ImageWidget(imageBase64: event.image!, height: 50),
+                )
+                : null,
         title: DSHeadlineSmallText(event.title),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,6 +58,7 @@ class CardEventWidget extends StatelessWidget {
               ),
 
               fontWeight: FontWeight.bold,
+              maxLines: 3,
             ),
           ],
         ),

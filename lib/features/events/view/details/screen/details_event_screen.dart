@@ -22,6 +22,7 @@ class _DetailsEventScreenState extends State<DetailsEventScreen> {
   void initState() {
     viewmodel = widget.viewmodel;
     viewmodel.deleteEvent.addListener(_onResultDelete);
+    viewmodel.authenticated.execute();
     super.initState();
   }
 
@@ -44,33 +45,45 @@ class _DetailsEventScreenState extends State<DetailsEventScreen> {
       appBar: DSHeader(
         title: detailsEventString,
         canPop: true,
-        actions:
-            viewmodel.isAuthenticated
-                ? [
-                  DSIconButton(
-                    key: Key('edit_button'),
-                    onPressed: () async {
-                      final result = await context.go(
-                        AppRouters.manegerNews,
-                        arguments: viewmodel.event,
-                      );
-                      if (result != null) {
-                        viewmodel.updateScreen.execute(result);
-                      }
-                    },
-                    icon: DSIcons.edit_outline,
-                    color: DSColors.primary.shade600,
-                  ),
-                  DSIconButton(
-                    key: Key('delete_button'),
-                    onPressed: () {
-                      viewmodel.deleteEvent.execute(viewmodel.event.uid);
-                    },
-                    icon: DSIcons.trash_outline,
-                    color: DSColors.error,
-                  ),
-                ]
-                : null,
+        actions: [
+          ListenableBuilder(
+            listenable: viewmodel.authenticated,
+            builder:
+                (context, child) =>
+                    viewmodel.isAuthenticated
+                        ? DSIconButton(
+                          key: Key('edit_button'),
+                          onPressed: () async {
+                            final result = await context.go(
+                              AppRouters.manegerEvents,
+                              arguments: viewmodel.event,
+                            );
+                            if (result != null) {
+                              viewmodel.updateScreen.execute(result);
+                            }
+                          },
+                          icon: DSIcons.edit_outline,
+                          color: DSColors.primary.shade600,
+                        )
+                        : SizedBox(),
+          ),
+
+          ListenableBuilder(
+            listenable: viewmodel.authenticated,
+            builder:
+                (context, child) =>
+                    viewmodel.isAuthenticated
+                        ? DSIconButton(
+                          key: Key('delete_button'),
+                          onPressed: () {
+                            viewmodel.deleteEvent.execute(viewmodel.event.uid);
+                          },
+                          icon: DSIcons.trash_outline,
+                          color: DSColors.error,
+                        )
+                        : SizedBox(),
+          ),
+        ],
       ),
       body: ListenableBuilder(
         listenable: widget.viewmodel.updateScreen,
