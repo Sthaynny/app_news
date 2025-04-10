@@ -23,6 +23,7 @@ class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
   void initState() {
     viewmodel = widget.viewmodel;
     viewmodel.deleteNews.addListener(_onResultDelete);
+    viewmodel.authenticate.execute();
     super.initState();
   }
 
@@ -47,33 +48,45 @@ class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
       appBar: DSHeader(
         title: detailsNewsString,
         canPop: true,
-        actions:
-            viewmodel.isAuthenticated
-                ? [
-                  DSIconButton(
-                    key: Key('edit_button'),
-                    onPressed: () async {
-                      final result = await context.go(
-                        AppRouters.manegerNews,
-                        arguments: viewmodel.news,
-                      );
-                      if (result != null) {
-                        viewmodel.updateScreen.execute(result);
-                      }
-                    },
-                    icon: DSIcons.edit_outline,
-                    color: DSColors.primary.shade600,
-                  ),
-                  DSIconButton(
-                    key: Key('delete_button'),
-                    onPressed: () {
-                      viewmodel.deleteNews.execute(viewmodel.news.uid);
-                    },
-                    icon: DSIcons.trash_outline,
-                    color: DSColors.error,
-                  ),
-                ]
-                : null,
+        actions: [
+          ListenableBuilder(
+            listenable: viewmodel.authenticate,
+            builder:
+                (context, child) =>
+                    viewmodel.isAuthenticated
+                        ? DSIconButton(
+                          key: Key('edit_button'),
+                          onPressed: () async {
+                            final result = await context.go(
+                              AppRouters.manegerNews,
+                              arguments: viewmodel.news,
+                            );
+                            if (result != null) {
+                              viewmodel.updateScreen.execute(result);
+                            }
+                          },
+                          icon: DSIcons.edit_outline,
+                          color: DSColors.primary.shade600,
+                        )
+                        : SizedBox(),
+          ),
+
+          ListenableBuilder(
+            listenable: viewmodel.authenticate,
+            builder:
+                (context, child) =>
+                    viewmodel.isAuthenticated
+                        ? DSIconButton(
+                          key: Key('delete_button'),
+                          onPressed: () {
+                            viewmodel.deleteNews.execute(viewmodel.news.uid);
+                          },
+                          icon: DSIcons.trash_outline,
+                          color: DSColors.error,
+                        )
+                        : SizedBox(),
+          ),
+        ],
       ),
       body: ListenableBuilder(
         listenable: widget.viewmodel.updateScreen,
@@ -101,6 +114,14 @@ class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
                 ),
               DSSpacing.xs.y,
               DSHeadlineLargeText(viewmodel.news.title),
+              DSSpacing.xs.y,
+              DSCaptionSmallText(
+                viewmodel.news.publishedAt.toPublishedAt,
+                fontWeight: FontWeight.bold,
+                color: DSColors.secundary,
+              ),
+
+              DSSpacing.lg.y,
               DSBodyText(
                 viewmodel.news.description,
                 overflow: null,
@@ -124,13 +145,16 @@ class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
                 ),
               ],
               DSSpacing.md.y,
-              CategoryTile(category: viewmodel.news.categoryNews),
-              DSSpacing.xl.y,
-              DSCaptionSmallText(
-                viewmodel.news.publishedAt.toPublishedAt,
+              DSCaptionText(
+                categoryString.addSuffixColon,
                 fontWeight: FontWeight.bold,
-                color: DSColors.secundary,
               ),
+              DSSpacing.xxs.y,
+              Align(
+                alignment: Alignment.centerLeft,
+                child: CategoryTile(category: viewmodel.news.categoryNews),
+              ),
+              DSSpacing.xl.y,
             ],
           );
         },

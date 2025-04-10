@@ -26,14 +26,15 @@ final Map<String, Widget Function(BuildContext)> routes = {
         ),
       ),
   AppRouters.login.path: (context) => LoginScreen(viewmodel: dependency()),
-  AppRouters.forgoutPassword.path: (context) => ForgoutPasswordScreen(viewmodel: dependency()),
+  AppRouters.forgoutPassword.path:
+      (context) => ForgoutPasswordScreen(viewmodel: dependency()),
   AppRouters.detailsNews.path: (context) {
     final args = ModalRoute.of(context)?.settings.arguments as NewsArgs;
     return DetailsNewsScreen(
       viewmodel: DetailsNewsViewmodel(
         news: args.news,
-        isAuthenticated: args.isAuthenticated,
         repository: dependency(),
+        authRepository: dependency(),
       ),
     );
   },
