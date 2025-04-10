@@ -48,33 +48,45 @@ class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
       appBar: DSHeader(
         title: detailsNewsString,
         canPop: true,
-        actions:
-            viewmodel.isAuthenticated
-                ? [
-                  DSIconButton(
-                    key: Key('edit_button'),
-                    onPressed: () async {
-                      final result = await context.go(
-                        AppRouters.manegerNews,
-                        arguments: viewmodel.news,
-                      );
-                      if (result != null) {
-                        viewmodel.updateScreen.execute(result);
-                      }
-                    },
-                    icon: DSIcons.edit_outline,
-                    color: DSColors.primary.shade600,
-                  ),
-                  DSIconButton(
-                    key: Key('delete_button'),
-                    onPressed: () {
-                      viewmodel.deleteNews.execute(viewmodel.news.uid);
-                    },
-                    icon: DSIcons.trash_outline,
-                    color: DSColors.error,
-                  ),
-                ]
-                : null,
+        actions: [
+          ListenableBuilder(
+            listenable: viewmodel.authenticate,
+            builder:
+                (context, child) =>
+                    viewmodel.isAuthenticated
+                        ? DSIconButton(
+                          key: Key('edit_button'),
+                          onPressed: () async {
+                            final result = await context.go(
+                              AppRouters.manegerNews,
+                              arguments: viewmodel.news,
+                            );
+                            if (result != null) {
+                              viewmodel.updateScreen.execute(result);
+                            }
+                          },
+                          icon: DSIcons.edit_outline,
+                          color: DSColors.primary.shade600,
+                        )
+                        : SizedBox(),
+          ),
+
+          ListenableBuilder(
+            listenable: viewmodel.authenticate,
+            builder:
+                (context, child) =>
+                    viewmodel.isAuthenticated
+                        ? DSIconButton(
+                          key: Key('delete_button'),
+                          onPressed: () {
+                            viewmodel.deleteNews.execute(viewmodel.news.uid);
+                          },
+                          icon: DSIcons.trash_outline,
+                          color: DSColors.error,
+                        )
+                        : SizedBox(),
+          ),
+        ],
       ),
       body: ListenableBuilder(
         listenable: widget.viewmodel.updateScreen,
