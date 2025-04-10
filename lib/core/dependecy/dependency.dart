@@ -5,6 +5,7 @@ import 'package:ufersa_hub/features/events/data/repositories/events_repository_r
 import 'package:ufersa_hub/features/events/data/services/events_service.dart';
 import 'package:ufersa_hub/features/events/view/maneger/maneger_events_view_model.dart';
 import 'package:ufersa_hub/features/events/view/page/events_view_model.dart';
+import 'package:ufersa_hub/features/login/password/forgout_password_viewmodel.dart';
 import 'package:ufersa_hub/features/login/screen/login_viewmodel.dart';
 import 'package:ufersa_hub/features/shared/auth/data/repositories/auth_repository.dart';
 import 'package:ufersa_hub/features/shared/auth/data/repositories/auth_repository_remote.dart';
@@ -21,6 +22,9 @@ void setup() {
     () => AuthRepositoryRemote(service: dependency()),
   );
   dependency.registerFactory(() => LoginViewModel(repository: dependency()));
+  dependency.registerFactory(
+    () => ForgoutPasswordViewmodel(authRepository: dependency()),
+  );
 
   dependency.registerFactory<NewsService>(NewsService.new);
 

@@ -1,6 +1,6 @@
-import 'package:ufersa_hub/features/shared/auth/domain/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logging/logging.dart';
+import 'package:ufersa_hub/features/shared/auth/domain/models/user_model.dart';
 
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -58,6 +58,14 @@ class AuthService {
     } catch (e) {
       _log.warning('Error getting current user: $e');
       return null;
+    }
+  }
+
+  Future<void> fourgoutPassword(String email) async {
+    try {
+      return await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      _log.warning('Error getting current user: $e');
     }
   }
 }

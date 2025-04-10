@@ -40,4 +40,16 @@ class AuthRepositoryRemote extends AuthRepository {
       return Result.errorDefault(e.toString());
     }
   }
+
+  @override
+  Future<Result<void>> fourgoutPassword(String email) async {
+    try {
+      await _service.fourgoutPassword(email);
+      return Result.ok();
+    } on Exception catch (e) {
+      return Result.error(e);
+    } catch (e) {
+      return Result.errorDefault(e.toString());
+    }
+  }
 }

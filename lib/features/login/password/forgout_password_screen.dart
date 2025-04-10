@@ -1,44 +1,41 @@
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
-import 'package:ufersa_hub/core/router/app_router.dart';
 import 'package:ufersa_hub/core/strings/strings.dart';
 import 'package:ufersa_hub/core/utils/extension/build_context.dart';
-import 'package:ufersa_hub/features/login/screen/login_viewmodel.dart';
-import 'package:ufersa_hub/features/shared/components/app_icon.dart';
+import 'package:ufersa_hub/core/utils/result.dart';
+import 'package:ufersa_hub/features/login/password/forgout_password_viewmodel.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key, required this.viewmodel});
-  final LoginViewModel viewmodel;
+class ForgoutPasswordScreen extends StatefulWidget {
+  const ForgoutPasswordScreen({super.key, required this.viewmodel});
+  final ForgoutPasswordViewmodel viewmodel;
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<ForgoutPasswordScreen> createState() => _ForgoutPasswordScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _ForgoutPasswordScreenState extends State<ForgoutPasswordScreen> {
   final form = GlobalKey<FormState>();
   final emailController = TextEditingController();
-  final passwordController = TextEditingController();
 
-  late final LoginViewModel viewmodel;
+  late final ForgoutPasswordViewmodel viewmodel;
   @override
   void initState() {
     super.initState();
     viewmodel = widget.viewmodel;
-    viewmodel.login.addListener(_onResult);
+    viewmodel.forgoutPassword.addListener(_onResult);
   }
 
   @override
-  void didUpdateWidget(covariant LoginScreen oldWidget) {
+  void didUpdateWidget(covariant ForgoutPasswordScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
-    oldWidget.viewmodel.login.removeListener(_onResult);
-    viewmodel.login.addListener(_onResult);
+    oldWidget.viewmodel.forgoutPassword.removeListener(_onResult);
+    viewmodel.forgoutPassword.addListener(_onResult);
   }
 
   @override
   void dispose() {
-    viewmodel.login.removeListener(_onResult);
+    viewmodel.forgoutPassword.removeListener(_onResult);
     emailController.dispose();
-    passwordController.dispose();
     super.dispose();
   }
 
@@ -57,8 +54,8 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             SingleChildScrollView(
               child: ListenableBuilder(
-                listenable: viewmodel.login,
-                builder: (__, _) {
+                listenable: viewmodel.forgoutPassword,
+                builder: (context, _) {
                   return Container(
                     padding: EdgeInsets.all(DSSpacing.md.value),
                     margin: EdgeInsets.all(DSSpacing.md.value),
@@ -75,54 +72,27 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: BackButton(color: DSColors.primary),
                           ),
                           DSSpacing.md.y,
-                          AppIcon.hub(scale: 5),
-                          DSSpacing.md.y,
                           DSTextFormField(
                             controller: emailController,
                             hint: emailString,
                             textInputType: TextInputType.emailAddress,
-                            isEnabled: !viewmodel.login.running,
+                            isEnabled: !viewmodel.forgoutPassword.running,
                             validator: (value) {
                               return DSValidators().email(value);
                             },
                           ),
-                          DSSpacing.md.y,
-                          DSTextFormField(
-                            controller: passwordController,
-                            hint: passwordString,
-                            obscureText: true,
-                            isEnabled: !viewmodel.login.running,
-                          ),
-                          DSSpacing.lg.y,
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: DSTertiaryButton(
-                              onPressed: () async {
-                                final result = await context.go(
-                                  AppRouters.forgoutPassword,
-                                );
-                                if (result != null) {
-                                  // ignore: use_build_context_synchronously
-                                  context.showSnackBarSuccess(
-                                    forgotPasswordSuccessString,
-                                  );
-                                }
-                              },
-                              label: forgotPasswordString,
-                            ),
-                          ),
+
                           DSSpacing.md.y,
                           ConstrainedBox(
                             constraints: BoxConstraints(maxHeight: 48.0),
                             child: DSPrimaryButton(
-                              label: loginString,
-                              isLoading: viewmodel.login.running,
+                              label: redefinePasswordString,
+                              isLoading: viewmodel.forgoutPassword.running,
                               onPressed: () {
                                 if (form.currentState!.validate()) {
-                                  viewmodel.login.execute((
+                                  viewmodel.forgoutPassword.execute(
                                     emailController.text,
-                                    passwordController.text,
-                                  ));
+                                  );
                                 }
                               },
                             ),
@@ -141,14 +111,15 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onResult() {
-    if (viewmodel.login.completed) {
-      viewmodel.login.clearResult();
-      context.go(AppRouters.home);
+    if (viewmodel.forgoutPassword.error) {
+      viewmodel.forgoutPassword.clearResult();
+      context.showSnackBarError(errorForgoutPasswordString);
+      return;
     }
-
-    if (viewmodel.login.error) {
-      viewmodel.login.clearResult();
-      context.showSnackBarError(credenciaisInvalidasString);
+    if (viewmodel.forgoutPassword.completed &&
+        (viewmodel.forgoutPassword.result?.isOk ?? false)) {
+      viewmodel.forgoutPassword.clearResult();
+      context.back(true);
     }
   }
 }

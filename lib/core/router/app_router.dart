@@ -7,6 +7,7 @@ import 'package:ufersa_hub/features/events/view/maneger/maneger_events_screen.da
 import 'package:ufersa_hub/features/events/view/page/events_screen.dart';
 import 'package:ufersa_hub/features/home/screen/home_screen.dart';
 import 'package:ufersa_hub/features/home/screen/home_view_model.dart';
+import 'package:ufersa_hub/features/login/password/forgout_password_screen.dart';
 import 'package:ufersa_hub/features/login/screen/login_screen.dart';
 import 'package:ufersa_hub/features/news/args/news_args.dart';
 import 'package:ufersa_hub/features/news/details/screen/details_image_screen.dart';
@@ -25,6 +26,7 @@ final Map<String, Widget Function(BuildContext)> routes = {
         ),
       ),
   AppRouters.login.path: (context) => LoginScreen(viewmodel: dependency()),
+  AppRouters.forgoutPassword.path: (context) => ForgoutPasswordScreen(viewmodel: dependency()),
   AppRouters.detailsNews.path: (context) {
     final args = ModalRoute.of(context)?.settings.arguments as NewsArgs;
     return DetailsNewsScreen(
@@ -67,6 +69,7 @@ final Map<String, Widget Function(BuildContext)> routes = {
 
 enum AppRouters {
   login,
+  forgoutPassword,
   home,
   detailsNews,
   detailsNewsImage,

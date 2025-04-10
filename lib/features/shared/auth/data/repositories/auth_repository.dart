@@ -12,4 +12,6 @@ abstract class AuthRepository {
 
   /// Perform logout
   Future<Result<void>> logout();
+
+  Future<Result<void>> fourgoutPassword(String email);
 }
