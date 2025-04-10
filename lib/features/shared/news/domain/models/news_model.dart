@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ufersa_hub/features/shared/domain/enums/category_post.dart';
+import 'package:ufersa_hub/features/shared/domain/enums/course_hub.dart';
 
 class NewsModel {
   final String uid;
@@ -9,6 +8,7 @@ class NewsModel {
   final String? description;
   final List<String> images;
   final CategoryPost categoryNews;
+  final CourseHub? course;
   final DateTime publishedAt;
 
   Map<String, dynamic> toMap() {
@@ -19,6 +19,7 @@ class NewsModel {
       'images': images,
       'publishedAt': publishedAt,
       'category': categoryNews.name,
+      if (course != null) 'course': course!.name,
     };
   }
 
@@ -36,19 +37,21 @@ class NewsModel {
       publishedAt: DateTime.fromMillisecondsSinceEpoch(
         timestamp.millisecondsSinceEpoch,
       ),
+      course:
+          map['course'] != null
+              ? CourseHub.values.firstWhere(
+                (element) => element.name == map['course'],
+              )
+              : null,
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory NewsModel.fromJson(String source) =>
-      NewsModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   NewsModel({
     required this.uid,
     required this.title,
-    required this.description,
+    this.description,
     required this.images,
+    this.course,
     required this.publishedAt,
     required this.categoryNews,
   });

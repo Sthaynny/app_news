@@ -1,7 +1,5 @@
-import 'dart:convert';
-
-import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
 
 import '../../../mock/model_mock.dart';
 
@@ -10,21 +8,10 @@ void main() {
     expect(tInstanceNewsModel, isA<NewsModel>());
   });
 
-  test('Deve retornar um modelo valido(Json)', () {
-    final result = NewsModel.fromJson(jsonEncode(tMapNewsModel));
-
-    expect(result, isA<NewsModel>());
-  });
-
   test('Deve retornar um modelo valido(Map)', () {
     final result = NewsModel.fromMap(tMapNewsModel);
 
     expect(result, isA<NewsModel>());
-  });
-  test('Deve retornar um Json', () {
-    final result = tInstanceNewsModel.toJson();
-
-    expect(result, jsonEncode(tInstanceNewsModel.toMap()));
   });
 
   test('Deve retornar um Map', () {
