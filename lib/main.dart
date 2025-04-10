@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:design_system/design_system.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
 import 'package:ufersa_hub/core/dependecy/dependency.dart';
 import 'package:ufersa_hub/core/router/app_router.dart';
 
@@ -18,7 +18,7 @@ void main() {
       runApp(const MyApp());
     },
     (error, stackTrace) {
-      log('runZonedGuarded: Caught error in my root zone.');
+      Logger('main').severe(error, stackTrace);
     },
   );
 }
