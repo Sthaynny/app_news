@@ -1,9 +1,9 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
 import 'package:ufersa_hub/features/news/details/screen/details_news_viewmodel.dart';
 import 'package:ufersa_hub/features/shared/auth/data/repositories/auth_repository.dart';
 import 'package:ufersa_hub/features/shared/news/data/repositories/news_repository.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 
 import '../../mock/model_mock.dart';
 
@@ -19,7 +19,7 @@ void main() {
     viewModel = DetailsNewsViewmodel(
       repository: newsRepo,
       news: tInstanceNewsModel,
-      isAuthenticated: true,
+      authRepository: MockRepoAuth(),
     );
   });
 
