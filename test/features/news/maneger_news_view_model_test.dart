@@ -1,10 +1,11 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:ufersa_hub/core/utils/permission/premission_service.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
 import 'package:ufersa_hub/features/news/maneger/maneger_news_viewmodel.dart';
 import 'package:ufersa_hub/features/shared/news/data/repositories/news_repository.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
 
 import '../../mock/model_mock.dart';
 
@@ -73,11 +74,16 @@ void main() {
 
         expect(viewModel.createNews.completed, false);
 
-        await viewModel.createNews.execute((
-          tInstanceNewsModel.title,
-          tInstanceNewsModel.description ?? '',
-          tInstanceNewsModel.categoryNews,
-        ));
+        await viewModel.createNews.execute(
+          NewsModel(
+            title: tInstanceNewsModel.title,
+            description: tInstanceNewsModel.description ?? '',
+            categoryNews: tInstanceNewsModel.categoryNews,
+            images: [],
+            uid: '',
+            publishedAt: DateTime.now(),
+          ),
+        );
 
         expect(viewModel.createNews.completed, true);
         expect(viewModel.createNews.result?.isOk, true);
@@ -87,11 +93,16 @@ void main() {
           () => newsRepo.createNews(any()),
         ).thenAnswer((_) async => Result.errorDefault(''));
 
-        await viewModel.createNews.execute((
-          tInstanceNewsModel.title,
-          tInstanceNewsModel.description ?? '',
-          tInstanceNewsModel.categoryNews,
-        ));
+        await viewModel.createNews.execute(
+          NewsModel(
+            title: tInstanceNewsModel.title,
+            description: tInstanceNewsModel.description ?? '',
+            categoryNews: tInstanceNewsModel.categoryNews,
+            images: [],
+            uid: '',
+            publishedAt: DateTime.now(),
+          ),
+        );
 
         expect(viewModel.createNews.error, isTrue);
       });

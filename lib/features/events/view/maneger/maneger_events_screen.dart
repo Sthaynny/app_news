@@ -123,8 +123,7 @@ class _ManegerEventsScreenState extends State<ManegerEventsScreen> {
                       borderRadius: BorderRadius.circular(12),
                       icon: Icon(DSIcons.arrow_down_outline.data),
                       items:
-                          CategoryPost.values
-                              .where((e) => e != CategoryPost.all)
+                          CategoryPost.values 
                               .map(
                                 (e) => DropdownMenuItem(
                                   value: e,

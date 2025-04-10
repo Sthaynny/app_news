@@ -7,6 +7,7 @@ import 'package:ufersa_hub/core/utils/extension/build_context.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
 import 'package:ufersa_hub/features/news/maneger/maneger_news_viewmodel.dart';
 import 'package:ufersa_hub/features/shared/domain/enums/category_post.dart';
+import 'package:ufersa_hub/features/shared/domain/enums/course_hub.dart';
 import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
 
 class CreateNewsScreen extends StatefulWidget {
@@ -22,9 +23,10 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
   late final ManegerNewsViewmodel viewmodel;
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
-  final ValueNotifier<CategoryPost> categoryNews = ValueNotifier(
+  final ValueNotifier<CategoryPost> categoryNotifier = ValueNotifier(
     CategoryPost.other,
   );
+  final ValueNotifier<CourseHub?> courseNotifier = ValueNotifier(null);
   NewsModel? get news => widget.news;
   final form = GlobalKey<FormState>();
 
@@ -42,7 +44,8 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
     if (news != null) {
       titleController.text = news!.title;
       descriptionController.text = news!.description ?? '';
-      categoryNews.value = news!.categoryNews;
+      categoryNotifier.value = news!.categoryNews;
+      courseNotifier.value = news!.course;
       viewmodel.init(news!);
     }
     super.didChangeDependencies();
@@ -63,7 +66,8 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
     viewmodel.getPermission.removeListener(_onResultPermission);
     descriptionController.dispose();
     titleController.dispose();
-    categoryNews.dispose();
+    categoryNotifier.dispose();
+    courseNotifier.dispose();
     super.dispose();
   }
 
@@ -78,7 +82,9 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              DSSpacing.md.y,
+              DSSpacing.xs.y,
+              DSHeadlineSmallText(titleString),
+              DSSpacing.xs.y,
               DSTextFormField(
                 controller: titleController,
                 hint: titleString,
@@ -86,20 +92,22 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
                     (value) =>
                         value?.isEmpty ?? false ? mandatoryTitleString : null,
               ),
-              DSSpacing.md.y,
+              DSSpacing.xs.y,
               DSHeadlineSmallText(descriptionString),
               DSTextField(
                 controller: descriptionController,
                 hint: descriptionString,
                 // maxLines: 15,
               ),
-              DSSpacing.md.y,
+              DSSpacing.xs.y,
+              DSHeadlineSmallText(categoriesString),
+              DSSpacing.xs.y,
               ValueListenableBuilder(
-                valueListenable: categoryNews,
+                valueListenable: categoryNotifier,
                 builder: (_, value, __) {
                   return DSInputContainer(
                     padding: EdgeInsets.symmetric(
-                      horizontal: DSSpacing.md.value,
+                      horizontal: DSSpacing.xs.value,
                     ),
                     child: DropdownButton<CategoryPost>(
                       underline: const SizedBox.shrink(),
@@ -115,13 +123,13 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
                                 ),
                               )
                               .toList(),
-                      onChanged: (value) => categoryNews.value = value!,
+                      onChanged: (value) => categoryNotifier.value = value!,
                       value: value,
                     ),
                   );
                 },
               ),
-              DSSpacing.md.y,
+              DSSpacing.xs.y,
               DSHeadlineSmallText(imagesString),
               ListenableBuilder(
                 listenable: viewmodel.updateListImages,
@@ -163,8 +171,7 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
                   );
                 },
               ),
-              DSSpacing.md.y,
-
+              DSSpacing.xs.y,
               ListenableBuilder(
                 listenable: viewmodel.updateListImages,
                 builder: (context, child) {
@@ -189,18 +196,55 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
                   );
                 },
               ),
-              DSSpacing.md.y,
+              DSSpacing.xs.y,
+              DSHeadlineSmallText(courseString),
+              DSSpacing.xs.y,
+              ValueListenableBuilder(
+                valueListenable: courseNotifier,
+                builder: (_, value, __) {
+                  return DSInputContainer(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: DSSpacing.xs.value,
+                    ),
+                    child: DropdownButton<CourseHub>(
+                      underline: const SizedBox.shrink(),
+                      isExpanded: true,
+                      borderRadius: BorderRadius.circular(12),
+                      icon: Icon(DSIcons.arrow_down_outline.data),
+                      items:
+                          CourseHub.values
+                              .where((element) => element != CourseHub.all)
+                              .map(
+                                (e) => DropdownMenuItem(
+                                  value: e,
+                                  child: DSBodyText(e.labelCourseHub),
+                                ),
+                              )
+                              .toList(),
+                      onChanged: (value) => courseNotifier.value = value!,
+                      value: value,
+                    ),
+                  );
+                },
+              ),
+              DSSpacing.xs.y,
               SizedBox(
                 height: DSSpacing.xxxl.value,
                 child: DSPrimaryButton(
                   autoSize: false,
                   onPressed: () {
                     if (form.currentState?.validate() ?? false) {
-                      viewmodel.createNews.execute((
-                        titleController.text,
-                        descriptionController.text,
-                        categoryNews.value,
-                      ));
+                      viewmodel.createNews.execute(
+                        NewsModel(
+                          uid: '',
+                          title: titleController.text,
+                          description: descriptionController.text,
+                          categoryNews: categoryNotifier.value,
+                          course: courseNotifier.value,
+                          publishedAt: DateTime.now(),
+                          images: [],
+                        ),
+                      );
                     } else {
                       context.showSnackBarError(errorDefaultString);
                     }

@@ -22,18 +22,15 @@ class CategoryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Chip(
-          label: DSCaptionSmallText(
-            category.labelPtBr,
-            color: colorText,
-            fontWeight: FontWeight.bold,
-          ),
-          backgroundColor: colorBackground,
-
-          side: BorderSide(color: colorText, width: 1),
+      child: Chip(
+        label: DSCaptionSmallText(
+          category.labelPtBr,
+          color: colorText,
+          fontWeight: FontWeight.bold,
         ),
+        backgroundColor: colorBackground,
+
+        side: BorderSide(color: colorText, width: 1),
       ),
     );
   }

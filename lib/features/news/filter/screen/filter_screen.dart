@@ -27,6 +27,7 @@ class FilterScreen extends StatelessWidget {
             listenable: viewModel.filterNews,
             builder:
                 (context, child) => Wrap(
+                  direction: Axis.horizontal,
                   runSpacing: DSSpacing.xs.value,
                   spacing: DSSpacing.xs.value,
                   crossAxisAlignment: WrapCrossAlignment.center,

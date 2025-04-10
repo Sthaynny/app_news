@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ufersa_hub/features/shared/domain/enums/category_post.dart';
 import 'package:ufersa_hub/features/shared/domain/enums/course_hub.dart';
@@ -62,6 +63,7 @@ class NewsModel {
     String? description,
     List<String>? images,
     CategoryPost? categoryNews,
+    CourseHub? course,
     DateTime? publishedAt,
   }) {
     return NewsModel(
@@ -70,6 +72,7 @@ class NewsModel {
       description: description ?? this.description,
       images: images ?? this.images,
       categoryNews: categoryNews ?? this.categoryNews,
+      course: course ?? this.course,
       publishedAt: publishedAt ?? this.publishedAt,
     );
   }

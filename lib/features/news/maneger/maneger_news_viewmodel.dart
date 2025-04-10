@@ -9,18 +9,13 @@ import 'package:ufersa_hub/core/utils/extension/file.dart';
 import 'package:ufersa_hub/core/utils/permission/premission_service.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
 import 'package:ufersa_hub/features/shared/news/data/repositories/news_repository.dart';
-import 'package:ufersa_hub/features/shared/domain/enums/category_post.dart';
 import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
 
 class ManegerNewsViewmodel {
   final NewsRepository _repository;
   final PermissionService _permissionService;
 
-  late final CommandAction<
-    void,
-    (String title, String description, CategoryPost category)
-  >
-  createNews;
+  late final CommandAction<void, NewsModel> createNews;
   late final CommandBase<bool> getPermission;
   late final CommandAction<void, Future Function()> updateListImages;
 
@@ -34,10 +29,7 @@ class ManegerNewsViewmodel {
     required PermissionService permissionService,
   }) : _repository = repository,
        _permissionService = permissionService {
-    createNews = CommandAction<
-      void,
-      (String title, String description, CategoryPost category)
-    >(_manegerNews);
+    createNews = CommandAction<void, NewsModel>(_manegerNews);
 
     getPermission = CommandBase<bool>(() async {
       if (await _permissionService.isPermissionGranted(Permission.photos)) {
@@ -55,31 +47,17 @@ class ManegerNewsViewmodel {
     });
   }
 
-  Future<Result<void>> _manegerNews(
-    (String title, String description, CategoryPost category) data,
-  ) async {
-    final (title, description, category) = data;
+  Future<Result<void>> _manegerNews(NewsModel data) async {
     final imagesList = images.map((e) => e.convertIntoBase64).toList();
 
-    final model = NewsModel(
-      title: title,
-      description: description,
-      uid: '',
+    final model = data.copyWith(
+      uid: _newsUpdate?.uid ?? '',
       images: imagesList,
-
-      publishedAt: DateTime.now(),
-      categoryNews: category,
+      publishedAt: _newsUpdate?.publishedAt ?? DateTime.now(),
     );
+
     if (_isEdition) {
-      return _repository.updateNews(
-        _newsUpdate?.copyWith(
-              title: title,
-              description: description,
-              images: imagesList,
-              categoryNews: category,
-            ) ??
-            model,
-      );
+      return _repository.updateNews(model);
     } else {
       return _repository.createNews(model);
     }

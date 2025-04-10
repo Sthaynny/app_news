@@ -1,5 +1,4 @@
 enum CategoryPost {
-  all,
   business,
   entertainment,
   general,
@@ -15,8 +14,6 @@ enum CategoryPost {
 
   String get labelPtBr {
     switch (this) {
-      case CategoryPost.all:
-        return 'Todas';
       case CategoryPost.business:
         return 'Negócios';
       case CategoryPost.entertainment:

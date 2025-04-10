@@ -4,6 +4,7 @@ import 'package:ufersa_hub/core/router/app_router.dart';
 import 'package:ufersa_hub/core/strings/strings.dart';
 import 'package:ufersa_hub/core/utils/extension/build_context.dart';
 import 'package:ufersa_hub/core/utils/extension/datetime.dart';
+import 'package:ufersa_hub/core/utils/extension/string.dart';
 import 'package:ufersa_hub/features/news/details/screen/details_news_viewmodel.dart';
 import 'package:ufersa_hub/features/shared/components/category_tile.dart';
 import 'package:ufersa_hub/features/shared/components/image_widget.dart';
@@ -105,10 +106,26 @@ class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
                 overflow: null,
                 textAlign: TextAlign.justify,
               ),
-              DSSpacing.xs.y,
+              if (viewmodel.news.course != null) ...[
+                DSSpacing.lg.y,
+                DSCaptionText.rich(
+                  TextSpan(
+                    text: '${courseString.addSuffixColon} ',
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: viewmodel.news.course?.labelCourseHub,
+                        style: TextStyle(fontWeight: FontWeight.normal),
+                      ),
+                    ],
+                  ),
 
+                  fontWeight: FontWeight.bold,
+                  maxLines: 3,
+                ),
+              ],
+              DSSpacing.md.y,
               CategoryTile(category: viewmodel.news.categoryNews),
-              DSSpacing.xs.y,
+              DSSpacing.xl.y,
               DSCaptionSmallText(
                 viewmodel.news.publishedAt.toPublishedAt,
                 fontWeight: FontWeight.bold,

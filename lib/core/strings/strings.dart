@@ -19,6 +19,7 @@ String get mandatoryTitleString => 'Titulo Obrigatorio';
 String get titleString => "Titulo";
 String get descriptionString => "Descrição";
 String get imagesString => "Imagens";
+String get courseString => "Curso";
 String get photosString => "Fotos";
 String get saveString => "Salvar";
 String get permissionDeniedString =>
