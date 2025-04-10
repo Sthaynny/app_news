@@ -57,3 +57,5 @@ String get localizationOpionalString => "Localização (Opcional)";
 String get localizationString => "Localização";
 String get detailsEnterLocalizationString =>
     "Informe o link para a localização do evento";
+String get noEventsString => "Não há evento cadastrado!";
+String get noNewsRegisterString => "Não há noticia cadastrada!";

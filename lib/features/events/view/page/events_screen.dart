@@ -47,7 +47,11 @@ class _EventsScreenState extends State<EventsScreen> {
             );
           }
           final events = viewmodel.getEvents.result?.value as List<EventsModel>;
-
+          if (events.isEmpty) {
+            return Center(
+              child: DSHeadlineSmallText(noEventString, maxLines: 4),
+            );
+          }
           return RefreshIndicator(
             onRefresh: () async {
               viewmodel.getEvents.clearResult();

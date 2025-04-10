@@ -1,6 +1,7 @@
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:ufersa_hub/core/router/app_router.dart';
+import 'package:ufersa_hub/core/strings/strings.dart';
 import 'package:ufersa_hub/core/utils/extension/build_context.dart';
 import 'package:ufersa_hub/features/home/screen/components/app_drawer.dart';
 import 'package:ufersa_hub/features/home/screen/components/card_news_widget.dart';
@@ -77,6 +78,11 @@ class _HomeScreenState extends State<HomeScreen> {
         listenable: viewmodel.news,
         builder: (_, __) {
           if (viewmodel.news.completed) {
+            if (viewmodel.newsList.isEmpty) {
+              return Center(
+                child: DSHeadlineSmallText(noNewsRegisterString, maxLines: 4),
+              );
+            }
             return ListView.builder(
               padding: EdgeInsets.symmetric(horizontal: DSSpacing.xs.value),
               itemCount: viewmodel.newsList.length,
