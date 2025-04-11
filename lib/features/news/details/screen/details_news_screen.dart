@@ -120,13 +120,14 @@ class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
                 fontWeight: FontWeight.bold,
                 color: DSColors.secundary,
               ),
-
-              DSSpacing.lg.y,
-              DSBodyText(
-                viewmodel.news.description,
-                overflow: null,
-                textAlign: TextAlign.justify,
-              ),
+              if (viewmodel.news.description != null) ...[
+                DSSpacing.lg.y,
+                DSBodyText(
+                  viewmodel.news.description,
+                  overflow: null,
+                  textAlign: TextAlign.justify,
+                ),
+              ],
               if (viewmodel.news.link != null) ...[
                 DSSpacing.md.y,
                 DSBodyText.rich(

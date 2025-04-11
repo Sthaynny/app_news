@@ -17,7 +17,8 @@ class NewsModel {
     return <String, dynamic>{
       if (uid.isNotEmpty) 'uid': uid,
       'title': title,
-      if (description != null) 'description': description,
+      if (description != null && description!.isNotEmpty)
+        'description': description,
       'images': images,
       'publishedAt': publishedAt,
       'category': categoryNews.name,

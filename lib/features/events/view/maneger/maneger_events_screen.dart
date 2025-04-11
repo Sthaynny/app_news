@@ -4,6 +4,7 @@ import 'package:ufersa_hub/core/strings/strings.dart';
 import 'package:ufersa_hub/core/utils/extension/bool.dart';
 import 'package:ufersa_hub/core/utils/extension/build_context.dart';
 import 'package:ufersa_hub/core/utils/extension/datetime.dart';
+import 'package:ufersa_hub/core/utils/extension/string.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
 import 'package:ufersa_hub/core/utils/validators/validators.dart';
 import 'package:ufersa_hub/features/events/domain/models/events_model.dart';
@@ -26,11 +27,13 @@ class _ManegerEventsScreenState extends State<ManegerEventsScreen> {
   final startDateController = TextEditingController();
   final endDateController = TextEditingController();
   final localizationController = TextEditingController();
+  final linkController = TextEditingController();
   final ValueNotifier<CategoryPost> categoryNotifier = ValueNotifier(
     CategoryPost.other,
   );
   EventsModel? get event => widget.event;
   final form = GlobalKey<FormState>();
+  var validation = [];
 
   @override
   void initState() {
@@ -74,6 +77,7 @@ class _ManegerEventsScreenState extends State<ManegerEventsScreen> {
     startDateController.dispose();
     endDateController.dispose();
     localizationController.dispose();
+    linkController.dispose();
     super.dispose();
   }
 
@@ -99,6 +103,7 @@ class _ManegerEventsScreenState extends State<ManegerEventsScreen> {
                 validator:
                     (value) =>
                         value?.isEmpty ?? false ? mandatoryTitleString : null,
+                onError: (p0) => validation.add(p0),
               ),
               DSSpacing.xs.y,
               DSHeadlineSmallText(descriptionString),
@@ -123,7 +128,7 @@ class _ManegerEventsScreenState extends State<ManegerEventsScreen> {
                       borderRadius: BorderRadius.circular(12),
                       icon: Icon(DSIcons.arrow_down_outline.data),
                       items:
-                          CategoryPost.values 
+                          CategoryPost.values
                               .map(
                                 (e) => DropdownMenuItem(
                                   value: e,
@@ -217,6 +222,7 @@ class _ManegerEventsScreenState extends State<ManegerEventsScreen> {
                                   value?.isEmpty ?? false
                                       ? startDateIsMandatoryString
                                       : null,
+                          onError: (p0) => validation.add(p0),
                         ),
                       ),
                 ),
@@ -256,16 +262,33 @@ class _ManegerEventsScreenState extends State<ManegerEventsScreen> {
 
                   return null;
                 },
+                onError: (p0) => validation.add(p0),
               ),
               DSSpacing.xxxs.y,
               DSCaptionText(detailsEnterLocalizationString, maxLines: 5),
+              DSSpacing.xs.y,
+              DSHeadlineSmallText(linkString),
+              DSTextFormField(
+                controller: linkController,
+                hint: linkString,
+                validator:
+                    (value) =>
+                        value?.isNotEmpty ?? false
+                            ? Validators.validateUrl(value)
+                            : null,
+                onError: (p0) => validation.add(p0),
+                textInputType: TextInputType.url,
+                // maxLines: 15,
+              ),
               DSSpacing.xs.y,
               SizedBox(
                 height: DSSpacing.xxxl.value,
                 child: DSPrimaryButton(
                   autoSize: false,
                   onPressed: () {
-                    if (form.currentState?.validate() ?? false) {
+                    validation.clear();
+                    form.currentState?.validate();
+                    if (!validation.any((element) => element == true)) {
                       viewmodel.manegerEvent.execute(
                         EventsModel(
                           uid: '',
@@ -274,6 +297,10 @@ class _ManegerEventsScreenState extends State<ManegerEventsScreen> {
                           category: categoryNotifier.value,
                           location: localizationController.text,
                           start: DateTime.now(),
+                          link:
+                              linkController.text.isEmpty
+                                  ? null
+                                  : linkController.text.addSuffixHttpsUrl,
                         ),
                       );
                     } else {
