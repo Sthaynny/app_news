@@ -1,7 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ufersa_hub/core/firebase/collections.dart';
 import 'package:ufersa_hub/features/news/filter/domain/models/filter_news_model.dart';
 import 'package:ufersa_hub/features/shared/news/domain/models/news_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewsService {
   final firebase = FirebaseFirestore.instance;
@@ -45,6 +45,13 @@ class NewsService {
           colection = colection.where(
             'category',
             whereIn: filter.categories.map((e) => e.name).toList(),
+          );
+        }
+
+        if (filter.course.isNotEmpty) {
+          colection = colection.where(
+            'course',
+            whereIn: filter.course.map((e) => e.name).toList(),
           );
         }
       }

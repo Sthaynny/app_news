@@ -212,8 +212,7 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
                       borderRadius: BorderRadius.circular(12),
                       icon: Icon(DSIcons.arrow_down_outline.data),
                       items:
-                          CourseHub.values
-                              .where((element) => element != CourseHub.all)
+                          CourseHub.values 
                               .map(
                                 (e) => DropdownMenuItem(
                                   value: e,

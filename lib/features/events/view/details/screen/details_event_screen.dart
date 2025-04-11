@@ -110,7 +110,7 @@ class _DetailsEventScreenState extends State<DetailsEventScreen> {
                 textAlign: TextAlign.justify,
               ),
               DSSpacing.xs.y,
-              CategoryTile(category: viewmodel.event.category),
+              ChipTile(label: viewmodel.event.category.labelPtBr),
               DSSpacing.xs.y,
               DSCaptionText.rich(
                 TextSpan(

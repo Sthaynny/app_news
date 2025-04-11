@@ -152,7 +152,7 @@ class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
               DSSpacing.xxs.y,
               Align(
                 alignment: Alignment.centerLeft,
-                child: CategoryTile(category: viewmodel.news.categoryNews),
+                child: ChipTile(label: viewmodel.news.categoryNews.labelPtBr),
               ),
               DSSpacing.xl.y,
             ],
