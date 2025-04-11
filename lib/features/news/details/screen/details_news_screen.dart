@@ -127,6 +127,19 @@ class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
                 overflow: null,
                 textAlign: TextAlign.justify,
               ),
+              if (viewmodel.news.link != null) ...[
+                DSSpacing.md.y,
+                DSBodyText.rich(
+                  TextSpan(
+                    text: '${forMoreInformationString.addSuffixColon} ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    children: DSLinkify.textSpan(
+                      span: TextSpan(text: viewmodel.news.link),
+                    ),
+                  ),
+                  maxLines: 2,
+                ),
+              ],
               if (viewmodel.news.course != null) ...[
                 DSSpacing.lg.y,
                 DSCaptionText.rich(

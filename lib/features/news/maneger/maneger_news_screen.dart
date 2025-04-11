@@ -23,6 +23,7 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
   late final ManegerNewsViewmodel viewmodel;
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
+  final linkController = TextEditingController();
   final ValueNotifier<CategoryPost> categoryNotifier = ValueNotifier(
     CategoryPost.other,
   );
@@ -46,6 +47,7 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
       descriptionController.text = news!.description ?? '';
       categoryNotifier.value = news!.categoryNews;
       courseNotifier.value = news!.course;
+      linkController.text = news!.link ?? '';
       viewmodel.init(news!);
     }
     super.didChangeDependencies();
@@ -212,7 +214,7 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
                       borderRadius: BorderRadius.circular(12),
                       icon: Icon(DSIcons.arrow_down_outline.data),
                       items:
-                          CourseHub.values 
+                          CourseHub.values
                               .map(
                                 (e) => DropdownMenuItem(
                                   value: e,
@@ -225,6 +227,13 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
                     ),
                   );
                 },
+              ),
+              DSSpacing.xs.y,
+              DSHeadlineSmallText(linkString),
+              DSTextField(
+                controller: linkController,
+                hint: linkString,
+                // maxLines: 15,
               ),
               DSSpacing.xs.y,
               SizedBox(
@@ -242,6 +251,7 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
                           course: courseNotifier.value,
                           publishedAt: DateTime.now(),
                           images: [],
+                          link: linkController.text,
                         ),
                       );
                     } else {

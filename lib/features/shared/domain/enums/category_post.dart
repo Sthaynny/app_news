@@ -8,6 +8,7 @@ enum CategoryPost {
   technology,
   engeneering,
   architecture,
+  processSelection,
   other;
 
   const CategoryPost();
@@ -16,6 +17,8 @@ enum CategoryPost {
     switch (this) {
       case CategoryPost.business:
         return 'Negócios';
+      case CategoryPost.processSelection:
+        return 'Processo Seletivo';
       case CategoryPost.entertainment:
         return 'Entretenimento';
       case CategoryPost.general:
