@@ -1,16 +1,15 @@
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
-import 'package:ufersa_hub/features/shared/domain/enums/category_post.dart';
 
-class CategoryTile extends StatelessWidget {
-  const CategoryTile({
+class ChipTile extends StatelessWidget {
+  const ChipTile({
     super.key,
-    required this.category,
+    required this.label,
     this.select = false,
     this.onTap,
   });
 
-  final CategoryPost category;
+  final String label;
   final VoidCallback? onTap;
   final bool select;
 
@@ -24,7 +23,7 @@ class CategoryTile extends StatelessWidget {
       onTap: onTap,
       child: Chip(
         label: DSCaptionSmallText(
-          category.labelPtBr,
+          label,
           color: colorText,
           fontWeight: FontWeight.bold,
         ),

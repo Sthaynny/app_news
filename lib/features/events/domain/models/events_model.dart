@@ -31,12 +31,13 @@ class EventsModel {
     return <String, dynamic>{
       if (uid.isNotEmpty) 'uid': uid,
       'title': title,
-      if (description != null) 'description': description,
+      if (description != null && description!.isNotEmpty)
+        'description': description,
       'start': start.millisecondsSinceEpoch,
       if (location != null && location!.isNotEmpty) 'location': location!,
       if (end != null) 'end': end?.millisecondsSinceEpoch,
       if (image != null) 'image': image,
-      if (link != null) 'link': link,
+      if (link != null && link!.isNotEmpty) 'link': link,
       'category': category.name,
     };
   }

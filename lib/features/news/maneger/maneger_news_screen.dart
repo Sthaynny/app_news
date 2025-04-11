@@ -4,7 +4,9 @@ import 'package:ufersa_hub/core/router/app_router.dart';
 import 'package:ufersa_hub/core/strings/strings.dart';
 import 'package:ufersa_hub/core/utils/extension/bool.dart';
 import 'package:ufersa_hub/core/utils/extension/build_context.dart';
+import 'package:ufersa_hub/core/utils/extension/string.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
+import 'package:ufersa_hub/core/utils/validators/validators.dart';
 import 'package:ufersa_hub/features/news/maneger/maneger_news_viewmodel.dart';
 import 'package:ufersa_hub/features/shared/domain/enums/category_post.dart';
 import 'package:ufersa_hub/features/shared/domain/enums/course_hub.dart';
@@ -23,12 +25,15 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
   late final ManegerNewsViewmodel viewmodel;
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
+  final linkController = TextEditingController();
   final ValueNotifier<CategoryPost> categoryNotifier = ValueNotifier(
     CategoryPost.other,
   );
   final ValueNotifier<CourseHub?> courseNotifier = ValueNotifier(null);
   NewsModel? get news => widget.news;
   final form = GlobalKey<FormState>();
+
+  var validation = [];
 
   @override
   void initState() {
@@ -46,6 +51,7 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
       descriptionController.text = news!.description ?? '';
       categoryNotifier.value = news!.categoryNews;
       courseNotifier.value = news!.course;
+      linkController.text = news!.link ?? '';
       viewmodel.init(news!);
     }
     super.didChangeDependencies();
@@ -91,6 +97,7 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
                 validator:
                     (value) =>
                         value?.isEmpty ?? false ? mandatoryTitleString : null,
+                onError: (p0) => validation.add(p0),
               ),
               DSSpacing.xs.y,
               DSHeadlineSmallText(descriptionString),
@@ -213,7 +220,6 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
                       icon: Icon(DSIcons.arrow_down_outline.data),
                       items:
                           CourseHub.values
-                              .where((element) => element != CourseHub.all)
                               .map(
                                 (e) => DropdownMenuItem(
                                   value: e,
@@ -228,12 +234,28 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
                 },
               ),
               DSSpacing.xs.y,
+              DSHeadlineSmallText(linkString),
+              DSTextFormField(
+                controller: linkController,
+                hint: linkString,
+                validator:
+                    (value) =>
+                        value?.isNotEmpty ?? false
+                            ? Validators.validateUrl(value)
+                            : null,
+                onError: (p0) => validation.add(p0),
+                textInputType: TextInputType.url,
+                // maxLines: 15,
+              ),
+              DSSpacing.xs.y,
               SizedBox(
                 height: DSSpacing.xxxl.value,
                 child: DSPrimaryButton(
                   autoSize: false,
                   onPressed: () {
-                    if (form.currentState?.validate() ?? false) {
+                    validation.clear();
+                    form.currentState?.validate();
+                    if (!validation.any((element) => element == true)) {
                       viewmodel.createNews.execute(
                         NewsModel(
                           uid: '',
@@ -243,10 +265,12 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
                           course: courseNotifier.value,
                           publishedAt: DateTime.now(),
                           images: [],
+                          link:
+                              linkController.text.isEmpty
+                                  ? null
+                                  : linkController.text.addSuffixHttpsUrl,
                         ),
                       );
-                    } else {
-                      context.showSnackBarError(errorDefaultString);
                     }
                   },
                   label: saveString,

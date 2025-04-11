@@ -3,6 +3,12 @@ import 'package:url_launcher/url_launcher.dart';
 
 extension StringExt on String {
   String get addSuffixColon => '$this:';
+  String get addSuffixHttpsUrl {
+    if (startsWith('http://') || startsWith('https://')) {
+      return this;
+    }
+    return 'https://$this';
+  }
 
   (double lat, double log) get getLocalizationString {
     try {

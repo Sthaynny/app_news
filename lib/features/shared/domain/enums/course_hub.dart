@@ -1,5 +1,4 @@
 enum CourseHub {
-  all,
   softwareEngineering,
   computerEngineering,
   environmentalEngineering,
@@ -11,8 +10,6 @@ enum CourseHub {
 
   String get labelCourseHub {
     switch (this) {
-      case CourseHub.all:
-        return 'Todas';
       case CourseHub.softwareEngineering:
         return 'Engenharia de Software';
       case CourseHub.computerEngineering:

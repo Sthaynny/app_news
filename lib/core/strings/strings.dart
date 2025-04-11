@@ -63,3 +63,5 @@ String get detailsEnterLocalizationString =>
 String get noEventsString => "Não há evento cadastrado!";
 String get noNewsRegisterString => "Não há noticia cadastrada!";
 String get forgotPasswordSuccessString => "Enviamos um email para redefinir sua senha!";
+String get linkString => "Link";
+String get forMoreInformationString => "Para mais informacoes";

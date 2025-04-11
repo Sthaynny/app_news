@@ -10,17 +10,20 @@ class NewsModel {
   final List<String> images;
   final CategoryPost categoryNews;
   final CourseHub? course;
+  final String? link;
   final DateTime publishedAt;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       if (uid.isNotEmpty) 'uid': uid,
       'title': title,
-      if (description != null) 'description': description,
+      if (description != null && description!.isNotEmpty)
+        'description': description,
       'images': images,
       'publishedAt': publishedAt,
       'category': categoryNews.name,
       if (course != null) 'course': course!.name,
+      if (link != null && link!.isNotEmpty) 'link': link,
     };
   }
 
@@ -44,6 +47,7 @@ class NewsModel {
                 (element) => element.name == map['course'],
               )
               : null,
+      link: map['link'],
     );
   }
 
@@ -55,6 +59,7 @@ class NewsModel {
     this.course,
     required this.publishedAt,
     required this.categoryNews,
+    this.link,
   });
 
   NewsModel copyWith({
@@ -64,6 +69,7 @@ class NewsModel {
     List<String>? images,
     CategoryPost? categoryNews,
     CourseHub? course,
+    String? link,
     DateTime? publishedAt,
   }) {
     return NewsModel(
@@ -73,6 +79,7 @@ class NewsModel {
       images: images ?? this.images,
       categoryNews: categoryNews ?? this.categoryNews,
       course: course ?? this.course,
+      link: link ?? this.link,
       publishedAt: publishedAt ?? this.publishedAt,
     );
   }

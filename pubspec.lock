@@ -126,7 +126,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "1afd906ef613c4a6a65bbab6c8c50447a2d28d7b"
+      resolved-ref: "307304f5a3980d5438468de3b0c0a18603f19dbe"
       url: "https://github.com/Sthaynny/design_system.git"
     source: git
     version: "0.0.1"
@@ -636,10 +636,10 @@ packages:
     dependency: transitive
     description:
       name: permission_handler_apple
-      sha256: f84a188e79a35c687c132a0a0556c254747a08561e99ab933f12f6ca71ef3c98
+      sha256: f000131e755c54cf4d84a5d8bd6e4149e262cc31c5a8b1d698de1ac85fa41023
       url: "https://pub.dev"
     source: hosted
-    version: "9.4.6"
+    version: "9.4.7"
   permission_handler_html:
     dependency: transitive
     description:
