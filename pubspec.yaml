@@ -30,6 +30,7 @@ environment:
 dependencies:
   cloud_firestore: ^5.6.5
   cupertino_icons: ^1.0.8
+  file_picker: ^10.1.1
   design_system:
     git:
       url: https://github.com/Sthaynny/design_system.git
