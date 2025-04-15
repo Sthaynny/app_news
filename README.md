@@ -2,7 +2,7 @@
    <img src="https://github.com/user-attachments/assets/eb1a85c5-b298-4323-b55d-d37b915a6517" alt="app" width="200"/>
 </p>
 
-<h1 align="center">UFERSA Hub</h1>
+<h1 align="center">UFERSA.Hub</h1>
 
 <p align="center">
    <a href="https://www.linkedin.com/in/igor-sthaynny/">
