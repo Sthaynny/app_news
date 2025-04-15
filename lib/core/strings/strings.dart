@@ -1,4 +1,4 @@
-String get appNameString => 'UFERSA.Hub';
+String get appNameString => 'UpFERSA ';
 String get errorDefaultString => 'Ops! Ocorreu um erro inesperado.';
 String get tenteNovamenteString => 'Tente novamente.';
 String get reloadString => 'Recarregar';
