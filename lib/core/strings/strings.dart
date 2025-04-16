@@ -1,4 +1,4 @@
-String get appNameString => 'UFERSA.Hub';
+String get appNameString => 'ConectaFERSA';
 String get errorDefaultString => 'Ops! Ocorreu um erro inesperado.';
 String get tenteNovamenteString => 'Tente novamente.';
 String get reloadString => 'Recarregar';
@@ -14,7 +14,7 @@ String get passwordString => 'Senha';
 String get forgotPasswordString => 'Esqueceu a senha?';
 String get credenciaisInvalidasString =>
     'Credenciais inválidas! Tente Novamente.';
-    String get errorForgoutPasswordString => 'Erro ao redefinir a senha!';
+String get errorForgoutPasswordString => 'Erro ao redefinir a senha!';
 String get createNewsString => "Criar Noticia";
 String get editNewsString => "Editar Noticia";
 String get mandatoryTitleString => 'Titulo Obrigatorio';
@@ -62,6 +62,7 @@ String get detailsEnterLocalizationString =>
     "Informe o link para a localização do evento";
 String get noEventsString => "Não há evento cadastrado!";
 String get noNewsRegisterString => "Não há noticia cadastrada!";
-String get forgotPasswordSuccessString => "Enviamos um email para redefinir sua senha!";
+String get forgotPasswordSuccessString =>
+    "Enviamos um email para redefinir sua senha!";
 String get linkString => "Link";
 String get forMoreInformationString => "Para mais informacoes";
