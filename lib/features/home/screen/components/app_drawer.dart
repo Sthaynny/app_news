@@ -29,7 +29,10 @@ class AppDrawer extends StatelessWidget {
             decoration: BoxDecoration(color: DSColors.secundary),
             child: Row(
               children: [
-                AppIcon(scale: 30),
+                GestureDetector(
+                  onLongPress: () => context.go(AppRouters.login),
+                  child: AppIcon(scale: 30),
+                ),
                 DSSpacing.xs.x,
                 DSHeadlineLargeText(menuString, color: DSColors.white),
               ],

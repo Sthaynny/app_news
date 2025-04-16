@@ -37,7 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NewsAppBar(
-        isLongPress: true,
         leading: Builder(
           builder: (context) {
             return DSIconButton(
