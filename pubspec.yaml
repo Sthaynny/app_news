@@ -57,7 +57,7 @@ dev_dependencies:
   patrol_finders: ^2.7.0
 
 patrol:
-  app_name: ConectaFERSA 
+  app_name: ConectaFERSA
   android:
     package_name: com.example.ufersa_hub
   ios:
