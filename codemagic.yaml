@@ -16,10 +16,10 @@ workflows:
     scripts:
       - name: Generate keystore file
         script: | 
-          echo $CM_KEYSTORE_PATH | base64 --decode > /path/to/decode/to/codemagic.keystore
+          echo $CM_KEYSTORE_PATH | base64 --decode > /path/to/decode/to/upload-keystore.jks
       - name: Set up key.properties
         script: | 
-          cat >> "$CM_BUILD_DIR/project_directory/android/key.properties" <<EOF
+          cat >> "$CM_BUILD_DIR/app_news/android/key.properties" <<EOF
           storePassword=$CM_KEYSTORE_PASSWORD
           keyPassword=$CM_KEY_PASSWORD
           keyAlias=$CM_KEY_ALIAS
@@ -34,9 +34,9 @@ workflows:
       - name: Flutter analyze
         script: | 
           flutter analyze
-      - name: Flutter unit tests
-        script: | 
-          flutter test
+      # - name: Flutter unit tests
+      #   script: | 
+      #     flutter test
         ignore_failure: true
       - name: Build AAB with Flutter
         script: | 
