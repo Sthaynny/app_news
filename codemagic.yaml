@@ -16,14 +16,14 @@ workflows:
     scripts:
       - name: Generate keystore file
         script: | 
-          echo $CM_KEYSTORE_PATH | base64 --decode > /path/to/decode/to/upload-keystore.jks
+          echo $CM_KEYSTORE_PATH | base64 --decode > $CM_BUILD_DIR/upload-keystore.jks
       - name: Set up key.properties
         script: | 
           cat >> "$CM_BUILD_DIR/app_news/android/key.properties" <<EOF
           storePassword=$CM_KEYSTORE_PASSWORD
           keyPassword=$CM_KEY_PASSWORD
           keyAlias=$CM_KEY_ALIAS
-          storeFile=$CM_KEYSTORE_PATH
+          storeFile=$CM_BUILD_DIR/upload-keystore.jks
           EOF    
       - name: Set up local.properties
         script: | 
