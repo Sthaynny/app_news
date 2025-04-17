@@ -25,6 +25,10 @@ workflows:
           keyAlias=$CM_KEY_ALIAS
           storeFile=$CM_BUILD_DIR/upload-keystore.jks
           EOF    
+          
+      - name: Debug key.properties
+        script: |
+          cat "$CM_BUILD_DIR/key.properties"
 
       - name: Set up local.properties
         script: | 
