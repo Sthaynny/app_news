@@ -38,10 +38,6 @@ workflows:
         script: | 
           echo $GOOGLE_SERVICES_JSON | base64 --decode > "$CM_BUILD_DIR/android/app/google-services.json"
           
-      - name: Add google-services.json (Firebase)
-        script: | 
-          echo $GOOGLE_SERVICES_JSON | base64 --decode > "$CM_BUILD_DIR/android/app/google-services.json"
-
       - name: add firebase_options.dart
         script: | 
           echo $FIREBASE_OPTIONS_DART | base64 --decode > "$CM_BUILD_DIR/lib/firebase_options.dart"
