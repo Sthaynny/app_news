@@ -6,6 +6,7 @@ workflows:
       android_signing:
         - keystore_reference
       groups:
+        - signing-android
         - google_play
       vars:
         PACKAGE_NAME: "io.codemagic.fluttersample"
