@@ -19,13 +19,13 @@ workflows:
 
       - name: Set up key.properties
         script: | 
-          cat >> "$CM_BUILD_DIR/key.properties" <<EOF
+          cat >> "$CM_BUILD_DIR/android/key.properties" <<EOF
           storePassword=$CM_KEYSTORE_PASSWORD
           keyPassword=$CM_KEY_PASSWORD
           keyAlias=$CM_KEY_ALIAS
           storeFile=$CM_BUILD_DIR/upload-keystore.jks
           EOF    
-          
+
       - name: Debug key.properties
         script: |
           cat "$CM_BUILD_DIR/key.properties"
@@ -73,6 +73,6 @@ workflows:
 
     publishing:
       google_play:
-        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        credentials: $GOOGLE_PLAY_SERVICE_ACCOUNT_CREDENTIALS
         track: $GOOGLE_PLAY_TRACK
         submit_as_draft: true
