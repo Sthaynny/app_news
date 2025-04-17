@@ -28,7 +28,7 @@ workflows:
 
       - name: Debug key.properties
         script: |
-          cat "$CM_BUILD_DIR/key.properties"
+          cat "$CM_BUILD_DIR/android/key.properties"
 
       - name: Set up local.properties
         script: | 
