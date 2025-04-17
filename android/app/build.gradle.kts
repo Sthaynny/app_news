@@ -45,7 +45,7 @@ android {
 
     signingConfigs {
         create("release") {
-            if(System.getenv()["CI"]){
+            if(System.getenv()["CI"] != null){
                 keyAlias = keystoreProperties["CM_KEY_ALIAS"] as String
                 keyPassword = keystoreProperties["CM_KEY_PASSWORD"] as String
                 storeFile = keystoreProperties["CM_KEYSTORE_PATH"]?.let { file(it) }
