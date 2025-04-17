@@ -45,18 +45,11 @@ android {
 
     signingConfigs {
         create("release") {
-            if(System.getenv()["CI"] != null){
-                keyAlias = keystoreProperties["CM_KEY_ALIAS"] as String
-                keyPassword = keystoreProperties["CM_KEY_PASSWORD"] as String
-                storeFile = keystoreProperties["CM_KEYSTORE_PATH"]?.let { file(it) }
-                storePassword = keystoreProperties["CM_KEYSTORE_PASSWORD"] as String
-            } else {    
-                if (keystorePropertiesFile.exists()){
-                    keyAlias = keystoreProperties["keyAlias"] as String
-                    keyPassword = keystoreProperties["keyPassword"] as String
-                    storeFile = keystoreProperties["storeFile"]?.let { file(it) }
-                    storePassword = keystoreProperties["storePassword"] as String
-                }
+            if (keystorePropertiesFile.exists()){
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+                storeFile = keystoreProperties["storeFile"]?.let { file(it) }
+                storePassword = keystoreProperties["storePassword"] as String
             }
         }
 
