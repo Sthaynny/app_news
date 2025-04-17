@@ -5,7 +5,7 @@ workflows:
     environment:
       groups:
         - signing-android
-        - google_play
+        - google_credentials
       vars:
         PACKAGE_NAME: "io.codemagic.fluttersample"
         GOOGLE_PLAY_TRACK: alpha
