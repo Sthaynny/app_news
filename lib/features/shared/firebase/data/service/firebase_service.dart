@@ -3,7 +3,7 @@ import 'package:ufersa_hub/core/firebase/collections.dart';
 import 'package:ufersa_hub/features/shared/firebase/domain/filter_firebase_model.dart';
 import 'package:ufersa_hub/features/shared/firebase/domain/firebase_model.dart';
 
-class DocumentsService {
+class FirebaseService {
   final firebase = FirebaseFirestore.instance;
 
   Future<void> create<T extends FirebaseModel>(

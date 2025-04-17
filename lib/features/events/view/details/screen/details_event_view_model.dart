@@ -1,6 +1,6 @@
 import 'package:ufersa_hub/core/utils/commands.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
-import 'package:ufersa_hub/features/events/data/repositories/events_repository.dart';
+import 'package:ufersa_hub/features/events/domain/repositories/events_repository.dart';
 import 'package:ufersa_hub/features/events/domain/models/events_model.dart';
 import 'package:ufersa_hub/features/shared/auth/data/repositories/auth_repository.dart';
 
