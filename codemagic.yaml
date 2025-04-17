@@ -11,7 +11,11 @@ workflows:
         PACKAGE_NAME: "io.codemagic.fluttersample"
         GOOGLE_PLAY_TRACK: alpha
       flutter: stable
+    
     scripts:
+      - name: Generate keystore file
+        script: | 
+          echo $CM_KEYSTORE_PATH | base64 --decode > /path/to/decode/to/codemagic.keystore
       - name: Set up key.properties
         script: | 
           cat >> "$CM_BUILD_DIR/project_directory/android/key.properties" <<EOF
