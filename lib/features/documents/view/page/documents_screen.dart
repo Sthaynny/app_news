@@ -66,12 +66,27 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                           key: UniqueKey(),
                           direction: DismissDirection.endToStart,
                           background: Container(
-                            color: DSColors.secundary.shade600,
-                            alignment: Alignment.centerRight,
+                            color: DSColors.primary.shade600,
+                            alignment: Alignment.centerLeft,
                             padding: EdgeInsets.symmetric(horizontal: 20),
                             child: Icon(Icons.edit, color: Colors.white),
                           ),
-                          onDismissed: (direction) {},
+                          secondaryBackground: Container(
+                            color: DSColors.error,
+                            alignment: Alignment.centerRight,
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Icon(
+                              DSIcons.delete_outline.data,
+                              color: Colors.white,
+                            ),
+                          ),
+                          onDismissed: (direction) {
+                            if (direction == DismissDirection.startToEnd) {
+                              // editar
+                            } else {
+                              // deletar
+                            }
+                          },
                           child: CardDocumentWidget(
                             doc: e,
                             updateScreen: () {
