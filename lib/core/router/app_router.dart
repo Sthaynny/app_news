@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:ufersa_hub/core/dependecy/dependency.dart';
+import 'package:ufersa_hub/features/documents/view/page/documents_screen.dart';
 import 'package:ufersa_hub/features/events/domain/models/events_model.dart';
 import 'package:ufersa_hub/features/events/view/details/screen/details_event_screen.dart';
 import 'package:ufersa_hub/features/events/view/details/screen/details_event_view_model.dart';
@@ -66,6 +67,11 @@ final Map<String, Widget Function(BuildContext)> routes = {
         viewmodel: dependency(),
         event: ModalRoute.of(context)?.settings.arguments as EventsModel?,
       ),
+
+      AppRouters.documents.path:
+      (context) => DocumentsScreen(
+        viewmodel: dependency(),
+      ),
 };
 
 enum AppRouters {
@@ -77,7 +83,9 @@ enum AppRouters {
   manegerNews,
   events,
   detailsEvent,
-  manegerEvents;
+  manegerEvents,
+  documents,
+  documentManeger;
 
   const AppRouters();
   String get path => this == home ? '/' : '/$name';

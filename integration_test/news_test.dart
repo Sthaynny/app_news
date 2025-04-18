@@ -1,11 +1,12 @@
-import 'package:ufersa_hub/core/strings/strings.dart';
-import 'package:ufersa_hub/features/home/screen/components/card_news_widget.dart';
-import 'package:ufersa_hub/features/home/utils/home_strings.dart';
-import 'package:ufersa_hub/main.dart' as app;
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:patrol_finders/patrol_finders.dart';
+import 'package:ufersa_hub/core/strings/strings.dart';
+import 'package:ufersa_hub/features/app.dart';
+import 'package:ufersa_hub/features/home/screen/components/card_news_widget.dart';
+import 'package:ufersa_hub/features/home/utils/home_strings.dart';
+import 'package:ufersa_hub/main.dart' as app;
 
 import 'login_test.dart';
 import 'utils/waits_fuctions.dart';
@@ -35,7 +36,7 @@ void main() {
 
     debugPrint('testEditInteraction: iniciando');
 
-    await $.pumpWidgetAndSettle(app.MyApp());
+    await $.pumpWidgetAndSettle(MyApp());
     await waitFor(
       $.tester,
       find.byWidgetPredicate((widget) => widget is CardNewsWidget),
@@ -103,7 +104,7 @@ void main() {
 
     debugPrint('testDeleteInteraction: iniciando');
 
-    await $.pumpWidgetAndSettle(app.MyApp());
+    await $.pumpWidgetAndSettle(MyApp());
 
     await waitFor(
       $.tester,

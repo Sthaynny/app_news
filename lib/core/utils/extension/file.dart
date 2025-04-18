@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 extension FileExt on File {
   String get convertIntoBase64 {
@@ -44,5 +45,36 @@ extension FileExtString on String {
     await file.writeAsBytes(bytes);
 
     return file;
+  }
+
+  Future<File?> saveFile() async {
+    try {
+      final fileName = DateTime.now().millisecondsSinceEpoch.toString();
+      var file = File('');
+      final bytes = base64Decode(this);
+
+      // Platform.isIOS comes from dart:io
+      if (Platform.isIOS) {
+        final dir = await getApplicationDocumentsDirectory();
+        file = File('${dir.path}/$fileName');
+      }
+      if (Platform.isAndroid) {
+        var status = await Permission.storage.status;
+        if (status != PermissionStatus.granted) {
+          status = await Permission.storage.request();
+        }
+        if (status.isGranted) {
+          const downloadsFolderPath = '/storage/emulated/0/Download/';
+          Directory dir = Directory(downloadsFolderPath);
+          file = File('${dir.path}/$fileName');
+        } else {
+          return null;
+        }
+      }
+      await file.writeAsBytes(bytes);
+      return file;
+    } catch (e) {
+      return null;
+    }
   }
 }

@@ -66,3 +66,6 @@ String get forgotPasswordSuccessString =>
     "Enviamos um email para redefinir sua senha!";
 String get linkString => "Link";
 String get forMoreInformationString => "Para mais informacoes";
+String get linkForDocumentationString => 'Link para documentação';
+String get itsWasntPossibleDownloadArchiveString =>
+    'Nao foi possivel baixar o arquivo!';
