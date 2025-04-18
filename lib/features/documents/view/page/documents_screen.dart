@@ -62,14 +62,25 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
               children:
                   events
                       .map(
-                        (e) => CardDocumentWidget(
-                          doc: e,
-                          updateScreen: () {
-                            viewmodel.getData.execute();
-                          },
-                          saveFile: (String value) {
-                            viewmodel.saveFile.execute(value);
-                          },
+                        (e) => Dismissible(
+                          key: UniqueKey(),
+                          direction: DismissDirection.endToStart,
+                          background: Container(
+                            color: DSColors.secundary.shade600,
+                            alignment: Alignment.centerRight,
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Icon(Icons.edit, color: Colors.white),
+                          ),
+                          onDismissed: (direction) {},
+                          child: CardDocumentWidget(
+                            doc: e,
+                            updateScreen: () {
+                              viewmodel.getData.execute();
+                            },
+                            saveFile: (String value) {
+                              viewmodel.saveFile.execute(value);
+                            },
+                          ),
                         ),
                       )
                       .toList(),
