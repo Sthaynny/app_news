@@ -4,31 +4,28 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:ufersa_hub/core/utils/commands.dart';
 import 'package:ufersa_hub/core/utils/extension/file.dart';
-import 'package:ufersa_hub/core/utils/permission/premission_service.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
 import 'package:ufersa_hub/features/documents/domain/models/document_model.dart';
 import 'package:ufersa_hub/features/documents/domain/repositories/documents_repository.dart';
 
 class ManegerDocumentViewmodel {
   final DocumentsRepository _repository;
-  final PermissionService _permissionService;
 
   late final CommandAction<void, DocumentModel> manegerDoc;
   late final CommandAction<void, Future Function()> updateFile;
 
   File? _docFile;
+  String? _docExtension;
   bool? isPermissionGranted;
   bool _isEdition = false;
   DocumentModel? _documentUpdate;
   DocumentModel? get documentUpdate => _documentUpdate;
 
   File? get docFile => _docFile;
+  String? get docExtension => _docExtension;
 
-  ManegerDocumentViewmodel({
-    required DocumentsRepository repository,
-    required PermissionService permissionService,
-  }) : _repository = repository,
-       _permissionService = permissionService {
+  ManegerDocumentViewmodel({required DocumentsRepository repository})
+    : _repository = repository {
     manegerDoc = CommandAction<void, DocumentModel>(_manegerDoc);
 
     updateFile = CommandAction<void, Future Function()>((action) async {
@@ -45,18 +42,19 @@ class ManegerDocumentViewmodel {
         fileUrl: model.fileUrl,
         name: model.name,
         description: model.description ?? '',
+        docExtension: _docExtension,
       );
       _documentUpdate = data;
       return _repository.updateDocuments(data);
     } else {
       return _repository.createDocuments(
-        model.copyWith(base64: _docFile?.convertIntoBase64),
+        model.copyWith(
+          base64: _docFile?.convertIntoBase64,
+          docExtension: _docExtension,
+        ),
       );
     }
   }
-
-  Future<void> openAppSettings() async =>
-      await _permissionService.openSettings();
 
   void init(DocumentModel data) async {
     _documentUpdate = data;
@@ -66,6 +64,7 @@ class ManegerDocumentViewmodel {
           data.base64 != null
               ? await data.base64!.convertBase64ToFile(data.name.toLowerCase())
               : null;
+      _docExtension = data.docExtension;
       _isEdition = true;
     });
   }
@@ -81,10 +80,12 @@ class ManegerDocumentViewmodel {
       try {
         final result = await FilePicker.platform.pickFiles(
           type: FileType.custom,
-          allowedExtensions: ['pdf'],
+          allowedExtensions: ['pdf', 'doc', 'docx'],
         );
 
-        _docFile = File(result!.files.first.path!);
+        _docExtension = result!.files.first.extension;
+
+        _docFile = File(result.files.first.path!);
       } catch (e) {
         log(e.toString());
       }

@@ -46,17 +46,20 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        alignment: Alignment.center,
+        height: MediaQuery.of(context).size.height + 100,
+        width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           gradient: DSLinearGradient(
             colors: [DSColors.primary, DSColors.secundary],
             degree: 10,
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SingleChildScrollView(
-              child: ListenableBuilder(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ListenableBuilder(
                 listenable: viewmodel.login,
                 builder: (__, _) {
                   return Container(
@@ -133,8 +136,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   );
                 },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

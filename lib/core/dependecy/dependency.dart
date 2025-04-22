@@ -72,9 +72,6 @@ void setup() {
   );
 
   dependency.registerFactory(
-    () => ManegerDocumentViewmodel(
-      repository: dependency(),
-      permissionService: dependency(),
-    ),
+    () => ManegerDocumentViewmodel(repository: dependency()),
   );
 }

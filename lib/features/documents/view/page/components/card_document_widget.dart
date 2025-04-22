@@ -19,17 +19,7 @@ class CardDocumentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        onTap: () async {
-          // final result = await context.go(
-          //   AppRouters.detailsEvent,
-          //   arguments: doc,
-          // );
-          // if (result != null) {
-          //   updateScreen();
-          // }
-        },
-
-        title: DSHeadlineSmallText(doc.name),
+        title: DSHeadlineSmallText(doc.name, maxLines: 3),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

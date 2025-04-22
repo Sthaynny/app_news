@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ufersa_hub/features/shared/firebase/domain/firebase_model.dart';
 
 class DocumentModel extends FirebaseModel {
@@ -7,6 +6,7 @@ class DocumentModel extends FirebaseModel {
   final String? fileUrl;
   final String? base64;
   final String? link;
+  final String docExtension;
   DocumentModel({
     required this.name,
     this.fileUrl,
@@ -14,6 +14,7 @@ class DocumentModel extends FirebaseModel {
     super.uid = '',
     this.description,
     this.link,
+    this.docExtension = 'pdf',
   });
 
   @override
@@ -26,6 +27,7 @@ class DocumentModel extends FirebaseModel {
       if (fileUrl != null && fileUrl!.isNotEmpty) 'fileUrl': fileUrl,
       if (base64 != null && base64!.isNotEmpty) 'file': base64,
       if (link != null && link!.isNotEmpty) 'link': link,
+      'docExtension': docExtension,
     };
   }
 
@@ -38,6 +40,7 @@ class DocumentModel extends FirebaseModel {
       fileUrl: map['fileUrl'] != null ? map['fileUrl'] as String : null,
       base64: map['file'] != null ? map['file'] as String : null,
       link: map['link'] != null ? map['link'] as String : null,
+      docExtension: map['docExtension'] as String,
     );
   }
 
@@ -48,6 +51,7 @@ class DocumentModel extends FirebaseModel {
     String? fileUrl,
     String? base64,
     String? link,
+    String? docExtension,
   }) {
     return DocumentModel(
       uid: uid ?? this.uid,
@@ -56,6 +60,7 @@ class DocumentModel extends FirebaseModel {
       fileUrl: fileUrl ?? this.fileUrl,
       base64: base64 ?? this.base64,
       link: link ?? this.link,
+      docExtension: docExtension ?? this.docExtension,
     );
   }
 }
