@@ -15,6 +15,8 @@ class DocumentsViewModel {
 
   late final CommandAction<File?, (String?, String?)> saveFile;
 
+  late final CommandAction<void, String> deleteDocument;
+
   late final CommandBase authenticated;
 
   DocumentsViewModel({
@@ -45,6 +47,8 @@ class DocumentsViewModel {
 
       return Result.ok(result);
     });
+
+    deleteDocument = CommandAction<void, String>(_repository.deleteDocuments);
   }
   bool _userAuthenticated = false;
 

@@ -27,7 +27,20 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
     viewmodel = widget.viewmodel;
     viewmodel.getData.execute();
     viewmodel.authenticated.execute();
+
+    viewmodel.saveFile.addListener(_onResultSaveFile);
+    viewmodel.deleteDocument.addListener(_onResultDelete);
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant DocumentsScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    oldWidget.viewmodel.saveFile.removeListener(_onResultSaveFile);
+    viewmodel.saveFile.addListener(_onResultSaveFile);
+
+    oldWidget.viewmodel.deleteDocument.removeListener(_onResultDelete);
+    viewmodel.deleteDocument.addListener(_onResultDelete);
   }
 
   @override
@@ -108,7 +121,11 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                                           alignment: Alignment.centerRight,
                                           child: DSIconButton(
                                             icon: DSIcons.trash_outline,
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              viewmodel.deleteDocument.execute(
+                                                document.uid,
+                                              );
+                                            },
                                             color: Colors.white,
                                           ),
                                         ),
@@ -138,5 +155,26 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
             ),
       ),
     );
+  }
+
+  void _onResultSaveFile() {
+    if (viewmodel.saveFile.completed) {
+      viewmodel.saveFile.clearResult();
+      context.showSnackBarSuccess(sucessDownloadFileString);
+    }
+
+    if (viewmodel.saveFile.error) {
+      viewmodel.saveFile.clearResult();
+      context.showSnackBarError(errorDownloadFileString);
+    }
+  }
+
+  void _onResultDelete() {
+    if (viewmodel.deleteDocument.completed) {
+      viewmodel.getData.execute();
+    }
+    if (viewmodel.deleteDocument.error) {
+      context.showSnackBarError(errorDeleteDocumentString);
+    }
   }
 }

@@ -27,7 +27,10 @@ String get saveString => "Salvar";
 String get permissionDeniedString =>
     "Permissao Negada! Aprove as permissoes ou acesse as configurações.";
 String get openSettingsString => "Abrir Configurações";
-String get errorDeleteString => "Erro ao deletar noticia!, Tente Novamente.";
+String get errorDeleteNewsString =>
+    "Erro ao deletar noticia!, Tente Novamente.";
+String get errorDeleteDocumentString =>
+    "Erro ao deletar documento!, Tente Novamente.";
 String get menuString => "Menu";
 String get logoutString => "Sair";
 String get eventsString => "Eventos";
@@ -73,8 +76,13 @@ String get forMoreInformationString => "Para mais informacoes";
 String get linkForDocumentationString => 'Link para documentação';
 String get documentsString => 'Documentos';
 String get documentString => 'Documento';
-String get worningDocumentLengthString =>  
+String get worningDocumentLengthString =>
     'O tamanho do documento nao pode ser maior que 5MB';
 String get itsWasntPossibleDownloadArchiveString =>
     'Nao foi possivel baixar o arquivo!';
+
+String get errorDownloadFileString =>
+    'Ops! Ocorreu um erro ao baixar o arquivo!';
+
+String get sucessDownloadFileString => 'Download realizado com sucesso!';
 String get archiveAttachedString => 'Arquivo em anexo';
