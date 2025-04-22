@@ -186,6 +186,11 @@ class _ManegerDocumentScreenState extends State<ManegerDocumentScreen> {
                   onPressed: () {
                     validation.clear();
                     form.currentState?.validate();
+                    if (viewmodel.docFile == null &&
+                        fileUrlController.text.isEmpty) {
+                      context.showSnackBarError(errorAddDocumentDownloadString);
+                      return;
+                    }
                     if (!validation.any((element) => element == true)) {
                       viewmodel.manegerDoc.execute(
                         DocumentModel(

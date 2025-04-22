@@ -86,3 +86,5 @@ String get errorDownloadFileString =>
 
 String get sucessDownloadFileString => 'Download realizado com sucesso!';
 String get archiveAttachedString => 'Arquivo em anexo';
+String get errorAddDocumentDownloadString =>
+    'Ops! Ocorreu um erro ao adicionar o documento! É necessario o link do documento ou arquivo em anexo.';
