@@ -46,6 +46,14 @@ class AppDrawer extends StatelessWidget {
               label: eventsString,
             ),
           ),
+          _addPadding(
+            DSGhostButton(
+              onPressed: () {
+                context.go(AppRouters.documents);
+              },
+              label: documentsString,
+            ),
+          ),
 
           ListenableBuilder(
             listenable: viewmodel.logout,

@@ -35,7 +35,6 @@ class DocumentsRepositoryImpl with RequestMixin implements DocumentsRepository {
   Future<Result<List<DocumentModel>>> getDocuments() {
     return request<List<DocumentModel>>(() {
       return _firebaseService.get(
-        orderBy: Documents.start,
         descending: true,
         collection: Collections.documents,
         mapper: (p0) => DocumentModel.fromMap(p0),

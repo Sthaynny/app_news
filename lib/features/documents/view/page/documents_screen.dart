@@ -33,7 +33,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NewsAppBar(canPop: true, title: eventsString),
+      appBar: NewsAppBar(canPop: true, title: documentsString),
       body: ListenableBuilder(
         listenable: widget.viewmodel.getData,
         builder: (context, child) {
@@ -49,7 +49,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
           final events = viewmodel.getData.result?.value as List<DocumentModel>;
           if (events.isEmpty) {
             return Center(
-              child: DSHeadlineSmallText(noEventString, maxLines: 4),
+              child: DSHeadlineSmallText(noDocumentsString, maxLines: 4),
             );
           }
           return RefreshIndicator(
@@ -62,40 +62,60 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
               children:
                   events
                       .map(
-                        (document) => Dismissible(
-                          key: UniqueKey(),
-                          direction: DismissDirection.endToStart,
-                          background: Container(
-                            color: DSColors.primary.shade600,
-                            alignment: Alignment.centerLeft,
-                            padding: EdgeInsets.symmetric(horizontal: 20),
-                            child: Icon(Icons.edit, color: Colors.white),
-                          ),
-                          secondaryBackground: Container(
-                            color: DSColors.error,
-                            alignment: Alignment.centerRight,
-                            padding: EdgeInsets.symmetric(horizontal: 20),
-                            child: Icon(
-                              DSIcons.delete_outline.data,
-                              color: Colors.white,
-                            ),
-                          ),
-                          onDismissed: (direction) {
-                            if (direction == DismissDirection.startToEnd) {
-                              // editar
-                            } else {
-                              // deletar
-                            }
-                          },
-                          child: CardDocumentWidget(
+                        (document) => ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          title: CardDocumentWidget(
                             doc: document,
                             updateScreen: () {
                               viewmodel.getData.execute();
                             },
-                            saveFile: (String value) {
-                              viewmodel.saveFile.execute(value);
+                            saveFile: () {
+                              viewmodel.saveFile.execute((
+                                document.base64,
+                                document.fileUrl,
+                              ));
                             },
                           ),
+                          horizontalTitleGap: 4,
+                          trailing:
+                              viewmodel.userAuthenticated
+                                  ? Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Card(
+                                        margin: EdgeInsets.zero,
+                                        color: DSColors.primary.shade600,
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+
+                                          child: DSIconButton(
+                                            icon: DSIcons.edit_outline,
+                                            onPressed: () {
+                                              context.go(
+                                                AppRouters.manegerDocuments,
+                                                arguments: document,
+                                              );
+                                            },
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                      DSSpacing.xs.x,
+                                      Card(
+                                        margin: EdgeInsets.zero,
+                                        color: DSColors.error,
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: DSIconButton(
+                                            icon: DSIcons.trash_outline,
+                                            onPressed: () {},
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                  : null,
                         ),
                       )
                       .toList(),
@@ -107,9 +127,9 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
         listenable: viewmodel.authenticated,
         builder:
             (context, child) => ButtonAddItemWidget(
-              label: addEventString,
+              label: addDocumentString,
               onPressed: () async {
-                final result = await context.go(AppRouters.manegerEvents);
+                final result = await context.go(AppRouters.manegerDocuments);
                 if (result != null) {
                   viewmodel.getData.execute();
                 }

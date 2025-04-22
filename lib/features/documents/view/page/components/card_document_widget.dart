@@ -13,7 +13,7 @@ class CardDocumentWidget extends StatelessWidget {
   });
   final DocumentModel doc;
   final VoidCallback updateScreen;
-  final ValueChanged<String> saveFile;
+  final VoidCallback saveFile;
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +38,11 @@ class CardDocumentWidget extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: DSSpacing.xs.value),
                 child: DSBodyText(doc.description, maxLines: 2),
               ),
-            if (doc.url != null)
+            if (doc.link != null)
               DSCaptionText.rich(
                 TextSpan(
                   text: '${linkForDocumentationString.addSuffixColon} ',
-                  children: DSLinkify.plainText(text: doc.url!),
+                  children: DSLinkify.plainText(text: doc.link!),
                 ),
 
                 fontWeight: FontWeight.bold,
@@ -50,12 +50,13 @@ class CardDocumentWidget extends StatelessWidget {
               ),
           ],
         ),
-        trailing: DSIconButton(
-          onPressed: () {
-            saveFile(doc.base64!);
-          },
-          icon: DSIcons.download_outline,
-        ),
+        trailing:
+            doc.base64 != null || doc.fileUrl != null
+                ? DSIconButton(
+                  onPressed: saveFile,
+                  icon: DSIcons.download_outline,
+                )
+                : null,
       ),
     );
   }

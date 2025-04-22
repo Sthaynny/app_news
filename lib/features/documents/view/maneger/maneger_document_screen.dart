@@ -1,10 +1,8 @@
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:ufersa_hub/core/strings/strings.dart';
-import 'package:ufersa_hub/core/utils/extension/bool.dart';
 import 'package:ufersa_hub/core/utils/extension/build_context.dart';
 import 'package:ufersa_hub/core/utils/extension/string.dart';
-import 'package:ufersa_hub/core/utils/result.dart';
 import 'package:ufersa_hub/core/utils/validators/validators.dart';
 import 'package:ufersa_hub/features/documents/domain/models/document_model.dart';
 import 'package:ufersa_hub/features/documents/view/maneger/maneger_document_viewmodel.dart';
@@ -23,7 +21,8 @@ class _ManegerDocumentScreenState extends State<ManegerDocumentScreen> {
   late final ManegerDocumentViewmodel viewmodel;
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
-  final urlController = TextEditingController();
+  final linkController = TextEditingController();
+  final fileUrlController = TextEditingController();
   final ValueNotifier<CategoryPost> categoryNotifier = ValueNotifier(
     CategoryPost.other,
   );
@@ -35,7 +34,6 @@ class _ManegerDocumentScreenState extends State<ManegerDocumentScreen> {
   void initState() {
     viewmodel = widget.viewmodel;
     viewmodel.manegerDoc.addListener(_onResult);
-    viewmodel.getPermission.addListener(_onResultPermission);
 
     super.initState();
   }
@@ -45,7 +43,8 @@ class _ManegerDocumentScreenState extends State<ManegerDocumentScreen> {
     if (doc != null) {
       titleController.text = doc!.name;
       descriptionController.text = doc!.description ?? '';
-      urlController.text = doc!.url ?? '';
+      linkController.text = doc!.link ?? '';
+      fileUrlController.text = doc!.fileUrl ?? '';
       viewmodel.init(doc!);
     }
     super.didChangeDependencies();
@@ -56,17 +55,14 @@ class _ManegerDocumentScreenState extends State<ManegerDocumentScreen> {
     super.didUpdateWidget(oldWidget);
     oldWidget.viewmodel.manegerDoc.removeListener(_onResult);
     viewmodel.manegerDoc.addListener(_onResult);
-    oldWidget.viewmodel.getPermission.removeListener(_onResultPermission);
-    viewmodel.getPermission.addListener(_onResultPermission);
   }
 
   @override
   void dispose() {
     viewmodel.manegerDoc.removeListener(_onResult);
-    viewmodel.getPermission.removeListener(_onResultPermission);
     descriptionController.dispose();
     titleController.dispose();
-    urlController.dispose();
+    linkController.dispose();
     super.dispose();
   }
 
@@ -101,38 +97,9 @@ class _ManegerDocumentScreenState extends State<ManegerDocumentScreen> {
                 hint: descriptionString,
                 // maxLines: 15,
               ),
+
               DSSpacing.xs.y,
-              DSHeadlineSmallText(categoryString),
-              DSSpacing.xs.y,
-              ValueListenableBuilder(
-                valueListenable: categoryNotifier,
-                builder: (_, value, __) {
-                  return DSInputContainer(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: DSSpacing.md.value,
-                    ),
-                    child: DropdownButton<CategoryPost>(
-                      underline: const SizedBox.shrink(),
-                      isExpanded: true,
-                      borderRadius: BorderRadius.circular(12),
-                      icon: Icon(DSIcons.arrow_down_outline.data),
-                      items:
-                          CategoryPost.values
-                              .map(
-                                (e) => DropdownMenuItem(
-                                  value: e,
-                                  child: DSBodyText(e.labelPtBr),
-                                ),
-                              )
-                              .toList(),
-                      onChanged: (value) => categoryNotifier.value = value!,
-                      value: value,
-                    ),
-                  );
-                },
-              ),
-              DSSpacing.xs.y,
-              DSHeadlineSmallText(imagesString),
+              DSHeadlineSmallText(documentString),
               ListenableBuilder(
                 listenable: viewmodel.updateFile,
                 builder: (context, child) {
@@ -160,6 +127,8 @@ class _ManegerDocumentScreenState extends State<ManegerDocumentScreen> {
                 },
               ),
               DSSpacing.xs.y,
+              DSCaptionText(worningDocumentLengthString),
+              DSSpacing.xs.y,
               ListenableBuilder(
                 listenable: viewmodel.updateFile,
                 builder: (context, child) {
@@ -174,21 +143,31 @@ class _ManegerDocumentScreenState extends State<ManegerDocumentScreen> {
                         color: DSColors.primary.shade800,
                       ),
                       onPressed: () {
-                        if (viewmodel.isPermissionGranted.isTrue) {
-                          viewmodel.addFile();
-                        } else {
-                          viewmodel.getPermission.execute();
-                        }
+                        viewmodel.addFile();
                       },
-                      label: addImageString,
+                      label: addDocumentString,
                     ),
                   );
                 },
               ),
               DSSpacing.xs.y,
-              DSHeadlineSmallText(linkString),
+              DSHeadlineSmallText(linkForDownloadDocumentString),
               DSTextFormField(
-                controller: urlController,
+                controller: fileUrlController,
+                hint: linkString,
+                validator:
+                    (value) =>
+                        value?.isNotEmpty ?? false
+                            ? Validators.validateUrl(value)
+                            : null,
+                onError: (p0) => validation.add(p0),
+                textInputType: TextInputType.url,
+                // maxLines: 15,
+              ),
+              DSSpacing.xs.y,
+              DSHeadlineSmallText(linkForMoreInformationString),
+              DSTextFormField(
+                controller: linkController,
                 hint: linkString,
                 validator:
                     (value) =>
@@ -213,10 +192,14 @@ class _ManegerDocumentScreenState extends State<ManegerDocumentScreen> {
                           uid: '',
                           name: titleController.text,
                           description: descriptionController.text,
-                          url:
-                              urlController.text.isEmpty
+                          fileUrl:
+                              fileUrlController.text.isEmpty
                                   ? null
-                                  : urlController.text.addSuffixHttpsUrl,
+                                  : fileUrlController.text.addPreffixHttpsUrl,
+                          link:
+                              linkController.text.isEmpty
+                                  ? null
+                                  : linkController.text.addPreffixHttpsUrl,
                         ),
                       );
                     } else {
@@ -242,26 +225,6 @@ class _ManegerDocumentScreenState extends State<ManegerDocumentScreen> {
     if (viewmodel.manegerDoc.error) {
       viewmodel.manegerDoc.clearResult();
       context.showSnackBarError(errorDefaultString);
-    }
-  }
-
-  void _onResultPermission() {
-    if (viewmodel.getPermission.completed) {
-      final result = viewmodel.getPermission.result;
-      if (result?.value.isTrue ?? false) {
-        viewmodel.addFile();
-      } else {
-        context.showSnackBarInfo(
-          permissionDeniedString,
-          action: SnackBarAction(
-            label: openSettingsString,
-            onPressed: () {
-              viewmodel.openAppSettings();
-            },
-          ),
-        );
-      }
-      viewmodel.getPermission.clearResult();
     }
   }
 }

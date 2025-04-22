@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:ufersa_hub/core/utils/permission/premission_service.dart';
 import 'package:ufersa_hub/features/documents/data/repositories/documents_repository.dart';
 import 'package:ufersa_hub/features/documents/domain/repositories/documents_repository.dart';
+import 'package:ufersa_hub/features/documents/view/maneger/maneger_document_viewmodel.dart';
 import 'package:ufersa_hub/features/documents/view/page/documents_view_model.dart';
 import 'package:ufersa_hub/features/events/data/repositories/events_repository_remote.dart';
 import 'package:ufersa_hub/features/events/data/services/events_service.dart';
@@ -67,6 +68,13 @@ void setup() {
     () => DocumentsViewModel(
       repository: dependency(),
       authRepository: dependency(),
+    ),
+  );
+
+  dependency.registerFactory(
+    () => ManegerDocumentViewmodel(
+      repository: dependency(),
+      permissionService: dependency(),
     ),
   );
 }

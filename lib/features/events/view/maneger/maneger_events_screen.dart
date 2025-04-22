@@ -300,7 +300,7 @@ class _ManegerEventsScreenState extends State<ManegerEventsScreen> {
                           link:
                               linkController.text.isEmpty
                                   ? null
-                                  : linkController.text.addSuffixHttpsUrl,
+                                  : linkController.text.addPreffixHttpsUrl,
                         ),
                       );
                     } else {

@@ -2,9 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:ufersa_hub/core/utils/commands.dart';
-import 'package:ufersa_hub/core/utils/extension/bool.dart';
 import 'package:ufersa_hub/core/utils/extension/file.dart';
 import 'package:ufersa_hub/core/utils/permission/premission_service.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
@@ -16,7 +14,6 @@ class ManegerDocumentViewmodel {
   final PermissionService _permissionService;
 
   late final CommandAction<void, DocumentModel> manegerDoc;
-  late final CommandBase<bool> getPermission;
   late final CommandAction<void, Future Function()> updateFile;
 
   File? _docFile;
@@ -34,16 +31,6 @@ class ManegerDocumentViewmodel {
        _permissionService = permissionService {
     manegerDoc = CommandAction<void, DocumentModel>(_manegerDoc);
 
-    getPermission = CommandBase<bool>(() async {
-      if (await _permissionService.isPermissionGranted(Permission.photos)) {
-        isPermissionGranted = true;
-        return Result.ok(true);
-      } else {
-        final result = await _requestPermission();
-        isPermissionGranted = result.isTrue;
-        return Result.ok(isPermissionGranted);
-      }
-    });
     updateFile = CommandAction<void, Future Function()>((action) async {
       await action();
       return Result.ok();
@@ -53,21 +40,20 @@ class ManegerDocumentViewmodel {
   Future<Result<void>> _manegerDoc(DocumentModel model) async {
     if (_isEdition) {
       final data = model.copyWith(
-        uid: model.uid,
+        uid: _documentUpdate?.uid ?? '',
         base64: _docFile?.convertIntoBase64,
-        url: model.url,
+        fileUrl: model.fileUrl,
         name: model.name,
         description: model.description ?? '',
       );
       _documentUpdate = data;
       return _repository.updateDocuments(data);
     } else {
-      return _repository.createDocuments(model);
+      return _repository.createDocuments(
+        model.copyWith(base64: _docFile?.convertIntoBase64),
+      );
     }
   }
-
-  Future<bool?> _requestPermission() async =>
-      await _permissionService.requestPermission(Permission.storage);
 
   Future<void> openAppSettings() async =>
       await _permissionService.openSettings();
