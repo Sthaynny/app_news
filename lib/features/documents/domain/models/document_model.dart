@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ufersa_hub/features/shared/firebase/domain/firebase_model.dart';
 
 class DocumentModel extends FirebaseModel {
@@ -22,15 +21,18 @@ class DocumentModel extends FirebaseModel {
   @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      if (uid.isNotEmpty) 'uid': uid,
       'name': name,
-      if (description != null) 'description': description,
-      if (url != null) 'url': url,
-      if (base64 != null) 'base64': base64,
+      if (description != null && description!.isNotEmpty)
+        'description': description,
+      if (url != null && url!.isNotEmpty) 'url': url,
+      if (base64 != null && base64!.isNotEmpty) 'base64': base64,
     };
   }
 
   factory DocumentModel.fromMap(Map<String, dynamic> map) {
     return DocumentModel(
+      uid: map['uid'] as String,
       name: map['name'] as String,
       description:
           map['description'] != null ? map['description'] as String : null,
@@ -40,12 +42,14 @@ class DocumentModel extends FirebaseModel {
   }
 
   DocumentModel copyWith({
+    String? uid,
     String? name,
     String? description,
     String? url,
     String? base64,
   }) {
     return DocumentModel(
+      uid: uid ?? this.uid,
       name: name ?? this.name,
       description: description ?? this.description,
       url: url ?? this.url,

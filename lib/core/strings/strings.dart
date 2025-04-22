@@ -69,3 +69,4 @@ String get forMoreInformationString => "Para mais informacoes";
 String get linkForDocumentationString => 'Link para documentação';
 String get itsWasntPossibleDownloadArchiveString =>
     'Nao foi possivel baixar o arquivo!';
+    String get archiveAttachedString => 'Arquivo em anexo';

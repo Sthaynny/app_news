@@ -62,7 +62,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
               children:
                   events
                       .map(
-                        (e) => Dismissible(
+                        (document) => Dismissible(
                           key: UniqueKey(),
                           direction: DismissDirection.endToStart,
                           background: Container(
@@ -88,7 +88,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                             }
                           },
                           child: CardDocumentWidget(
-                            doc: e,
+                            doc: document,
                             updateScreen: () {
                               viewmodel.getData.execute();
                             },
