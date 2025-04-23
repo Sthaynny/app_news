@@ -29,7 +29,10 @@ class AppDrawer extends StatelessWidget {
             decoration: BoxDecoration(color: DSColors.secundary),
             child: Row(
               children: [
-                AppIcon(scale: 30),
+                GestureDetector(
+                  onLongPress: () => context.go(AppRouters.login),
+                  child: AppIcon(scale: 30),
+                ),
                 DSSpacing.xs.x,
                 DSHeadlineLargeText(menuString, color: DSColors.white),
               ],
@@ -41,6 +44,14 @@ class AppDrawer extends StatelessWidget {
                 context.go(AppRouters.events);
               },
               label: eventsString,
+            ),
+          ),
+          _addPadding(
+            DSGhostButton(
+              onPressed: () {
+                context.go(AppRouters.documents);
+              },
+              label: documentsString,
             ),
           ),
 

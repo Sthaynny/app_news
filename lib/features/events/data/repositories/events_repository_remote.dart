@@ -1,7 +1,7 @@
 import 'package:ufersa_hub/core/firebase/collections.dart';
 import 'package:ufersa_hub/core/utils/request/request_mixin.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
-import 'package:ufersa_hub/features/events/data/repositories/events_repository.dart';
+import 'package:ufersa_hub/features/events/domain/repositories/events_repository.dart';
 import 'package:ufersa_hub/features/events/data/services/events_service.dart';
 import 'package:ufersa_hub/features/events/domain/models/events_model.dart';
 

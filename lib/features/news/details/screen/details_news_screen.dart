@@ -181,7 +181,7 @@ class _DetailsNewsScreenState extends State<DetailsNewsScreen> {
       context.back(true);
     }
     if (viewmodel.deleteNews.error) {
-      context.showSnackBarError(errorDeleteString);
+      context.showSnackBarError(errorDeleteNewsString);
     }
   }
 }

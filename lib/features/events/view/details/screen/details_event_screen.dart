@@ -173,7 +173,7 @@ class _DetailsEventScreenState extends State<DetailsEventScreen> {
       context.back(true);
     }
     if (viewmodel.deleteEvent.error) {
-      context.showSnackBarError(errorDeleteString);
+      context.showSnackBarError(errorDeleteNewsString);
     }
   }
 }

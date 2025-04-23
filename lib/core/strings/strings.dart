@@ -27,7 +27,10 @@ String get saveString => "Salvar";
 String get permissionDeniedString =>
     "Permissao Negada! Aprove as permissoes ou acesse as configurações.";
 String get openSettingsString => "Abrir Configurações";
-String get errorDeleteString => "Erro ao deletar noticia!, Tente Novamente.";
+String get errorDeleteNewsString =>
+    "Erro ao deletar noticia!, Tente Novamente.";
+String get errorDeleteDocumentString =>
+    "Erro ao deletar documento!, Tente Novamente.";
 String get menuString => "Menu";
 String get logoutString => "Sair";
 String get eventsString => "Eventos";
@@ -39,6 +42,7 @@ String get loadingString => "Carregando...";
 String get newsString => "Noticias";
 String get noNewsString => "Nenhuma noticia cadastrada.";
 String get noEventString => "Nenhum evento cadastrado.";
+String get noDocumentsString => "Nenhum documento cadastrado.";
 String get categoryString => "Categoria";
 String get categoriesString => "Categorias";
 String get dateEventString => "Data do evento";
@@ -48,6 +52,7 @@ String get filterString => "Filtrar";
 String get editEventString => "Editar Evento";
 String get createEventString => "Criar Evento";
 String get addEventString => "Adicionar Evento";
+String get addDocumentString => "Adicionar Documento";
 String get opsErrorLoadingEventsString =>
     "Ops! Ocorreu uma instabilidade ao carregar os eventos.";
 String get dateInvalidString => "Data Invalida!";
@@ -65,4 +70,21 @@ String get noNewsRegisterString => "Não há noticia cadastrada!";
 String get forgotPasswordSuccessString =>
     "Enviamos um email para redefinir sua senha!";
 String get linkString => "Link";
+String get linkForMoreInformationString => "Link para mais informacoes";
+String get linkForDownloadDocumentString => "Link para download do documento";
 String get forMoreInformationString => "Para mais informacoes";
+String get linkForDocumentationString => 'Link para documentação';
+String get documentsString => 'Documentos';
+String get documentString => 'Documento';
+String get worningDocumentLengthString =>
+    'O tamanho do documento nao pode ser maior que 5MB';
+String get itsWasntPossibleDownloadArchiveString =>
+    'Nao foi possivel baixar o arquivo!';
+
+String get errorDownloadFileString =>
+    'Ops! Ocorreu um erro ao baixar o arquivo!';
+
+String get sucessDownloadFileString => 'Download realizado com sucesso!';
+String get archiveAttachedString => 'Arquivo em anexo';
+String get errorAddDocumentDownloadString =>
+    'Ops! Ocorreu um erro ao adicionar o documento! É necessario o link do documento ou arquivo em anexo.';

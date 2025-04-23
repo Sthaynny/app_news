@@ -8,7 +8,7 @@ import 'package:ufersa_hub/core/utils/extension/bool.dart';
 import 'package:ufersa_hub/core/utils/extension/file.dart';
 import 'package:ufersa_hub/core/utils/permission/premission_service.dart';
 import 'package:ufersa_hub/core/utils/result.dart';
-import 'package:ufersa_hub/features/events/data/repositories/events_repository.dart';
+import 'package:ufersa_hub/features/events/domain/repositories/events_repository.dart';
 import 'package:ufersa_hub/features/events/domain/models/events_model.dart';
 
 class ManegerEventsViewmodel {

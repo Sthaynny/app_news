@@ -268,7 +268,7 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
                           link:
                               linkController.text.isEmpty
                                   ? null
-                                  : linkController.text.addSuffixHttpsUrl,
+                                  : linkController.text.addPreffixHttpsUrl,
                         ),
                       );
                     }

@@ -14,6 +14,4 @@ extension DatetimeExt on DateTime {
     final String year = this.year.toString();
     return '$day/$month/$year';
   }
-
-  
 }
