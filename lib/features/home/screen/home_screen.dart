@@ -1,5 +1,6 @@
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ufersa_hub/core/router/app_router.dart';
 import 'package:ufersa_hub/core/strings/strings.dart';
 import 'package:ufersa_hub/core/utils/extension/build_context.dart';
@@ -9,6 +10,9 @@ import 'package:ufersa_hub/features/home/screen/home_view_model.dart';
 import 'package:ufersa_hub/features/home/utils/home_strings.dart';
 import 'package:ufersa_hub/features/news/filter/screen/filter_screen.dart';
 import 'package:ufersa_hub/features/news/filter/screen/filter_view_model.dart';
+import 'package:ufersa_hub/features/shared/ads/utils/ads_utils.dart';
+import 'package:ufersa_hub/features/shared/ads/widgets/banner_widget.dart';
+import 'package:ufersa_hub/features/shared/components/app_loading_widget.dart';
 import 'package:ufersa_hub/features/shared/components/body_error_default_widget.dart';
 import 'package:ufersa_hub/features/shared/components/button_add_item_widget.dart';
 import 'package:ufersa_hub/features/shared/components/news_app_bar.dart';
@@ -24,13 +28,23 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late final HomeViewModel viewmodel;
 
+  final ValueNotifier<BannerAd?> bannerAdNotifier = ValueNotifier(null);
+
   @override
   void initState() {
     viewmodel = widget.viewmodel;
     viewmodel.authenticated.execute().then((_) {
       viewmodel.news.execute((true, null));
     });
+
+    loadBannerAd(onAdLoaded: (ad) => bannerAdNotifier.value = ad as BannerAd?);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    bannerAdNotifier.dispose();
+    super.dispose();
   }
 
   @override
@@ -73,38 +87,53 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       drawer: AppDrawer(viewmodel: viewmodel),
-      body: ListenableBuilder(
-        listenable: viewmodel.news,
-        builder: (_, __) {
-          if (viewmodel.news.completed) {
-            if (viewmodel.newsList.isEmpty) {
-              return Center(
-                child: DSHeadlineSmallText(noNewsRegisterString, maxLines: 4),
-              );
-            }
-            return ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: DSSpacing.xs.value),
-              itemCount: viewmodel.newsList.length,
-              itemBuilder: (_, index) {
-                final news = viewmodel.newsList[index];
-                return CardNewsWidget(
-                  news: news,
-                  isAuthenticated: viewmodel.userAuthenticated,
-                  onAction: () {
-                    viewmodel.news.execute((true, null));
-                  },
+      body: Column(
+        children: [
+          BannerWidget(bannerAdNotifier: bannerAdNotifier),
+          ListenableBuilder(
+            listenable: viewmodel.news,
+            builder: (_, __) {
+              if (viewmodel.news.completed) {
+                if (viewmodel.newsList.isEmpty) {
+                  return Center(
+                    child: DSHeadlineSmallText(
+                      noNewsRegisterString,
+                      maxLines: 4,
+                    ),
+                  );
+                }
+                return Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: DSSpacing.xs.value,
+                    ),
+                    itemCount: viewmodel.newsList.length,
+                    itemBuilder: (_, index) {
+                      final news = viewmodel.newsList[index];
+                      return CardNewsWidget(
+                        news: news,
+                        isAuthenticated: viewmodel.userAuthenticated,
+                        onAction: () {
+                          viewmodel.news.execute((true, null));
+                        },
+                      );
+                    },
+                  ),
                 );
-              },
-            );
-          }
-          if (viewmodel.news.error && viewmodel.newsList.isEmpty) {
-            return BodyErrorDefaultWidget(
-              title: HomeStrings.error.label,
-              onPressed: () => viewmodel.news.execute((true, null)),
-            );
-          }
-          return const Center(child: CircularProgressIndicator());
-        },
+              }
+              if (viewmodel.news.error && viewmodel.newsList.isEmpty) {
+                return BodyErrorDefaultWidget(
+                  title: HomeStrings.error.label,
+                  onPressed: () => viewmodel.news.execute((true, null)),
+                );
+              }
+              return
+              AppLoadingWidget();
+            
+            },
+          ),
+        ],
       ),
       floatingActionButton: ListenableBuilder(
         listenable: viewmodel.authenticated,
