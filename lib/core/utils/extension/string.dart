@@ -3,7 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 extension StringExt on String {
   String get addSuffixColon => '$this:';
-  String get addSuffixHttpsUrl {
+  String get addPreffixHttpsUrl {
     if (startsWith('http://') || startsWith('https://')) {
       return this;
     }
