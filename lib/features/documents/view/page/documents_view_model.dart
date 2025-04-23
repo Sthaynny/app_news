@@ -13,7 +13,7 @@ class DocumentsViewModel {
 
   late final CommandBase<List<DocumentModel>> getData;
 
-  late final CommandAction<File?, (String?, String?)> saveFile;
+  late final CommandAction<File?, (String?, String?, String)> saveFile;
 
   late final CommandAction<void, String> deleteDocument;
 
@@ -27,8 +27,8 @@ class DocumentsViewModel {
       () => _repository.getDocuments(),
     );
 
-    saveFile = CommandAction<File?, (String?, String?)>((data) async {
-      final (file, fileUrl) = data;
+    saveFile = CommandAction<File?, (String?, String?, String)>((data) async {
+      final (file, fileUrl, fileExt) = data;
       if (file != null) {
         final result = await file.saveFile();
         if (result != null) return Result.ok(result);

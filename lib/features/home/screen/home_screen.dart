@@ -11,7 +11,7 @@ import 'package:ufersa_hub/features/home/utils/home_strings.dart';
 import 'package:ufersa_hub/features/news/filter/screen/filter_screen.dart';
 import 'package:ufersa_hub/features/news/filter/screen/filter_view_model.dart';
 import 'package:ufersa_hub/features/shared/ads/utils/ads_utils.dart';
-import 'package:ufersa_hub/features/shared/ads/widgets/banner_widget.dart';
+import 'package:ufersa_hub/features/shared/ads/widgets/banner_ads_widget.dart';
 import 'package:ufersa_hub/features/shared/components/app_loading_widget.dart';
 import 'package:ufersa_hub/features/shared/components/body_error_default_widget.dart';
 import 'package:ufersa_hub/features/shared/components/button_add_item_widget.dart';
@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: AppDrawer(viewmodel: viewmodel),
       body: Column(
         children: [
-          BannerWidget(bannerAdNotifier: bannerAdNotifier),
+          BannerAdsWidget(bannerAdNotifier: bannerAdNotifier),
           ListenableBuilder(
             listenable: viewmodel.news,
             builder: (_, __) {
@@ -128,9 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: () => viewmodel.news.execute((true, null)),
                 );
               }
-              return
-              AppLoadingWidget();
-            
+              return AppLoadingWidget();
             },
           ),
         ],

@@ -40,7 +40,8 @@ class DocumentModel extends FirebaseModel {
       fileUrl: map['fileUrl'] != null ? map['fileUrl'] as String : null,
       base64: map['file'] != null ? map['file'] as String : null,
       link: map['link'] != null ? map['link'] as String : null,
-      docExtension: map['docExtension'] as String,
+      docExtension:
+          map['docExtension'] != null ? map['docExtension'] as String : 'pdf',
     );
   }
 

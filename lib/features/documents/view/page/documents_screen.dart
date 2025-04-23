@@ -1,5 +1,6 @@
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ufersa_hub/core/router/app_router.dart';
 import 'package:ufersa_hub/core/strings/strings.dart';
 import 'package:ufersa_hub/core/utils/extension/build_context.dart';
@@ -7,6 +8,9 @@ import 'package:ufersa_hub/core/utils/result.dart';
 import 'package:ufersa_hub/features/documents/domain/models/document_model.dart';
 import 'package:ufersa_hub/features/documents/view/page/components/card_document_widget.dart';
 import 'package:ufersa_hub/features/documents/view/page/documents_view_model.dart';
+import 'package:ufersa_hub/features/shared/ads/utils/ads_utils.dart';
+import 'package:ufersa_hub/features/shared/ads/widgets/banner_ads_widget.dart';
+import 'package:ufersa_hub/features/shared/components/app_loading_widget.dart';
 import 'package:ufersa_hub/features/shared/components/body_error_default_widget.dart';
 import 'package:ufersa_hub/features/shared/components/button_add_item_widget.dart';
 import 'package:ufersa_hub/features/shared/components/news_app_bar.dart';
@@ -22,6 +26,8 @@ class DocumentsScreen extends StatefulWidget {
 
 class _DocumentsScreenState extends State<DocumentsScreen> {
   late final DocumentsViewModel viewmodel;
+  final ValueNotifier<BannerAd?> bannerAdNotifier = ValueNotifier(null);
+
   @override
   void initState() {
     viewmodel = widget.viewmodel;
@@ -30,6 +36,9 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
 
     viewmodel.saveFile.addListener(_onResultSaveFile);
     viewmodel.deleteDocument.addListener(_onResultDelete);
+    loadBannerAd(
+      onAdLoaded: (value) => bannerAdNotifier.value = value as BannerAd?,
+    );
     super.initState();
   }
 
@@ -44,38 +53,43 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
   }
 
   @override
+  void dispose() {
+    bannerAdNotifier.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NewsAppBar(canPop: true, title: documentsString),
-      body: ListenableBuilder(
-        listenable: widget.viewmodel.getData,
-        builder: (context, child) {
-          if (widget.viewmodel.getData.running) {
-            return Center(child: DSSpinnerLoading());
-          }
-          if (widget.viewmodel.getData.error) {
-            return BodyErrorDefaultWidget(
-              title: opsErrorLoadingEventsString,
-              onPressed: () => viewmodel.getData.execute(),
-            );
-          }
-          final events = viewmodel.getData.result?.value as List<DocumentModel>;
-          if (events.isEmpty) {
-            return Center(
-              child: DSHeadlineSmallText(noDocumentsString, maxLines: 4),
-            );
-          }
-          return RefreshIndicator(
-            onRefresh: () async {
-              viewmodel.getData.clearResult();
-              viewmodel.getData.execute();
-            },
-            child: ListView(
-              padding: EdgeInsets.all(DSSpacing.md.value),
-              children:
-                  events
-                      .map(
-                        (document) => ListTile(
+      body: Column(
+        children: [
+          BannerAdsWidget(bannerAdNotifier: bannerAdNotifier),
+          ListenableBuilder(
+            listenable: widget.viewmodel.getData,
+            builder: (context, child) {
+              if (widget.viewmodel.getData.completed) {
+                final docuemtns =
+                    viewmodel.getData.result?.value as List<DocumentModel>;
+                if (docuemtns.isEmpty) {
+                  return Center(
+                    child: DSHeadlineSmallText(noDocumentsString, maxLines: 4),
+                  );
+                }
+
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    viewmodel.getData.clearResult();
+                    viewmodel.getData.execute();
+                  },
+                  child: Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.all(DSSpacing.md.value),
+                      itemBuilder: (context, index) {
+                        final document = docuemtns[index];
+
+                        return ListTile(
                           contentPadding: EdgeInsets.zero,
                           title: CardDocumentWidget(
                             doc: document,
@@ -86,6 +100,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                               viewmodel.saveFile.execute((
                                 document.base64,
                                 document.fileUrl,
+                                document.docExtension,
                               ));
                             },
                           ),
@@ -133,12 +148,23 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                                     ],
                                   )
                                   : null,
-                        ),
-                      )
-                      .toList(),
-            ),
-          );
-        },
+                        );
+                      },
+                    ),
+                  ),
+                );
+              }
+              if (widget.viewmodel.getData.error) {
+                return BodyErrorDefaultWidget(
+                  title: opsErrorLoadingEventsString,
+                  onPressed: () => viewmodel.getData.execute(),
+                );
+              }
+
+              return AppLoadingWidget();
+            },
+          ),
+        ],
       ),
       floatingActionButton: ListenableBuilder(
         listenable: viewmodel.authenticated,

@@ -9,7 +9,7 @@ import 'package:ufersa_hub/features/events/domain/models/events_model.dart';
 import 'package:ufersa_hub/features/events/view/page/components/card_event_widget.dart';
 import 'package:ufersa_hub/features/events/view/page/events_view_model.dart';
 import 'package:ufersa_hub/features/shared/ads/utils/ads_utils.dart';
-import 'package:ufersa_hub/features/shared/ads/widgets/banner_widget.dart';
+import 'package:ufersa_hub/features/shared/ads/widgets/banner_ads_widget.dart';
 import 'package:ufersa_hub/features/shared/components/app_loading_widget.dart';
 import 'package:ufersa_hub/features/shared/components/body_error_default_widget.dart';
 import 'package:ufersa_hub/features/shared/components/button_add_item_widget.dart';
@@ -52,7 +52,7 @@ class _EventsScreenState extends State<EventsScreen> {
       appBar: NewsAppBar(canPop: true, title: eventsString),
       body: Column(
         children: [
-          BannerWidget(bannerAdNotifier: bannerAdNotifier),
+          BannerAdsWidget(bannerAdNotifier: bannerAdNotifier),
           ListenableBuilder(
             listenable: widget.viewModel.getEvents,
             builder: (context, child) {

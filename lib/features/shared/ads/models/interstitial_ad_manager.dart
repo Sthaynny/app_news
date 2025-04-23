@@ -5,8 +5,8 @@ import 'package:ufersa_hub/core/utils/ads/ad_helper.dart';
 class InterstitialAdManager {
   InterstitialAd? _interstitialAd;
 
-  void loadAd() {
-    InterstitialAd.load(
+  Future<void> loadAd() async {
+    await InterstitialAd.load(
       adUnitId: AdHelper.interstitialAd,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
@@ -36,5 +36,9 @@ class InterstitialAdManager {
       _interstitialAd!.show();
       _interstitialAd = null;
     }
+  }
+
+  void dispose() {
+    _interstitialAd?.dispose();
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class BannerWidget extends StatelessWidget {
-  const BannerWidget({super.key, required this.bannerAdNotifier});
+class BannerAdsWidget extends StatelessWidget {
+  const BannerAdsWidget({super.key, required this.bannerAdNotifier});
 
   final ValueNotifier<BannerAd?> bannerAdNotifier;
 
