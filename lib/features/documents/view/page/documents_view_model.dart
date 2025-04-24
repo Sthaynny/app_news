@@ -30,11 +30,11 @@ class DocumentsViewModel {
     saveFile = CommandAction<File?, (String?, String?, String)>((data) async {
       final (file, fileUrl, fileExt) = data;
       if (file != null) {
-        final result = await file.saveFile();
+        final result = await file.saveFile(extensionFile: fileExt);
         if (result != null) return Result.ok(result);
       } else {
         if (fileUrl != null) {
-          final result = await fileUrl.downloadFile();
+          final result = await fileUrl.downloadFile(extensionFile: fileExt);
           if (result != null) return Result.ok(result);
         }
       }
