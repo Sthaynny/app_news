@@ -16,5 +16,3 @@ void loadBannerAd({required ValueSetter<Ad?> onAdLoaded}) {
     ),
   ).load();
 }
-
- 
