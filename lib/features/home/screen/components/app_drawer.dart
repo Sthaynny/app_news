@@ -5,6 +5,7 @@ import 'package:ufersa_hub/core/strings/strings.dart';
 import 'package:ufersa_hub/core/utils/extension/build_context.dart';
 import 'package:ufersa_hub/features/home/screen/home_view_model.dart';
 import 'package:ufersa_hub/features/shared/components/app_icon.dart';
+import 'package:ufersa_hub/features/test.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key, required this.viewmodel});
@@ -52,6 +53,17 @@ class AppDrawer extends StatelessWidget {
                 context.go(AppRouters.documents);
               },
               label: documentsString,
+            ),
+          ),
+          _addPadding(
+            DSGhostButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AssinaturaPage()),
+                );
+              },
+              label: 'test',
             ),
           ),
 

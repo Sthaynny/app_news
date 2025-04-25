@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:ufersa_hub/core/purchase/purchase.dart';
 
 class BannerAdsWidget extends StatelessWidget {
   const BannerAdsWidget({super.key, required this.bannerAdNotifier});
@@ -12,7 +13,7 @@ class BannerAdsWidget extends StatelessWidget {
       return ValueListenableBuilder(
         valueListenable: bannerAdNotifier,
         builder: (context, bannerAd, child) {
-          if (bannerAd != null) {
+          if (bannerAd != null && !activitedSignature) {
             return SizedBox(
               width: bannerAd.size.width.toDouble(),
               height: bannerAd.size.height.toDouble(),

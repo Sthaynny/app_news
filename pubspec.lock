@@ -126,7 +126,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "307304f5a3980d5438468de3b0c0a18603f19dbe"
+      resolved-ref: f35d003d6a1e807874b9d67fca728fd14f820945
       url: "https://github.com/Sthaynny/design_system.git"
     source: git
     version: "0.0.1"
@@ -292,6 +292,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_inapp_purchase:
+    dependency: "direct main"
+    description:
+      name: flutter_inapp_purchase
+      sha256: "748757271506a3cc7745aa501019c7ce8051d8738b8a36aee12a617d8e9df8d3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.6.2"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -929,10 +937,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_web
-      sha256: "3ba963161bd0fe395917ba881d320b9c4f6dd3c4a233da62ab18a5025c85f1e9"
+      sha256: "4bd2b7b4dc4d4d0b94e5babfffbca8eac1a126c7f3d6ecbc1a11013faa3abba2"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.0"
+    version: "2.4.1"
   url_launcher_windows:
     dependency: transitive
     description:
