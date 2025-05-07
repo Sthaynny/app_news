@@ -69,9 +69,9 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
             listenable: widget.viewmodel.getData,
             builder: (context, child) {
               if (widget.viewmodel.getData.completed) {
-                final docuemtns =
+                final documents =
                     viewmodel.getData.result?.value as List<DocumentModel>;
-                if (docuemtns.isEmpty) {
+                if (documents.isEmpty) {
                   return Center(
                     child: DSHeadlineSmallText(noDocumentsString, maxLines: 4),
                   );
@@ -86,8 +86,9 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                     child: ListView.builder(
                       shrinkWrap: true,
                       padding: EdgeInsets.all(DSSpacing.md.value),
+                      itemCount: documents.length,
                       itemBuilder: (context, index) {
-                        final document = docuemtns[index];
+                        final document = documents[index];
 
                         return ListTile(
                           contentPadding: EdgeInsets.zero,
