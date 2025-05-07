@@ -82,76 +82,74 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                     viewmodel.getData.clearResult();
                     viewmodel.getData.execute();
                   },
-                  child: Expanded(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      padding: EdgeInsets.all(DSSpacing.md.value),
-                      itemCount: documents.length,
-                      itemBuilder: (context, index) {
-                        final document = documents[index];
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.all(DSSpacing.md.value),
+                    itemCount: documents.length,
+                    itemBuilder: (context, index) {
+                      final document = documents[index];
 
-                        return ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          title: CardDocumentWidget(
-                            doc: document,
-                            updateScreen: () {
-                              viewmodel.getData.execute();
-                            },
-                            saveFile: () {
-                              viewmodel.saveFile.execute((
-                                document.base64,
-                                document.fileUrl,
-                                document.docExtension,
-                              ));
-                            },
-                          ),
-                          horizontalTitleGap: 4,
-                          trailing:
-                              viewmodel.userAuthenticated
-                                  ? Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Card(
-                                        margin: EdgeInsets.zero,
-                                        color: DSColors.primary.shade600,
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
+                      return ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: CardDocumentWidget(
+                          doc: document,
+                          updateScreen: () {
+                            viewmodel.getData.execute();
+                          },
+                          saveFile: () {
+                            viewmodel.saveFile.execute((
+                              document.base64,
+                              document.fileUrl,
+                              document.docExtension,
+                            ));
+                          },
+                        ),
+                        horizontalTitleGap: 4,
+                        trailing:
+                            viewmodel.userAuthenticated
+                                ? Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Card(
+                                      margin: EdgeInsets.zero,
+                                      color: DSColors.primary.shade600,
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
 
-                                          child: DSIconButton(
-                                            icon: DSIcons.edit_outline,
-                                            onPressed: () {
-                                              context.go(
-                                                AppRouters.manegerDocuments,
-                                                arguments: document,
-                                              );
-                                            },
-                                            color: Colors.white,
-                                          ),
+                                        child: DSIconButton(
+                                          icon: DSIcons.edit_outline,
+                                          onPressed: () {
+                                            context.go(
+                                              AppRouters.manegerDocuments,
+                                              arguments: document,
+                                            );
+                                          },
+                                          color: Colors.white,
                                         ),
                                       ),
-                                      DSSpacing.xs.x,
-                                      Card(
-                                        margin: EdgeInsets.zero,
-                                        color: DSColors.error,
-                                        child: Align(
-                                          alignment: Alignment.centerRight,
-                                          child: DSIconButton(
-                                            icon: DSIcons.trash_outline,
-                                            onPressed: () {
-                                              viewmodel.deleteDocument.execute(
-                                                document.uid,
-                                              );
-                                            },
-                                            color: Colors.white,
-                                          ),
+                                    ),
+                                    DSSpacing.xs.x,
+                                    Card(
+                                      margin: EdgeInsets.zero,
+                                      color: DSColors.error,
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: DSIconButton(
+                                          icon: DSIcons.trash_outline,
+                                          onPressed: () {
+                                            viewmodel.deleteDocument.execute(
+                                              document.uid,
+                                            );
+                                          },
+                                          color: Colors.white,
                                         ),
                                       ),
-                                    ],
-                                  )
-                                  : null,
-                        );
-                      },
-                    ),
+                                    ),
+                                  ],
+                                )
+                                : null,
+                      );
+                    },
                   ),
                 );
               }
