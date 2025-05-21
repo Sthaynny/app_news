@@ -22,10 +22,14 @@ class _MyAppState extends State<MyApp> {
   }
 
   late final StreamSubscription<List<PurchaseDetails>> _subscription;
+  late final StreamSubscription subscriptionSignature;
 
   @override
   void initState() {
     purchaseUpdated = InAppPurchase.instance.purchaseStream;
+    subscriptionSignature = updateSignature.stream.listen((event) {
+      setState(() {});
+    });
 
     varifyAssingature();
     _subscription = purchaseUpdated.listen(
@@ -51,28 +55,24 @@ class _MyAppState extends State<MyApp> {
   void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) {
     // ignore: avoid_function_literals_in_foreach_calls
     purchaseDetailsList.forEach((PurchaseDetails purchaseDetails) async {
-       
-        if (purchaseDetails.status == PurchaseStatus.purchased ||
-            purchaseDetails.status == PurchaseStatus.restored) {
-          bool valid = _verifyPurchase(purchaseDetails);
-          if (valid) {
-            setState(() {
-              activitedSignature = true;
-            });
-          } else {
-            activitedSignature = false;
-          }
+      if (purchaseDetails.status == PurchaseStatus.purchased ||
+          purchaseDetails.status == PurchaseStatus.restored) {
+        bool valid = _verifyPurchase(purchaseDetails);
+        if (valid) {
+          activitedSignature = true;
+          updateSignature.add(null);
+        } else {
+          activitedSignature = false;
         }
-        if (purchaseDetails.pendingCompletePurchase) {
-          await InAppPurchase.instance.completePurchase(purchaseDetails);
-        }
+        updateSignature.add(null);
+      }
+      if (purchaseDetails.pendingCompletePurchase) {
+        await InAppPurchase.instance.completePurchase(purchaseDetails);
+      }
     });
   }
 
   bool _verifyPurchase(PurchaseDetails purchaseDetails) {
-    // IMPORTANT!! Always verify a purchase before delivering the product.
-    // For the purpose of an example, we directly return true.
-
     if (AppSignature.values.any(
       (element) => element.name == purchaseDetails.productID,
     )) {
@@ -89,9 +89,8 @@ class _MyAppState extends State<MyApp> {
     );
 
     if (response) {
-      setState(() {
-        activitedSignature = true;
-      });
+      activitedSignature = true;
+      updateSignature.add(null);
     }
   }
 }

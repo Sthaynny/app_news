@@ -1,11 +1,12 @@
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
+import 'package:ufersa_hub/core/purchase/purchase.dart';
 import 'package:ufersa_hub/core/router/app_router.dart';
 import 'package:ufersa_hub/core/strings/strings.dart';
 import 'package:ufersa_hub/core/utils/extension/build_context.dart';
+import 'package:ufersa_hub/features/home/screen/components/button_signature.dart';
 import 'package:ufersa_hub/features/home/screen/home_view_model.dart';
 import 'package:ufersa_hub/features/shared/components/app_icon.dart';
-import 'package:ufersa_hub/features/test.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key, required this.viewmodel});
@@ -55,17 +56,8 @@ class AppDrawer extends StatelessWidget {
               label: documentsString,
             ),
           ),
-          _addPadding(
-            DSGhostButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AssinaturaPage()),
-                );
-              },
-              label: 'test',
-            ),
-          ),
+
+          if (!activitedSignature) _addPadding(ButtonSignature()),
 
           ListenableBuilder(
             listenable: viewmodel.logout,

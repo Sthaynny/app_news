@@ -1,5 +1,0 @@
-name: my_project
-publish_to: none
-
-packages:
-  - lib/**
